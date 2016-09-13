@@ -11,6 +11,7 @@
 /usr/local/bin: { recurse: True, auto_add: True }
 /usr/local/lib: { recurse: True, auto_add: True }
 /usr/local/sbin: { recurse: True, auto_add: True }
+/opt: { recurse: True, auto_add: True }
 /etc:
   exclude:
     - /etc/passwd.lock
@@ -39,18 +40,7 @@
         regex: True
   recurse: True
   auto_add: True
-/var:
-  exclude:
-    - /var/log
-    - /var/spool
-    - /var/cache
-    - /var/lock
-    - /var/lib/ntp
-    - /var/lib/mlocate
-    - /var/lib/logrotate.status
-  recurse: True
-  audo_add: True
-return: slack_pulsar
+return: splunk_pulsar_return
 checksum: sha256
 stats: True
 batch: True
