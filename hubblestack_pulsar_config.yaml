@@ -11,7 +11,11 @@
 /usr/local/bin: { recurse: True, auto_add: True }
 /usr/local/lib: { recurse: True, auto_add: True }
 /usr/local/sbin: { recurse: True, auto_add: True }
-/opt: { recurse: True, auto_add: True }
+/opt:
+  exclude:
+    - /opt/splunk/var/
+  recurse: True
+  auto_add: True
 /etc:
   exclude:
     - /etc/passwd.lock
