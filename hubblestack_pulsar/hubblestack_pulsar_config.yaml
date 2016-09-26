@@ -15,7 +15,7 @@
   exclude:
     - /opt/splunk/var/
     - /opt/cloudpassage/log/
-    - /opt/splunkforwarder/var/log/
+    - /opt/splunkforwarder/var/
   recurse: True
   auto_add: True
 /etc:
