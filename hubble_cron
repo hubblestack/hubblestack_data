@@ -1,0 +1,24 @@
+# Recommended cron jobs for minions
+#
+# This file is here for your consumption, but will not automatically be
+# deployed by hubble. We recommend you use a file.managed state to deploy
+# this file:
+#
+#hubble_cron:
+#  file.managed:
+#    - name: /etc/cron.d/hubble_cron
+#    - mode: 0600
+#    - source: salt://hubble_cron
+#
+# If you would prefer to control the file rather than deploying cron jobs
+# controlled by this data repo, be sure to copy the file to a location in your
+# salt tree and update the above state accordingly.
+
+MAILTO=""
+SHELL=/bin/bash
+*/15 * * * * root sleep $(expr $RANDOM \% 600); /usr/bin/salt-call nebula.queries fifteen_min --return splunk_nebula_return
+@hourly      root sleep $(expr $RANDOM \% 1800); /usr/bin/salt-call nebula.queries hour --return splunk_nebula_return
+@daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call nebula.queries day --return splunk_nebula_return
+@daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call cp.cache_file salt://hubblestack_pulsar/hubblestack_pulsar_config.yaml
+@daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call hubble.top verbose=True,show_profile=True --return splunk_nova_return
+@daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call saltutil.sync_all
