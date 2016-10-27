@@ -6,9 +6,9 @@
 #
 #hubble_cron:
 #  file.managed:
-#    - name: /etc/cron.d/hubble_cron
+#    - name: /etc/cron.d/hubblestack_cron
 #    - mode: 0600
-#    - source: salt://hubble_cron
+#    - source: salt://hubblestack_cron
 #
 # If you would prefer to control the file rather than deploying cron jobs
 # controlled by this data repo, be sure to copy the file to a location in your
