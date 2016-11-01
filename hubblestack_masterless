@@ -1,0 +1,132 @@
+## Instructions for a master-managed masterless deploy
+##
+## These instructions assume that you are using gitfs to deploy your main salt
+## files, as they will be deploying files to /srv/salt and /srv/pillar on the
+## minions, including the minion on the master.
+##
+## Note that pulsar must still be configured with master-side pillar data,
+## as pulsar requires connection to a master with a running minion daemon.
+##
+## Once you have configured your folder structure as shown below, deployment
+## to your minions should be as easy as running the `salt '*' state.sls hubble`.
+## We recommend you add this state to your state topfile so it will be deployed
+## to all minions whenever your highstate is applied.
+##
+## Here is the recommended folder structure:
+##
+## salt://hubble/
+## salt://hubble/init.sls
+## salt://hubble/hubblestack_cron
+## salt://hubble/pillar/top.sls
+## salt://hubble/pillar/hubble.sls
+##
+## Here are the files:
+##
+## salt://hubble/init.sls
+
+hubblestack_pulsar_data:
+  file.recurse:
+    - name: /srv/salt/hubblestack_pulsar
+    - source: salt://hubblestack_pulsar
+    - clean: True
+    - user: root
+    - group: root
+    - dir_mode: 700
+    - file_mode: 600
+
+hubblestack_nova_profiles:
+  file.recurse:
+    - name: /srv/salt/hubblestack_nova_profiles
+    - source: salt://hubblestack_nova_profiles
+    - clean: True
+    - user: root
+    - group: root
+    - dir_mode: 700
+    - file_mode: 600
+
+hubblestack_nova_modules:
+  file.recurse:
+    - name: /srv/salt/hubblestack_nova
+    - source: salt://hubblestack_nova
+    - clean: True
+    - user: root
+    - group: root
+    - dir_mode: 700
+    - file_mode: 600
+
+hubblestack_pulsar_config:
+  file.recurse:
+    - name: /srv/salt/hubblestack_pulsar
+    - source: salt://hubblestack_pulsar
+    - clean: True
+    - user: root
+    - group: root
+    - dir_mode: 700
+    - file_mode: 600
+
+hubblestack_pillar_data:
+  file.recurse:
+    - name: /srv/pillar
+    - source: salt://hubble/pillar
+    - clean: True
+    - user: root
+    - group: root
+    - dir_mode: 700
+    - file_mode: 600
+
+hubblestack_sync_all:
+  module.run:
+    - name: saltutil.sync_all
+
+hubblestack_cron:
+  file.managed:
+    - name: /etc/cron.d/hubblestack_cron
+    - mode: 0600
+    - source: salt://hubble/hubblestack_cron
+
+## salt://hubble/hubblestack_cron
+
+# This file managed by salt. Do not modify!
+
+MAILTO=""
+SHELL=/bin/bash
+*/15 * * * * root sleep $(expr $RANDOM \% 600); /usr/bin/salt-call --local nebula.queries fifteen_min --return splunk_nebula_return
+@hourly      root sleep $(expr $RANDOM \% 1800); /usr/bin/salt-call --local nebula.queries hour --return splunk_nebula_return
+@daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local nebula.queries day --return splunk_nebula_return
+@daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local cp.cache_file salt://hubblestack_pulsar/hubblestack_pulsar_config.yaml
+@daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local hubble.top verbose=True,show_profile=True --return splunk_nova_return
+
+## salt://hubble/pillar/top.sls
+
+base:
+  '*':
+    - hubble
+
+## salt://hubble/pillar/hubble.sls
+##
+## This file must be modified with your API credentials and index
+
+hubblestack:
+  nova:
+    returner:
+      splunk:
+        token: <splunk_token>
+        indexer: splunk-hec.loc.adobe.net
+        sourcetype: hubble_audit
+        index: <index>
+
+  nebula:
+    returner:
+      splunk:
+        token: <splunk_token>
+        indexer: splunk-hec.loc.adobe.net
+        sourcetype: hubble_osquery
+        index: <index>
+
+  pulsar:
+    returner:
+      splunk:
+        token: <splunk_token>
+        indexer: splunk-hec.loc.adobe.net
+        sourcetype: hubble_fim
+        index: <index>
