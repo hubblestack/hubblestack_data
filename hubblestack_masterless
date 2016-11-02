@@ -54,10 +54,10 @@ hubblestack_nova_modules:
     - dir_mode: 700
     - file_mode: 600
 
-hubblestack_pulsar_config:
+hubblestack_nebula_data:
   file.recurse:
-    - name: /srv/salt/hubblestack_pulsar
-    - source: salt://hubblestack_pulsar
+    - name: /srv/salt/hubblestack_nebula
+    - source: salt://hubblestack_nebula
     - clean: True
     - user: root
     - group: root
@@ -74,15 +74,59 @@ hubblestack_pillar_data:
     - dir_mode: 700
     - file_mode: 600
 
+hubblestack_modules:
+  file.recurse:
+    - name: /srv/salt/_modules
+    - source: salt://_modules
+    - clean: True
+    - user: root
+    - group: root
+    - dir_mode: 700
+    - file_mode: 600
+
+hubblestack_beacons:
+  file.recurse:
+    - name: /srv/salt/_beacons
+    - source: salt://_beacons
+    - clean: True
+    - user: root
+    - group: root
+    - dir_mode: 700
+    - file_mode: 600
+
+hubblestack_returners:
+  file.recurse:
+    - name: /srv/salt/_returners
+    - source: salt://_returners
+    - clean: True
+    - user: root
+    - group: root
+    - dir_mode: 700
+    - file_mode: 600
+
 hubblestack_sync_all:
   module.run:
     - name: saltutil.sync_all
+    - onchanges:
+      - file: hubblestack_pillar_data
+      - file: hubblestack_modules
+      - file: hubblestack_beacons
+      - file: hubblestack_returners
 
 hubblestack_cron:
   file.managed:
     - name: /etc/cron.d/hubblestack_cron
     - mode: 0600
     - source: salt://hubble/hubblestack_cron
+    - require:
+      - file: hubblestack_pillar_data
+      - file: hubblestack_nova_modules
+      - file: hubblestack_nova_profiles
+      - file: hubblestack_pulsar_data
+      - file: hubblestack_nebula_data
+      - file: hubblestack_modules
+      - file: hubblestack_beacons
+      - file: hubblestack_returners
 
 ## salt://hubble/hubblestack_cron
 
@@ -95,6 +139,7 @@ SHELL=/bin/bash
 @daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local nebula.queries day --return splunk_nebula_return
 @daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local cp.cache_file salt://hubblestack_pulsar/hubblestack_pulsar_config.yaml
 @daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local hubble.top verbose=True,show_profile=True --return splunk_nova_return
+@daily       root /usr/bin/salt-call --local saltutil.sync_all
 
 ## salt://hubble/pillar/top.sls
 
