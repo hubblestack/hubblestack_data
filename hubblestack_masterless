@@ -138,7 +138,7 @@ SHELL=/bin/bash
 @hourly      root sleep $(expr $RANDOM \% 1800); /usr/bin/salt-call --local nebula.queries hour --return splunk_nebula_return
 @daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local nebula.queries day --return splunk_nebula_return
 @daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local cp.cache_file salt://hubblestack_pulsar/hubblestack_pulsar_config.yaml
-@daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local hubble.top verbose=True,show_profile=True --return splunk_nova_return
+@daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local hubble.top verbose=True show_profile=True --return splunk_nova_return
 @daily       root /usr/bin/salt-call --local saltutil.sync_all
 
 ## salt://hubble/pillar/top.sls
