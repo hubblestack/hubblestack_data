@@ -134,6 +134,7 @@ hubblestack_cron:
 
 MAILTO=""
 SHELL=/bin/bash
+PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
 */15 * * * * root sleep $(expr $RANDOM \% 600); /usr/bin/salt-call --local nebula.queries fifteen_min --return splunk_nebula_return
 @hourly      root sleep $(expr $RANDOM \% 1800); /usr/bin/salt-call --local nebula.queries hour --return splunk_nebula_return
 @daily       root sleep $(expr $RANDOM \% 3600); /usr/bin/salt-call --local nebula.queries day --return splunk_nebula_return
