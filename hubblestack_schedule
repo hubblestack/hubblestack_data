@@ -1,3 +1,7 @@
+# Due to some bugs in the scheduler in some versions of salt, we generally
+# recommend using the cron.d file in this same repo, rather than this
+# scheduler data. But it's here if you want to use it.
+
 schedule:
   nova_day:
     function: hubble.top
