@@ -15,5 +15,6 @@ SHELL=/bin/bash
 @hourly      root /usr/bin/salt '*' nebula.queries hour --return splunk_nebula_return
 @daily       root /usr/bin/salt '*' nebula.queries day --return splunk_nebula_return
 @daily       root /usr/bin/salt '*' cp.cache_file salt://hubblestack_pulsar/hubblestack_pulsar_config.yaml
+@daily       root /usr/bin/salt '*' cp.cache_file salt://hubblestack_pulsar/hubblestack_pulsar_win_config.yaml
 @daily       root /usr/bin/salt '*' hubble.top verbose=True show_profile=True --return splunk_nova_return
 @daily       root /usr/bin/salt '*' saltutil.sync_all
