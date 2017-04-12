@@ -25,3 +25,5 @@ day:
     query: SELECT sb.*, t.iso_8601 AS _time, h.sha1, h.sha256 FROM suid_bin AS sb JOIN time AS t LEFT JOIN hash AS h ON sb.path=h.path;
   - query_name: ssh_key_files
     query: SELECT u.username AS user, usk.uid, g.groupname AS groupname, f.gid, usk.path AS file_path, usk.encrypted, f.mode AS file_acl, f.device, f.size AS file_size, f.atime AS file_access_time, f.mtime AS file_modify_time, f.ctime AS file_change_time, h.md5, h.sha1, h.sha256 FROM user_ssh_keys AS usk LEFT JOIN hash AS h ON h.path=usk.path LEFT JOIN file AS f ON f.path=usk.path LEFT JOIN users AS u ON u.uid=usk.uid  LEFT JOIN groups AS g ON g.gid=f.gid ;
+  - query_name: mounts
+    query: SELECT m.* FROM mounts AS m;
