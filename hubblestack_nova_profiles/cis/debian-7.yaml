@@ -133,15 +133,6 @@ grep:
               pattern: 'restrict default'
       description: Configure Network Time Protocol (NTP)
 
-    keep_all_auditing_information:
-      data:
-        Debian*7:
-          - '/etc/audit/auditd.conf':
-              tag: 'CIS-8.1.1.3'
-              pattern: 'max_log_file_action'
-              match_output: 'keep_logs'
-      description: Keep All Auditing Information (Scored)
-
     rsyslog_remote_logging:
       data:
         Debian*7:
@@ -351,21 +342,21 @@ stat:
             mode: 600
     description: Set Permissions on bootloader config
 
-    boot_loader_passwd:
-      data:
-        Debian*7:
-          - '/boot/grub/grub.cfg':
-              tag: 'CIS-3.3'
-              pattern: "^password"
-      description: Set Boot Loader Password
+  boot_loader_passwd:
+    data:
+      Debian*7:
+        - '/boot/grub/grub.cfg':
+            tag: 'CIS-3.3'
+            pattern: "^password"
+    description: Set Boot Loader Password
 
-    restrict_core_dumps:
-      data:
-        Debian*7:
-          - '/etc/security/limits.conf':
-              tag: 'CIS-4.1'
-              pattern: 'hard core'
-      description: Restrict Core Dumps
+  restrict_core_dumps:
+    data:
+      Debian*7:
+        - '/etc/security/limits.conf':
+            tag: 'CIS-4.1'
+            pattern: 'hard core'
+    description: Restrict Core Dumps
 
   cron_hourly:
     data:
@@ -433,11 +424,16 @@ stat:
         - '/etc/passwd':
             tag: 'CIS-12.1'
             mode: 644
+    description: Verify Permissions on /etc/passwd
+
+  passwd_own:
+    data:
+      Debian*7:
         - '/etc/passwd':
             tag: 'CIS-12.4'
             user: 'root'
             group: 'root'
-    description: Verify Permissions on /etc/passwd
+    description: Verify User/Group Ownership on /etc/passwd
 
   shadow_perm:
     data:
@@ -445,11 +441,16 @@ stat:
         - '/etc/shadow':
             tag: 'CIS-12.2'
             mode: 640
+    description: Verify Permissions on /etc/shadow
+
+  shadow_own:
+    data:
+      Debian*7:
         - '/etc/shadow':
             tag: 'CIS-12.5'
             user: 'root'
             group: 'root'
-    description: Verify Permissions on /etc/shadow
+    description: Verify User/Group Ownership on /etc/shadow
 
   group_perm:
     data:
@@ -463,14 +464,13 @@ stat:
             group: 'root'
     description: Verify Permissions on /etc/group
 
-  blacklist:
-    single_user_auth:
-      data:
-        Debian*7:
-          - '/etc/shadow':
-              tag: 'CIS-3.4'
-              pattern: "^root:[*\\!]:"
-      description: Require Authentication for Single-User Mode
+  single_user_auth:
+    data:
+      Debian*7:
+        - '/etc/shadow':
+            tag: 'CIS-3.4'
+            pattern: "^root:[*\\!]:"
+    description: Require Authentication for Single-User Mode
 
   hosts_allow:
     data:
@@ -478,7 +478,7 @@ stat:
         - '/etc/hosts.allow':
             tag: 'CIS-7.4.3'
             mode: 644
-      description: Verify Permissions on /etc/hosts.allow
+    description: Verify Permissions on /etc/hosts.allow
 
   hosts_deny:
     data:
@@ -486,31 +486,31 @@ stat:
         - '/etc/hosts.deny':
             tag: 'CIS-7.4.5'
             mode: 644
-      description: Verify Permissions on /etc/hosts.deny
+    description: Verify Permissions on /etc/hosts.deny
 
-    legacy_passwd_entries:
-      data:
-        Debian*7:
-          - '/etc/passwd':
-              tag: 'CIS-13.2'
-              pattern: "^+:"
-      description: Verify No Legacy "+" Entries Exist in /etc/passwd File
+  legacy_passwd_entries:
+    data:
+      Debian*7:
+        - '/etc/passwd':
+            tag: 'CIS-13.2'
+            pattern: "^+:"
+    description: Verify No Legacy "+" Entries Exist in /etc/passwd File
 
-    legacy_shadow_entries:
-      data:
-        Debian*7:
-          - '/etc/shadow':
-              tag: 'CIS-13.3'
-              pattern: "^+:"
-      description: Verify No Legacy "+" Entries Exist in /etc/shadow File
+  legacy_shadow_entries:
+    data:
+      Debian*7:
+        - '/etc/shadow':
+            tag: 'CIS-13.3'
+            pattern: "^+:"
+    description: Verify No Legacy "+" Entries Exist in /etc/shadow File
 
-    legacy_group_entries:
-      data:
-        Debian*7:
-          - '/etc/group':
-              tag: 'CIS-13.4'
-              pattern: "^+:"
-      description: Verify No Legacy "+" Entries Exist in /etc/group File
+  legacy_group_entries:
+    data:
+      Debian*7:
+        - '/etc/group':
+            tag: 'CIS-13.4'
+            pattern: "^+:"
+    description: Verify No Legacy "+" Entries Exist in /etc/group File
 
 sysctl:
   randomize_va_space:
@@ -690,21 +690,7 @@ pkg:
           - 'isc-dhcp-server': 'CIS-6.4'
       description: Ensure DHCP Server is not enabled
 
-    slapd:
-      data:
-        Debian*7:
-          - 'slapd': 'CIS-6.6'
-      description: Ensure LDAP is not enabled
-
   whitelist:
-
-    apparmor:
-      data:
-        Debian*7:
-          - 'apparmor': 'CIS-4.5'
-          - 'apparmor-utils': 'CIS-4.5'
-          - 'apparmor-profiles': 'CIS-4.5'
-      description: Activate AppArmor (Scored) Lvl2
 
     tcp_wrappers:
       data:
@@ -719,32 +705,14 @@ pkg:
           - 'iptables-persistent': 'CIS-7.7'
       description: Ensure Firewall is active
 
-    auditd:
-      data:
-        Debian*7:
-          - 'auditd': 'CIS-8.1.2'
-      description: 'Install and Enable auditd Service (Scored)'
-
     rsyslog:
       data:
         Debian*7:
           - 'rsyslog': 'CIS-8.2.1'
       description: Install the rsyslog package
 
-    aide:
-      data:
-        Debian*7:
-          - 'aide': 'CIS-8.3.1'
-      description: Install AIDE (Scored) Lvl2
-
     cracklib:
       data:
         Debian*7:
           - 'libpam-cracklib': 'CIS-9.2.1'
       description: Set Password Creation Requirement Parameters Using pam_cracklib
-
-    openssh_server:
-      data:
-        Debian*7:
-          - 'openssh-server': 'CIS-9.3'
-      description: Configure SSH
