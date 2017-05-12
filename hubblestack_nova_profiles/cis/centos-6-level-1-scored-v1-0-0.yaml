@@ -1,71 +1,114 @@
-# NOTE: This CIS Profile only includes Level 1 Scored Items for CentOS6.
+# NOTE: This CIS Profile only includes Level 1 Scored Items for CentOS 6.
 # NOTE: Within this file, there are a few sections that should be tailored to your
 #       organization's specific policy.  Search for '# NOTE: ' comments through the file.
 
+# TODO: Checks that aren't implemented yet:
+#       1.1.17
+#       1.2.1
+#       1.5.4
+#       1.5.5
+#       2.1.12-18
+#       3.2
+#       3.3
+#       3.16
+#       4.1.2
+#       4.1.4
+#       5.7
+#       6.1.2
+#       6.1.10
+#       6.3.1
+#       6.3.2
+#       7.2
+#       7.3
+#       7.5
+#       8.2
+#       9.1.11
+#       9.1.12
+#       9.2.1
+#       9.2.5-19
 
 
 pkg:
   blacklist:
 
-    telnet:
+    telnet-client:
+      data:
+        'CentOS-6':
+          - 'telnet': 'CIS-2.1.2'
+      description: 'Remove telnet Clients'
+
+    telnet-server:
       data:
         'CentOS-6':
           - 'telnet-server': 'CIS-2.1.1'
-          - 'telnet': 'CIS-2.1.2'
-      description: 'Remove telnet and telnet-server'
+      description: 'Remove telnet-server'
 
-    rsh:
+    rsh-client:
+      data:
+        'CentOS-6':
+          - 'rsh': 'CIS-2.1.4'
+      description: 'Remove rsh'
+
+    rsh-server:
       data:
         'CentOS-6':
           - 'rsh-server': 'CIS-2.1.3'
-          - 'rsh': 'CIS-2.1.4'
-      description: 'Remove rsh and rsh-server'
+      description: 'Remove rsh-server'
 
-    nis:
+    nis-client:
       data:
         'CentOS-6':
           - 'ypbind': 'CIS-2.1.5'
-          - 'ypserv': 'CIS-2.1.6'
-      description: 'Remove nis client and nis server'
+      description: 'Remove NIS Client'
 
-    tftp:
+    nis-server:
+      data:
+        'CentOS-6':
+          - 'ypserv': 'CIS-2.1.6'
+      description: 'Remove NIS Server'
+
+    tftp-client:
       data:
         'CentOS-6':
           - 'tftp': 'CIS-2.1.7'
-          - 'tftp-server': 'CIS-2.1.8'
-      description: 'Remove tftp and tftp-server'
+      description: 'Remove tftp'
 
-    talk:
+    tftp-server:
+      data:
+        'CentOS-6':
+          - 'tftp-server': 'CIS-2.1.8'
+      description: 'Remove tftp-server'
+
+    talk-client:
       data:
         'CentOS-6':
           - 'talk': 'CIS-2.1.9'
-          - 'talk-server': 'CIS-2.1.10'
-      description: 'Remove talk and talk-server'
+      description: 'Remove talk'
 
-    xinetd:
+    talk-server:
       data:
         'CentOS-6':
-          - 'xinetd': 'CIS-2.1.11'
-      description: 'Remove xinetd'
+          - 'talk-server': 'CIS-2.1.10'
+      description: 'Remove talk-server'
 
     dhcp:
       data:
         'CentOS-6':
           - 'dhcp': 'CIS-3.5'
-      description: 'Remove DHCP server'
+      description: 'Remove DHCP Server'
 
   whitelist:
 
     rsyslog:
       data:
         'CentOS-6':
-          'rsyslog': 'CIS-5.1.1'
-      description: 'Install rsyslog'
+          - 'rsyslog': 'CIS-4.1.1'
+      description: 'Install the rsyslog package'
 
     anacron:
       data:
         'CentOS-6':
-          'cronie-anacron': 'CIS-6.1.1'
+          - 'cronie-anacron': 'CIS-6.1.1'
       description: 'Enable anacron Daemon'
 
 
@@ -80,7 +123,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: 'Grub must be owned by root'
+    description: 'Set User/Group Owner on /etc/grub.conf'
 
   grub_conf_perm:
     data:
@@ -88,23 +131,23 @@ stat:
         - '/etc/grub.conf':
             tag: 'CIS-1.5.2'
             mode: 600
-    description: 'Grub must have permissions 600'
+    description: 'Set Permissions on /etc/grub.conf'
 
   hosts_allow:
     data:
       'CentOS-6':
         - '/etc/hosts.allow':
-            tag: 'CIS-4.5.3'
+            tag: 'CIS-5.5.3'
             mode: 644
-    description: '/etc/hosts.allow must have permissions 644'
+    description: 'Verify Permissions on /etc/hosts.allow'
 
   hosts_deny:
     data:
       'CentOS-6':
         - '/etc/hosts.deny':
-            tag: 'CIS-4.5.5'
+            tag: 'CIS-5.5.5'
             mode: 644
-    description: '/etc/hosts.deny must have persmissions 644'
+    description: 'Verify Permissions on /etc/hosts.deny'
 
   anacrontab:
     data:
@@ -116,7 +159,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/anacrontab file be owned by root and must have permissions 600'
+    description: 'Set User/Group Owner and Permission on /etc/anacrontab'
 
   crontab:
     data:
@@ -128,7 +171,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/crontab must be owned by root and have persmissions 600'
+    description: 'Set User/Group Owner and Permission on /etc/crontab'
 
   cron_hourly:
     data:
@@ -140,7 +183,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/cron.hourly must be owned by root and must have permissions 700'
+    description: 'Set User/Group Owner and Permission on /etc/cron.hourly'
 
   cron_daily:
     data:
@@ -152,7 +195,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/cron.daily must be owned by root and must have permissions 700'
+    description: 'Set User/Group Owner and Permission on /etc/cron.daily'
 
   cron_weekly:
     data:
@@ -164,7 +207,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/cron.weekly must be owned by root and must have permissions 700'
+    description: 'Set User/Group Owner and Permission on /etc/cron.weekly'
 
   cron_monthly:
     data:
@@ -176,7 +219,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/cron.monthly must be owned by root and must have permissions 700'
+    description: 'Set User/Group Owner and Permission on /etc/cron.monthly'
 
   cron_d:
     data:
@@ -188,19 +231,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/cron.d must be owned by root and must have permissions 700'
-
-  at_allow:
-    data:
-      'CentOS-6':
-        - '/etc/at.allow':
-            tag: 'CIS-6.1.10'
-            mode: 600
-            user: 'root'
-            uid: 0
-            group: 'root'
-            gid: 0
-    description: '/etc/at.allow must be owned by root and have persmissions 600'
+    description: 'Set User/Group Owner and Permission on /etc/cron.d'
 
   at_cron_allow:
     data:
@@ -233,7 +264,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: 'Restrict at/cron to authorized users'
+    description: 'Restrict at/cron to Authorized Users'
 
   sshd_config:
     data:
@@ -245,7 +276,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/ssh/sshd_config must be owned by root and must have permissions 600'
+    description: 'Set Permissions on /etc/ssh/sshd_config'
 
   warning_banner:
     data:
@@ -271,7 +302,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: 'Files containing the warning banners must be owned by root and must have permissions 644'
+    description: 'Set Warning Banner for Standard Login Services'
 
   passwd_perm:
     data:
@@ -279,7 +310,7 @@ stat:
         - '/etc/passwd':
             tag: 'CIS-9.1.2'
             mode: 644
-    description: '/etc/passwd must have permissions 644'
+    description: 'Verify Permissions on /etc/passwd'
 
   passwd_own:
     data:
@@ -290,7 +321,7 @@ stat:
             uid: 0
             group: 'root'
             uid: 0
-    description: '/etc/passwd must be owned by root'
+    description: 'Verify User/Group Ownership on /etc/passwd'
 
   shadow_perm:
     data:
@@ -298,7 +329,7 @@ stat:
         - '/etc/shadow':
             tag: 'CIS-9.1.3'
             mode: 0
-    description: '/etc/shadow must have permissions 000'
+    description: 'Verify Permissions on /etc/shadow'
 
   shadow_own:
     data:
@@ -309,7 +340,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/shadow must be owned by root'
+    description: 'Verify User/Group Ownership on /etc/shadow'
 
   gshadow_perm:
     data:
@@ -317,7 +348,7 @@ stat:
         - '/etc/gshadow':
             tag: 'CIS-9.1.4'
             mode: 0
-    description: '/etc/gshadow must have permissions 000'
+    description: 'Verify Permissions on /etc/gshadow'
 
   gshadow_own:
     data:
@@ -328,7 +359,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/gshadow must be owned by root'
+    description: 'Verify User/Group Ownership on /etc/gshadow'
 
   group_perm:
     data:
@@ -336,7 +367,7 @@ stat:
         - '/etc/group':
             tag: 'CIS-9.1.5'
             mode: 644
-    description: '/etc/group must have permissions 644'
+    description: 'Verify Permissions on /etc/group'
 
   group_own:
     data:
@@ -347,7 +378,7 @@ stat:
             uid: 0
             group: 'root'
             gid: 0
-    description: '/etc/group must be owned by root'
+    description: 'Verify User/Group Ownership on /etc/group'
 
 
 
@@ -357,83 +388,83 @@ sysctl:
       CentOS-6:
       - net.ipv4.icmp_ignore_bogus_error_responses:
           match_output: '1'
-          tag: CIS-4.2.6
-    description: Enable Bad Error Message Protection (Scored)
+          tag: CIS-5.2.6
+    description: Enable Bad Error Message Protection
   exec_shield:
     data:
       CentOS-6:
       - kernel.exec-shield:
           match_output: '1'
           tag: CIS-1.6.2
-    description: Configure ExecShield (Scored)
+    description: Configure ExecShield
   icmp_redirect_acceptance:
     data:
       CentOS-6:
       - net.ipv4.conf.all.accept_redirects:
           match_output: '0'
-          tag: CIS-4.2.2
+          tag: CIS-5.2.2
       - net.ipv4.conf.default.accept_redirects:
           match_output: '0'
-          tag: CIS-4.2.2
-    description: Disable ICMP Redirect Acceptance (Scored)
+          tag: CIS-5.2.2
+    description: Disable ICMP Redirect Acceptance
   ignore_broadcast_requests:
     data:
       CentOS-6:
       - net.ipv4.icmp_echo_ignore_broadcasts:
           match_output: '1'
-          tag: CIS-4.2.5
-    description: Enable Ignore Broadcast Requests (Scored)
+          tag: CIS-5.2.5
+    description: Enable Ignore Broadcast Requests
   ip_forwarding:
     data:
       CentOS-6:
       - net.ipv4.ip_forward:
           match_output: '0'
-          tag: CIS-4.1.1
-    description: Disable IP Forwarding (Scored)
+          tag: CIS-5.1.1
+    description: Disable IP Forwarding
   log_suspicious_packets:
     data:
       CentOS-6:
       - net.ipv4.conf.all.log_martians:
           match_output: '1'
-          tag: CIS-4.2.4
+          tag: CIS-5.2.4
       - net.ipv4.conf.default.log_martians:
           match_output: '1'
-          tag: CIS-4.2.4
-    description: Log Suspicious Activity (Scored)
+          tag: CIS-5.2.4
+    description: Log Suspicious Packets
   randomize_va_space:
     data:
       CentOS-6:
       - kernel.randomize_va_space:
           match_output: '2'
           tag: CIS-1.6.3
-    description: Enable Randomized Virtual Memory Region Placement (Scored)
+    description: Enable Randomized Virtual Memory Region Placement
   send_packet_redirect:
     data:
       CentOS-6:
       - net.ipv4.conf.all.send_redirects:
           match_output: '0'
-          tag: CIS-4.1.2
+          tag: CIS-5.1.2
       - net.ipv4.conf.default.send_redirects:
           match_output: '0'
-          tag: CIS-4.1.2
-    description: Disable Send Packet Redirect (Scored)
+          tag: CIS-5.1.2
+    description: Disable Send Packet Redirects
   source_routed_packet_acceptance:
     data:
       CentOS-6:
       - net.ipv4.conf.all.accept_source_route:
           match_output: '0'
-          tag: CIS-4.2.1
+          tag: CIS-5.2.1
       - net.ipv4.conf.default.accept_source_route:
           match_output: '0'
-          tag: CIS-4.2.1
-    description: Disable Source Routed Packet Acceptance (Scored)
+          tag: CIS-5.2.1
+    description: Disable Source Routed Packet Acceptance
   tcp_syn_cookies:
     data:
       CentOS-6:
       - net.ipv4.tcp_syncookies:
           match_output: '1'
-          tag: CIS-4.2.8
-    description: Enable TCP SYN cookies (Scored)
+          tag: CIS-5.2.8
+    description: Enable TCP SYN Cookies
 
 
 grep:
@@ -445,7 +476,7 @@ grep:
           - '/etc/fstab':
               tag: 'CIS-1.1.1'
               pattern: '/tmp'
-      description: 'Create Separate Partition for /tmp (Scored)'
+      description: 'Create Separate Partition for /tmp'
 
     fstab_tmp_partition_nodev:
       data:
@@ -454,7 +485,7 @@ grep:
               tag: 'CIS-1.1.2'
               pattern: '/tmp'
               match_output: 'nodev'
-      description: 'Set nodev option for /tmp Partition (Scored)'
+      description: 'Set nodev option for /tmp Partition'
 
     fstab_tmp_partition_nosuid:
       data:
@@ -463,7 +494,7 @@ grep:
               tag: 'CIS-1.1.3'
               pattern: '/tmp'
               match_output: 'nosuid'
-      description: 'Set nosuid option for /tmp Partition (Scored)'
+      description: 'Set nosuid option for /tmp Partition'
 
     fstab_tmp_partition_noexec:
       data:
@@ -472,7 +503,7 @@ grep:
               tag: 'CIS-1.1.4'
               pattern: '/tmp'
               match_output: 'noexec'
-      description: 'Set noexec option for /tmp Partition (Scored)'
+      description: 'Set noexec option for /tmp Partition'
 
     fstab_var_partition:
       data:
@@ -480,7 +511,7 @@ grep:
           - '/etc/fstab':
               tag: 'CIS-1.1.5'
               pattern: '/var'
-      description: 'Create Separate Partition for /var (Scored)'
+      description: 'Create Separate Partition for /var'
 
     fstab_var_tmp_bind_mount:
       data:
@@ -489,7 +520,7 @@ grep:
               tag: 'CIS-1.1.6'
               pattern: '/tmp'
               match_output: '/var/tmp'
-      description: 'Bind Mount the /var/tmp directory to /tmp (Scored)'
+      description: 'Bind Mount the /var/tmp directory to /tmp'
 
     fstab_var_log_partition:
       data:
@@ -497,7 +528,7 @@ grep:
           - '/etc/fstab':
               tag: 'CIS-1.1.7'
               pattern: '/var/log'
-      description: 'Create Separate Partition for /var/log (Scored)'
+      description: 'Create Separate Partition for /var/log'
 
     fstab_var_log_audit_partition:
       data:
@@ -505,7 +536,7 @@ grep:
           - '/etc/fstab':
               tag: 'CIS-1.1.8'
               pattern: '/var/log/audit'
-      description: 'Create Separate Partition for /var/log/audit (Scored)'
+      description: 'Create Separate Partition for /var/log/audit'
 
     fstab_home_partition:
       data:
@@ -513,7 +544,7 @@ grep:
           - '/etc/fstab':
               tag: 'CIS-1.1.9'
               pattern: '/home'
-      description: 'Create Separate Partition for /home (Scored)'
+      description: 'Create Separate Partition for /home'
 
     fstab_home_partition_nodev:
       data:
@@ -522,7 +553,7 @@ grep:
               tag: 'CIS-1.1.10'
               pattern: '/home'
               match_output: 'nodev'
-      description: 'Add nodev Option to /home (Scored)'
+      description: 'Add nodev Option to /home'
 
     fstab_dev_shm_partition_nodev:
       data:
@@ -531,7 +562,7 @@ grep:
               tag: 'CIS-1.1.14'
               pattern: '/dev/shm'
               match_output: 'nodev'
-      description: 'Add nodev Option to /dev/shm Partition (Scored)'
+      description: 'Add nodev Option to /dev/shm Partition'
 
     fstab_dev_shm_partition_nosuid:
       data:
@@ -540,7 +571,7 @@ grep:
               tag: 'CIS-1.1.15'
               pattern: '/dev/shm'
               match_output: 'nosuid'
-      description: 'Add nosuid Option to /dev/shm Partition (Scored)'
+      description: 'Add nosuid Option to /dev/shm Partition'
 
     fstab_dev_shm_partition_noexec:
       data:
@@ -549,7 +580,7 @@ grep:
               tag: 'CIS-1.1.16'
               pattern: '/dev/shm'
               match_output: 'noexec'
-      description: 'Add noexec Option to /dev/shm Partition (Scored)'
+      description: 'Add noexec Option to /dev/shm Partition'
 
     activate_gpg_check:
       data:
@@ -558,7 +589,7 @@ grep:
               tag: 'CIS-1.2.2'
               pattern: 'gpgcheck'
               match_output: 'gpgcheck=1'
-      description: 'Verify that gpgcheck is Globally Activated (Scored)'
+      description: 'Verify that gpgcheck is Globally Activated'
 
     boot_loader_passwd:
       data:
@@ -566,7 +597,7 @@ grep:
           - '/etc/grub.conf':
               tag: 'CIS-1.5.3'
               pattern: '^password'
-      description: 'Set Boot Loader Password (Scored)'
+      description: 'Set Boot Loader Password'
 
     restrict_core_dumps:
       data:
@@ -574,7 +605,7 @@ grep:
           - '/etc/security/limits.conf':
               tag: 'CIS-1.6.1'
               pattern: 'hard core'
-      description: 'Restrict Core Dumps (Scored)'
+      description: 'Restrict Core Dumps'
 
     set_daemon_umask:
       data:
@@ -583,7 +614,7 @@ grep:
               tag: 'CIS-3.1'
               pattern: 'umask'
               match_output: 'umask 027'
-      description: 'Set Daemon umask (Scored)'
+      description: 'Set Daemon umask'
 
     configure_ntp:
       data:
@@ -600,15 +631,15 @@ grep:
           - '/etc/sysconfig/ntpd':
               tag: 'CIS-3.6'
               pattern: 'ntp:ntp'
-      description: 'Configure Network Time Protocol (NTP) (Scored)'
+      description: 'Configure Network Time Protocol (NTP)'
 
     rsyslog_remote_logging:
       data:
         'CentOS-6':
           - '/etc/rsyslog.conf':
-              tag: 'CIS-5.1.5'
+              tag: 'CIS-4.1.5'
               pattern: "^*.*[^I][^I]*@"
-      description: 'Configure rsyslog to Send Logs to a Remote Log Host (Scored)'
+      description: 'Configure rsyslog to Send Logs to a Remote Log Host'
 
     sshd_protocol_2:
       data:
@@ -617,7 +648,7 @@ grep:
               tag: 'CIS-6.2.1'
               pattern: "^Protocol"
               match_output: 'Protocol 2'
-      description: 'Set SSH Protocol to 2 (Scored)'
+      description: 'Set SSH Protocol to 2'
 
     sshd_loglevel_info:
       data:
@@ -626,7 +657,7 @@ grep:
               tag: 'CIS-6.2.2'
               pattern: "^LogLevel"
               match_output: 'LogLevel INFO'
-      description: 'Set LogLevel to INFO (Scored)'
+      description: 'Set LogLevel to INFO'
 
     sshd_x11_forwarding:
       data:
@@ -635,7 +666,7 @@ grep:
               tag: 'CIS-6.2.4'
               pattern: "^X11Forwarding"
               match_output: 'X11Forwarding no'
-      description: 'Disable SSH X11 Forwarding (Scored)'
+      description: 'Disable SSH X11 Forwarding'
 
     # NOTE: Need to update this entry to reflect your organization's password policy
     sshd_max_auth_retries:
@@ -645,7 +676,7 @@ grep:
               tag: 'CIS-6.2.5'
               pattern: "^MaxAuthTries"
               match_output: "MaxAuthTries 4"
-      description: 'Set SSH MaxAuthTries to 4 or Less (Scored)'
+      description: 'Set SSH MaxAuthTries to 4 or Less'
 
     sshd_ignore_rhosts:
       data:
@@ -654,7 +685,7 @@ grep:
               tag: 'CIS-6.2.6'
               pattern: "^IgnoreRhosts"
               match_output: "IgnoreRhosts yes"
-      description: 'Set SSH IgnoreRhosts to Yes (Scored)'
+      description: 'Set SSH IgnoreRhosts to Yes'
 
     sshd_hostbased_auth:
       data:
@@ -663,7 +694,7 @@ grep:
               tag: 'CIS-6.2.7'
               pattern: "^HostbasedAuthentication"
               match_output: "HostbasedAuthentication no"
-      description: 'Set SSH HostbasedAuthentication to No (Scored)'
+      description: 'Set SSH HostbasedAuthentication to No'
 
     sshd_disable_root_login:
       data:
@@ -672,7 +703,7 @@ grep:
               tag: 'CIS-6.2.8'
               pattern: "^PermitRootLogin"
               match_output: "PermitRootLogin no"
-      description: 'Set SSH HostbasedAuthentication to No (Scored)'
+      description: 'Disable SSH Root Login'
 
     sshd_permit_empty_passwords:
       data:
@@ -681,7 +712,7 @@ grep:
               tag: 'CIS-6.2.9'
               pattern: "^PermitEmptyPasswords"
               match_output: "PermitEmptyPasswords no"
-      description: 'Set SSH PermitEmptyPasswords to No (Scored)'
+      description: 'Set SSH PermitEmptyPasswords to No'
 
     sshd_permit_user_environment:
       data:
@@ -690,7 +721,7 @@ grep:
               tag: 'CIS-6.2.10'
               pattern: "^PermitUserEnvironment"
               match_output: "PermitUserEnvironment no"
-      description: 'Do Not Allow Users to Set Environment Options (Scored)'
+      description: 'Do Not Allow Users to Set Environment Options'
 
     sshd_approved_cipher:
       data:
@@ -699,7 +730,7 @@ grep:
               tag: 'CIS-6.2.11'
               pattern: "Ciphers"
               match_output: "Ciphers aes128-ctr,aes192-ctr,aes256-ctr"
-      description: 'Use Only Approved Cipher in Counter Mode (Scored)'
+      description: 'Use Only Approved Cipher in Counter Mode'
 
     sshd_idle_timeout:
       data:
@@ -712,7 +743,7 @@ grep:
               tag: 'CIS-6.2.12'
               pattern: "^ClientAliveCountMax"
               match_output: "ClientAliveCountMax 0"
-      description: 'Set Idle Timeout Interval for User Login (Scored)'
+      description: 'Set Idle Timeout Interval for User Login'
 
     sshd_limit_access:
       data:
@@ -722,7 +753,7 @@ grep:
               pattern: '(^AllowUsers)|(^AllowGroups)|(^DenyUsers)|(^DenyGroups)'
               grep_args:
                 - '-E'
-      description: 'Limit Access via SSH (Scored)'
+      description: 'Limit Access via SSH'
 
     sshd_banner:
       data:
@@ -730,7 +761,7 @@ grep:
           - '/etc/ssh/sshd_config':
               tag: 'CIS-6.2.14'
               pattern: "^Banner"
-      description: 'Set SSH Banner (Scored)'
+      description: 'Set SSH Banner'
 
     # NOTE: Need to update this entry to reflect your organization's password policy
     limit_password_reuse:
@@ -740,7 +771,7 @@ grep:
               tag: 'CIS-6.3.4'
               pattern: "pam_unix.so"
               match_output: "remember=5"  # number of passwords to remember
-      description: 'PAM Password Reuse (Scored)'
+      description: 'Limit Password Reuse'
 
     limit_su_command_access:
       data:
@@ -752,7 +783,7 @@ grep:
           - '/etc/group':
               tag: 'CIS-6.5'
               pattern: "wheel"
-      description: 'Limit su command access (Scored)'
+      description: 'Restrict Access to the su Command'
 
     # NOTE: Need to update this entry to reflect your organization's password policy
     passwd_expiration_days:
@@ -762,7 +793,7 @@ grep:
               tag: 'CIS-7.1.1'
               pattern: "PASS_MAX_DAYS"
               match_output: "90"
-      description: 'Set Password Expiration Days (Scored)'
+      description: 'Set Password Expiration Days'
 
     # NOTE: Need to update this entry to reflect your organization's password policy
     passwd_change_min_days:
@@ -772,7 +803,7 @@ grep:
               tag: 'CIS-7.1.2'
               pattern: "PASS_MIN_DAYS"
               match_output: "7"
-      description: 'Set Password Change Minimum Number of Days (Scored)'
+      description: 'Set Password Change Minimum Number of Days'
 
     # NOTE: Need to update this entry to reflect your organization's password policy
     passwd_expiry_warning:
@@ -782,7 +813,7 @@ grep:
               tag: 'CIS-7.1.3'
               pattern: "PASS_WARN_AGE"
               match_output: "7"
-      description: 'Set Password Expiring Warning Days (Scored)'
+      description: 'Set Password Expiring Warning Days'
 
     default_umask:
       data:
@@ -793,7 +824,7 @@ grep:
           - '/etc/profile':
               tag: 'CIS-7.4'
               pattern: "^umask 077"
-      description: 'Set Default umask for Users (Scored)'
+      description: 'Set Default umask for Users'
 
   blacklist:
     legacy_passwd_entries_passwd:
@@ -802,7 +833,7 @@ grep:
           - '/etc/passwd':
               tag: 'CIS-9.2.2'
               pattern: "^+:"
-      description: 'Verify No Legacy "+" Entries Exist in /etc/passwd (Scored)'
+      description: 'Verify No Legacy "+" Entries Exist in /etc/passwd File'
 
     legacy_passwd_entries_shadow:
       data:
@@ -810,7 +841,7 @@ grep:
           - '/etc/shadow':
               tag: 'CIS-9.2.3'
               pattern: "^+:"
-      description: 'Verify No Legacy "+" Entries Exist in /etc/shadow (Scored)'
+      description: 'Verify No Legacy "+" Entries Exist in /etc/shadow File'
 
     legacy_passwd_entries_group:
       data:
@@ -818,4 +849,4 @@ grep:
           - '/etc/group':
               tag: 'CIS-9.2.4'
               pattern: "^+:"
-      description: 'Verify No Legacy "+" Entries Exist in /etc/group (Scored)'
+      description: 'Verify No Legacy "+" Entries Exist in /etc/group File'
