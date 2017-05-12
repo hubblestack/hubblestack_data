@@ -4,7 +4,6 @@
 
 # TODO: Checks that aren't implemented yet:
 #       1.1.21
-#       1.7.1.1
 #       1.7.2
 #       3.6.5
 #       4.2.4
@@ -18,6 +17,13 @@
 
 grep:
   blacklist:
+    message_of_the_day:
+      data:
+        CentOS Linux-7:
+        - /etc/motd:
+            pattern: '(\\v|\\r|\\m|\\s)'
+            tag: CIS-1.7.1.1
+      description: Ensure message of the day is configured properly
     legacy_passwd_entries_group:
       data:
         CentOS Linux-7:
