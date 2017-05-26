@@ -29,3 +29,5 @@ day:
     query: SELECT m.*, t.iso_8601 AS _time FROM mounts AS m LEFT JOIN time AS t;
   - query_name: iptables_rules
     query: SELECT ipt.*, t.iso_8601 AS _time FROM iptables as ipt LEFT JOIN time AS t;
+  - query_name: sysctl
+    query: SELECT sc.*, t.iso_8601 AS _time FROM system_controls AS sc LEFT JOIN time AS t;
