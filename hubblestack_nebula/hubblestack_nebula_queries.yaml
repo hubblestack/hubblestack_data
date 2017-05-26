@@ -10,6 +10,8 @@ fifteen_min:
 hour:
   - query_name: crontab
     query: SELECT c.*,t.iso_8601 AS _time FROM crontab AS c JOIN time AS t;
+  - query_name: login_history
+    query: SELECT t.iso_8601 AS _time, l.username, l.tty, l.pid, l.type AS utmp_type, CASE l.type WHEN 1 THEN 'RUN_LVL' WHEN 2 THEN 'BOOT_TIME' WHEN 3 THEN 'NEW_TIME' WHEN 4 THEN 'OLD_TIME' WHEN 5 THEN 'INIT_PROCESS' WHEN 6 THEN 'LOGIN_PROCESS' WHEN 7 THEN 'USER_PROCESS' WHEN 8 THEN 'DEAD_PROCESS' ELSE l.type END AS utmp_type_name, l.host AS hostname, strftime('%Y-%m-%dT%H:%M:%SZ', datetime(l.time, 'unixepoch')) AS time FROM last AS l LEFT JOIN time AS t WHERE l.time > strftime('%s','now') - 3600;
 day:
   - query_name: rpm_packages
     query: SELECT rpm.name, rpm.version, rpm.release, rpm.source AS package_source, rpm.size, rpm.sha1, rpm.arch, t.iso_8601 AS _time FROM rpm_packages AS rpm JOIN time AS t;
