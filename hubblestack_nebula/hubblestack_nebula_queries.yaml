@@ -27,3 +27,9 @@ day:
     query: SELECT u.username AS user, usk.uid, g.groupname AS groupname, f.gid, usk.path AS file_path, usk.encrypted, f.mode AS file_acl, f.size AS file_size, f.atime AS file_access_time, f.mtime AS file_modify_time, f.ctime AS file_change_time, h.md5, h.sha1, h.sha256, t.iso_8601 AS _time FROM users AS u JOIN user_ssh_keys AS usk ON u.uid=usk.uid LEFT JOIN hash AS h ON h.path=usk.path LEFT JOIN file AS f ON f.path=usk.path LEFT JOIN groups AS g ON g.gid=f.gid LEFT JOIN time AS t;
   - query_name: mounts
     query: SELECT m.*, t.iso_8601 AS _time FROM mounts AS m LEFT JOIN time AS t;
+  - query_name: iptables_rules
+    query: SELECT ipt.*, t.iso_8601 AS _time FROM iptables as ipt LEFT JOIN time AS t;
+  - query_name: sysctl
+    query: SELECT sc.*, t.iso_8601 AS _time FROM system_controls AS sc LEFT JOIN time AS t;
+  - query_name: kernel_info
+    query: SELECT ki.version, ki.arguments AS boot_arguments, ki.device AS boot_device, CASE WHEN ki.path<>'' THEN ki.path ELSE 'NOT_AVAILABLE' END AS boot_image, CASE WHEN ki.path<>'' THEN '/boot/'||ltrim(ki.path,'/boot/') ELSE '/boot/vmlinuz-'||ki.version END AS file_path, h.md5, h.sha1, h.sha256, f.filename AS file_name, f.inode, f.uid, u.username AS user, f.gid, g.groupname, f.mode AS file_acl, f.size AS file_size, f.atime AS file_access_time, f.mtime AS file_modify_time, f.ctime AS file_change_time, f.hard_links, f.type AS file_type, t.iso_8601 AS _time FROM kernel_info AS ki LEFT JOIN hash AS h ON h.path=file_path LEFT JOIN file AS f on f.path=file_path LEFT JOIN users AS u ON u.uid=f.uid LEFT JOIN groups AS g ON g.gid=f.gid LEFT JOIN time AS t;
