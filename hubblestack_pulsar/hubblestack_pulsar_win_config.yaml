@@ -1,4 +1,8 @@
-C:\Users: {}
+C:\Users:
+  exclude:
+    - C:\Users\*\AppData\Local\VMware\vpx
+    - C:\Users\*\AppData\Local\Mozilla\Firefox\Profiles
+    - C:\Users\*\AppData\Local\Temp
 C:\Windows:
   mask:
     - Write
@@ -15,10 +19,7 @@ C:\Windows:
     - C:\Windows\ServiceProfiles\LocalService\AppData\Local
     - C:\Windows\security\templates\policies
     - C:\Windows\CCM\Logs
-    - C:\Users\*\AppData\Local\VMware\vpx
     - C:\Windows\security\database
-    - C:\Users\*\AppData\Local\Mozilla\Firefox\Profiles
-    - C:\Users\*\AppData\Local\Temp
     - C:\Windows\SoftwareDistribution
     - C:\Windows\WinSxS
 C:\temp: {}
