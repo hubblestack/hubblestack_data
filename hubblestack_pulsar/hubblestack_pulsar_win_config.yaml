@@ -22,7 +22,6 @@ C:\Windows:
     - C:\Windows\security\database
     - C:\Windows\SoftwareDistribution
     - C:\Windows\WinSxS
-C:\temp: {}
 win_notify_interval: 30 # MUST be the same as interval in pillar config
 return: splunk_pulsar_return
 batch: True
