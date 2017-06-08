@@ -246,7 +246,8 @@ grep:
           - '/etc/ssh/sshd_config':
               tag: 'CIS-9.3.11'
               pattern: "Ciphers"
-              match_output: "Ciphers aes128-ctr,aes192-ctr,aes256-ctr"
+              match_output: "^Ciphers aes256-ctr,aes192-ctr,aes128-ctr$|^Ciphers aes256-ctr,aes128-ctr,aes192-ctr$|^Ciphers aes192-ctr,aes128-ctr,aes256-ctr$|^Ciphers aes192-ctr,aes256-ctr,aes128-ctr$|^Ciphers aes128-ctr,aes256-ctr,aes192-ctr$|^Ciphers aes128-ctr,aes192-ctr,aes256-ctr$"
+              match_output_regex: True
       description: Use Only Approved Cipher in Counter Mode
 
     sshd_idle_timeout:
