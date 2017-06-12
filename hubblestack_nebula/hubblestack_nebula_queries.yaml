@@ -24,7 +24,7 @@ day:
   - query_name: uptime
     query: SELECT t.unix_time AS query_time, total_seconds AS uptime FROM uptime LEFT JOIN time as t;
   - query_name: suid_binaries
-    query: SELECT t.unix_time AS query_time, sb.*, f.uid, f.gid, f.mode AS file_acl, h.md5, h.sha1, h.sha256 FROM suid_bin AS sb JOIN time AS t LEFT JOIN hash AS h ON sb.path=h.path LEFT JOIN file AS f on sb.path=f.path;
+    query: SELECT t.unix_time AS query_time, sb.username AS user, sb.groupname AS 'group', sb.permissions, sb.path AS object_path, f.uid, f.gid, f.mode AS file_acl, h.md5, h.sha1, h.sha256 FROM suid_bin AS sb JOIN time AS t LEFT JOIN hash AS h ON sb.path=h.path LEFT JOIN file AS f on sb.path=f.path;
   - query_name: ssh_key_files
     query: SELECT t.unix_time AS query_time, u.username AS user, usk.uid, g.groupname AS groupname, f.gid, usk.path AS file_path, usk.encrypted, f.mode AS file_acl, f.size AS file_size, f.atime AS file_access_time, f.mtime AS file_modify_time, f.ctime AS file_change_time, h.md5, h.sha1, h.sha256 FROM users AS u JOIN user_ssh_keys AS usk ON u.uid=usk.uid LEFT JOIN hash AS h ON h.path=usk.path LEFT JOIN file AS f ON f.path=usk.path LEFT JOIN groups AS g ON g.gid=f.gid LEFT JOIN time AS t;
   - query_name: mounts
