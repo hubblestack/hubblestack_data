@@ -1,2 +1,20 @@
 # This is a general-use profile to fill with your implementation-specific
 #   checks
+
+misc:
+  no_ungrouped_file_or_directories:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-6.1.12
+       function: ungrouped_files_or_dir
+       args:
+         - ''
+       description: Ensure no ungrouped files or directories exist
+  ensure_password_fields_non_empty:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-6.2.1
+       function: check_password_fields_not_empty
+       args:
+         - ''
+       description: Ensure password fields are not empty
