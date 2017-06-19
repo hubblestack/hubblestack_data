@@ -1,0 +1,44 @@
+# Due to some bugs in the scheduler in some versions of salt, we generally
+# recommend using the cron.d file in this same repo, rather than this
+# scheduler data. But it's here if you want to use it.
+
+schedule:
+  nova_day:
+    function: hubble.top
+    seconds: 86400
+    kwargs:
+      verbose: True
+      show_profile: True
+    returner: splunk_nova_return
+    return_job: False
+    run_on_start: False
+  nebula_fifteen_min:
+    function: nebula.queries
+    seconds: 900
+    args:
+      - fifteen_min
+    returner: splunk_nebula_return
+    return_job: False
+    run_on_start: False
+  nebula_hour:
+    function: nebula.queries
+    seconds: 3600
+    args:
+      - hour
+    returner: splunk_nebula_return
+    return_job: False
+    run_on_start: False
+  nebula_day:
+    function: nebula.queries
+    seconds: 86400
+    args:
+      - day
+    returner: splunk_nebula_return
+    return_job: False
+    run_on_start: False
+  cache_pulsar:
+    function: cp.cache_file
+    seconds: 86400
+    args:
+      - salt://hubblestack_pulsar/hubblestack_pulsar_config.yaml
+    return_job: False

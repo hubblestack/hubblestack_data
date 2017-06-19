@@ -28,9 +28,13 @@
     - /etc/gshadow+
     - /etc/gshadow-
     - /etc/cas/timestamp
+    - /etc/resolv.conf.tmp
     - /etc/pki/nssdb/key4.db-journal
     - /etc/pki/nssdb/cert9.db-journal
     - /etc/salt/gpgkeys/random_seed
+    - /etc/blkid/blkid.tab.old
+    - \/etc\/blkid\/blkid\.tab\-\w{6}$:
+        regex: True
     - \/etc\/passwd\.\d*$:
         regex: True
     - \/etc\/group\.\d*$:
