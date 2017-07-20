@@ -1063,3 +1063,13 @@ sysctl:
           match_output: '1'
           tag: CIS-3.2.8
     description: Ensure TCP SYN Cookies is enabled
+  reverse_path_filtering:
+    data:
+      '*CoreOS*':
+      - net.ipv4.conf.all.rp_filter:
+          match_output: '1'
+          tag: CIS-3.2.7
+      - net.ipv4.conf.default.rp_filter:
+          match_output: '1'
+          tag: CIS-3.2.7
+    description: Ensure Reverse Path Filtering is enabled
