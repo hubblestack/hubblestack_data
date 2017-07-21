@@ -50,3 +50,9 @@ misc:
        tag: CIS-6.2.5
        function: root_is_only_uid_0_account
        description: Ensure root is the only UID 0 account
+  check_all_ports_firewall_rules:
+    data:
+      '*CoreOS*':
+       tag: CIS-3.6.5
+       function: check_all_ports_firewall_rules
+       description: Ensure firewall rules exist for all open ports
