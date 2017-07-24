@@ -454,11 +454,7 @@ grep:
         'Amazon Linux*':
         - /etc/security/limits.conf:
             match_output: '0'
-            pattern: '"hard core"'
-            tag: CIS-1.5.1
-        - /etc/sysctl.conf:
-            match_output: '0'
-            pattern: fs.suid_dumpable
+            pattern: '"* hard core"'
             tag: CIS-1.5.1
       description: Ensure core dumps are restricted
     sshd_approved_cipher:
@@ -535,15 +531,23 @@ grep:
         'Amazon Linux*':
         - /etc/ssh/sshd_config:
             pattern: ^AllowUsers
+            match_output: 'AllowUsers *'
+            match_output_regex: True
             tag: CIS-5.2.15
         - /etc/ssh/sshd_config:
             pattern: ^AllowGroups
+            match_output: 'AllowGroups *'
+            match_output_regex: True
             tag: CIS-5.2.15
         - /etc/ssh/sshd_config:
             pattern: ^DenyUsers
+            match_output: 'DenyUsers *'
+            match_output_regex: True
             tag: CIS-5.2.15
         - /etc/ssh/sshd_config:
             pattern: ^DenyGroups
+            match_output: 'DenyGroups *'
+            match_output_regex: True
             tag: CIS-5.2.15
       description: Ensure SSH access is limited
     sshd_loglevel_info:
@@ -981,7 +985,7 @@ stat:
       - /etc/passwd-:
           gid: 0
           group: root
-          mode: 644
+          mode: 600
           tag: CIS-6.1.6
           uid: 0
           user: root
@@ -992,7 +996,7 @@ stat:
       - /etc/shadow-:
           gid: 0
           group: root
-          mode: 000
+          mode: 600
           tag: CIS-6.1.7
           uid: 0
           user: root
@@ -1003,7 +1007,7 @@ stat:
       - /etc/group-:
           gid: 0
           group: root
-          mode: 644
+          mode: 600
           tag: CIS-6.1.8
           uid: 0
           user: root
@@ -1014,7 +1018,7 @@ stat:
       - /etc/gshadow-:
           gid: 0
           group: root
-          mode: 0
+          mode: 600
           tag: CIS-6.1.9
           uid: 0
           user: root
