@@ -1201,3 +1201,53 @@ sysctl:
           match_output: '1'
           tag: CIS-3.2.8
     description: Ensure TCP SYN Cookies is enabled
+
+misc:
+  ensure_password_fields_non_empty:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-6.2.1
+       function: check_password_fields_not_empty
+       description: Ensure password fields are not empty
+  no_ungrouped_file_or_directories:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-6.1.12
+       function: ungrouped_files_or_dir
+       description: Ensure no ungrouped files or directories exist
+  no_unowned_file_or_directories:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-6.1.11
+       function: unowned_files_or_dir
+       description: Ensure no unowned files or directories exist
+  default_group_for_root_account:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-5.4.3
+       function: default_group_for_root
+       description: Ensure default group for the root account is GID 0
+  no_world_writable_file:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-6.1.10
+       function: world_writable_file
+       description: Ensure no world writable files exist
+  system_account_non_login:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-5.4.2
+       function: system_account_non_login
+       description: Ensure system accounts are non-login
+  sticky_bit_on_world_writable_directories:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-1.1.18
+       function: sticky_bit_on_world_writable_dirs
+       description: Ensure sticky bit is set on all world-writable directories
+  root_is_only_uid_0_account:
+    data:
+      'Amazon*Linux*2016*':
+       tag: CIS-6.2.5
+       function: root_is_only_uid_0_account
+       description: Ensure root is the only UID 0 account

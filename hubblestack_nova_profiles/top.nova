@@ -5,7 +5,6 @@
 nova:
   'G@osfinger:*CoreOS*':
     - cis.coreos-level-1
-    - misc
   'G@osfinger:CentOS-6':
     - cis.centos-6-level-1-scored-v2-0-1
   'G@osfinger:CentOS*Linux-7':
@@ -38,7 +37,6 @@ nova:
     - cis.amazon-level-1-scored-v1-0-0
   'G@osfinger:Amazon*Linux*2016*':
     - cis.amazon-level-1-scored-v2-0-0
-    - misc
   'G@osfinger:Amazon*Linux*2017*':
     - cis.amazon-level-1-scored-v1-0-0
   'G@osfinger:Amazon*Linux*2018*':

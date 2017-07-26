@@ -1070,3 +1070,11 @@ sysctl:
           match_output: '1'
           tag: CIS-3.2.7
     description: Ensure Reverse Path Filtering is enabled
+
+misc:
+  check_all_ports_firewall_rules:
+    data:
+      '*CoreOS*':
+       tag: CIS-3.6.5
+       function: check_all_ports_firewall_rules
+       description: Ensure firewall rules exist for all open ports
