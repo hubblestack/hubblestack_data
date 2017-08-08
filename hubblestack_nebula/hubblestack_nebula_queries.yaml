@@ -46,4 +46,4 @@ day:
   - query_name: docker_info
     query: SELECT t.unix_time AS query_time, di.id AS docker_id, di.storage_driver AS storage_driver, di.logging_driver AS logging_driver, di.cgroup_driver AS cgroup_driver, di.server_version AS docker_version, di.root_dir AS root_dir FROM docker_info AS di LEFT JOIN time AS t;
   - query_name: ami_info
-    query: SELECT filename AS IMAGE_INFO from file where directory='/etc/image_info';
+    query: SELECT t.unix_time AS query_time, filename AS image_info FROM file LEFT JOIN time AS t WHERE directory='/etc/image_info';
