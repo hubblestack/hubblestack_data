@@ -643,7 +643,7 @@ win_secedit:
               tag: CIS-2.3.10.10
               match_output: '4,0'
               value_type: 'equal'
-      description: (l1) ensure 'Network access: Restrict clients allowed to make remote calls to SAM' is set to 'Administrators: Remote Access: Allow'
+      description: (l1) ensure 'Network access - Restrict clients allowed to make remote calls to SAM' is set to 'Administrators- Remote Access- Allow'
     network_security_allow_local_system_to_use_computer_identity_for_ntlm :
       data:
         'Microsoft Windows Server 2016*':
@@ -1677,7 +1677,7 @@ win_reg:
               tag: CIS-18.8.26.1
               match_output: '1'
               value_type: 'equal'
-      description: (l1) ensure 'Untrusted Font Blocking' is set to 'Enabled: Block untrusted fonts and log events'
+      description: (l1) ensure 'Untrusted Font Blocking' is set to 'Enabled- Block untrusted fonts and log events'
     Configure Offer Remote Assistance :
       data:
         'Microsoft Windows Server 2016*':
@@ -1773,7 +1773,7 @@ win_reg:
               tag: CIS-18.9.16.1
               match_output: '1'
               value_type: 'equal'
-      description: (l1) ensure 'Allow Telemetry' is set to 'enabled: 0 - Security [Enterprise Only]'
+      description: (l1) ensure 'Allow Telemetry' is set to 'enabled- 0 - Security [Enterprise Only]'
     Disable pre-release features or settings :
       data:
         'Microsoft Windows Server 2016*':
@@ -1982,7 +1982,7 @@ win_reg:
               tag: CIS-18.9.41.3
               match_output: '1'
               value_type: 'more'
-      description: (l1) ensure 'Configure cookies' is set to 'enabled: Block only 3rd-party cookies' or higher
+      description: (l1) ensure 'Configure cookies' is set to 'enabled- Block only 3rd-party cookies' or higher
     Configure Password Manager :
       data:
         'Microsoft Windows Server 2016*':
@@ -2134,7 +2134,7 @@ win_reg:
               tag: CIS-18.9.67.2.1
               match_output: '1' #: Always ask before sending data'
               value_type: 'equal'
-      description: (l1) ensure 'configure default consent' is set to 'enabled: always ask before sending data'
+      description: (l1) ensure 'configure default consent' is set to 'enabled- always ask before sending data'
     Automatically send memory dumps for OS-generated error reports :
       data:
         'Microsoft Windows Server 2016*':
@@ -2262,7 +2262,7 @@ win_reg:
               tag: CIS-18.9.90.1.1
               match_output: '1'
               value_type: 'equal'
-      description: (l1) ensure 'Select when Feature Updates are recieved' is set to 'enabled: Current Branch for Business, 180 days'
+      description: (l1) ensure 'Select when Feature Updates are recieved' is set to 'enabled- Current Branch for Business, 180 days'
     Select when Quality Updates are received :
       data:
         'Microsoft Windows Server 2016*':
@@ -2270,7 +2270,7 @@ win_reg:
               tag: CIS-18.9.90.1.2
               match_output: '1'
               value_type: 'equal'
-      description: (l1) ensure 'Select when Quality Updates are received' is set to 'enabled: 0 days'
+      description: (l1) ensure 'Select when Quality Updates are received' is set to 'enabled- 0 days'
     Configure Automatic Updates :
       data:
         'Microsoft Windows Server 2016*':
@@ -2334,8 +2334,8 @@ win_reg:
               tag: CIS-19.7.25.1
               match_output: '1'
               value_type: 'equal'
-      description: (l1) ensure 'prevent users from sharing files within their profile.' is set to 'enabled'
-     Do not suggest third-party content in Windows spotlight:
+      description: (l1) ensure 'prevent users from sharing files within their profile' is set to 'enabled'
+    Do not suggest third-party content in Windows spotlight :
       data:
         'Microsoft Windows Server 2016*':
           - 'HKEY_USERS\<SID>\Software\Policies\Microsoft\Windows\CloudContent\DisableThirdPartySuggestions':
