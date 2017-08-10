@@ -18,4 +18,4 @@ day:
   - query_name: win_programs
     query: SELECT t.unix_time AS query_time, p.* FROM programs AS p LEFT JOIN time AS t;
   - query_name: ami_info
-    query: SELECT filename AS IMAGE_INFO from file where directory='C:\ProgramData\image_info';
+    query: SELECT t.unix_time AS query_time, filename AS image_info FROM file LEFT JOIN time AS t WHERE directory='C:\ProgramData\image_info';
