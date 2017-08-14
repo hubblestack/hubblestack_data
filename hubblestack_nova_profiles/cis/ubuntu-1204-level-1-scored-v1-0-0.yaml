@@ -221,7 +221,7 @@ grep:
       data:
         Ubuntu-12.04:
         - /etc/ssh/sshd_config:
-            pattern: XForwarding
+            pattern: X11Forwarding
             match: 'no'
             tag: CIS-9.3.4
       description: Disable SSH X11 Forwarding
@@ -627,7 +627,7 @@ sysctl:
   bogus_errors:
     data:
       Ubuntu-12.04:
-      - icmp_ignore_bogus_error_responses:
+      - net.ipv4.icmp_ignore_bogus_error_responses:
           match_output: '1'
           tag: CIS-7.2.6
     description: Enable Bad Error Message Protection
