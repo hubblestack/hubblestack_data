@@ -591,7 +591,8 @@ grep:
       data:
         Red Hat Enterprise Linux Server-7:
         - /etc/ssh/sshd_config:
-            match_output: MaxAuthTries 4
+            match_output: "^MaxAuthTries +[1-4]"
+            match_output_regex: True
             pattern: ^MaxAuthTries
             tag: CIS-5.2.5
       description: Ensure SSH MaxAuthTries is set to 4 or less
