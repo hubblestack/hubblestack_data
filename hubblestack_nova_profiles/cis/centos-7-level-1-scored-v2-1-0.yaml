@@ -601,7 +601,7 @@ h.com'
       data:
         CentOS Linux-7:
         - /etc/ssh/sshd_config:
-            match_output: "^MaxAuthTries +[1-4]$"
+            match_output: '^MaxAuthTries +[1-4]$'
             pattern: ^MaxAuthTries
             match_output_regex: True
             tag: CIS-5.2.5
