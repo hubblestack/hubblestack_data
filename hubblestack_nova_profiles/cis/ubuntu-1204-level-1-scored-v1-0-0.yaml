@@ -222,7 +222,7 @@ grep:
         Ubuntu-12.04:
         - /etc/ssh/sshd_config:
             pattern: X11Forwarding
-            match: 'no'
+            match_output: 'no'
             tag: CIS-9.3.4
       description: Disable SSH X11 Forwarding
     ssh_auth_retries:
@@ -239,7 +239,7 @@ grep:
         Ubuntu-12.04:
         - /etc/ssh/sshd_config:
             pattern: IgnoreRhosts
-            match: 'yes'
+            match_output: 'yes'
             tag: CIS-9.3.6
       description: Set SSH IgnoreRhosts to Yes
     ssh_hostbased_auth:
@@ -247,7 +247,7 @@ grep:
         Ubuntu-12.04:
         - /etc/ssh/sshd_config:
             pattern: HostbasedAuthentication
-            match: 'no'
+            match_output: 'no'
             tag: CIS-9.3.7
       description: Set SSH HostbasedAuthentication to No
     ssh_permit_root:
@@ -255,7 +255,7 @@ grep:
         Ubuntu-12.04:
         - /etc/ssh/sshd_config:
             pattern: PermitRootLogin
-            match: 'no'
+            match_output: 'no'
             tag: CIS-9.3.8
       description: Disable SSH Root Login
     ssh_permit_empty_pw:
@@ -263,7 +263,7 @@ grep:
         Ubuntu-12.04:
         - /etc/ssh/sshd_config:
             pattern: PermitEmptyPasswords
-            match: 'no'
+            match_output: 'no'
             tag: CIS-9.3.9
       description: Set SSH PermitEmptyPasswords to No
     ssh_permit_user_env:
@@ -271,7 +271,7 @@ grep:
         Ubuntu-12.04:
         - /etc/ssh/sshd_config:
             pattern: PermitUserEnvironment
-            match: 'no'
+            match_output: 'no'
             tag: CIS-9.3.10
       description: Do Not Allow Users to Set Environment Options
     ssh_restrict_cipher:
@@ -279,7 +279,7 @@ grep:
         Ubuntu-12.04:
         - /etc/ssh/sshd_config:
             pattern: Ciphers
-            match: '^Ciphers aes256-ctr,aes192-ctr,aes128-ctr$|^Ciphers aes256-ctr,aes128-ctr,aes192-ctr$|^Ciphers aes192-ctr,aes128-ctr,aes256-ctr$|^Ciphers aes192-ctr,aes256-ctr,aes128-ctr$|^Ciphers aes128-ctr,aes256-ctr,aes192-ctr$|^Ciphers aes128-ctr,aes192-ctr,aes256-ctr$'
+            match_output: '^Ciphers aes256-ctr,aes192-ctr,aes128-ctr$|^Ciphers aes256-ctr,aes128-ctr,aes192-ctr$|^Ciphers aes192-ctr,aes128-ctr,aes256-ctr$|^Ciphers aes192-ctr,aes256-ctr,aes128-ctr$|^Ciphers aes128-ctr,aes256-ctr,aes192-ctr$|^Ciphers aes128-ctr,aes192-ctr,aes256-ctr$'
             match_output_regex: True
             tag: CIS-9.3.11
       description: Use Only Approved Cipher in Counter Mode
@@ -288,11 +288,11 @@ grep:
         Ubuntu-12.04:
         - /etc/ssh/sshd_config:
             pattern: ClientAliveInterval
-            match: '300'
+            match_output: '300'
             tag: CIS-9.3.12
         - /etc/ssh/sshd_config:
             pattern: ClientAliveCountMax
-            match: 0
+            match_output: 0
             tag: CIS-9.3.12
       description: Set Idle Timeout Interval for User Login
     ssh_limit_access:
@@ -316,7 +316,7 @@ grep:
         Ubuntu-12.04:
         - /etc/sshd_conf:
             pattern: Banner
-            match: issue
+            match_output: issue
             tag: CIS-9.3.14
       description: Set SSH Banner
     limit_su_access:
