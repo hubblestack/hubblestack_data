@@ -230,7 +230,8 @@ grep:
         Ubuntu-16.04:
         - /etc/ssh/sshd_config:
             pattern: MaxAuthTries
-            match: '4'
+            match_output_regex: True
+            match_output: "^MaxAuthTries +[1-4]$"
             tag: CIS-9.3.5
       description: Set SSH MaxAuthTries to 4 or Less
     ssh_ignore_rhosts:
