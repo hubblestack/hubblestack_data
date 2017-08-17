@@ -339,8 +339,9 @@ grep:
       data:
         Red Hat Enterprise Linux Server-6:
         - /etc/ssh/sshd_config:
-            match_output: MaxAuthTries 4
+            match_output: "^MaxAuthTries +[1-4]$"
             pattern: ^MaxAuthTries
+            match_output_regex: True
             tag: CIS-6.2.5
       description: Set SSH MaxAuthTries to 4 or Less (Scored)
     sshd_permit_empty_passwords:
