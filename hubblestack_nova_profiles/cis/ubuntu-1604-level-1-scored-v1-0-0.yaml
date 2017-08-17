@@ -221,7 +221,7 @@ grep:
       data:
         Ubuntu-16.04:
         - /etc/ssh/sshd_config:
-            pattern: X11Forwarding
+            pattern: XForwarding
             match: 'no'
             tag: CIS-9.3.4
       description: Disable SSH X11 Forwarding
@@ -230,7 +230,8 @@ grep:
         Ubuntu-16.04:
         - /etc/ssh/sshd_config:
             pattern: MaxAuthTries
-            match: '4'
+            match_output_regex: True
+            match_output: "^MaxAuthTries +[1-4]$"
             tag: CIS-9.3.5
       description: Set SSH MaxAuthTries to 4 or Less
     ssh_ignore_rhosts:
@@ -627,7 +628,7 @@ sysctl:
   bogus_errors:
     data:
       Ubuntu-16.04:
-      - net.ipv4.icmp_ignore_bogus_error_responses:
+      - net.ipv4.icmp_echo_ignore_bogus_error_responses:
           match_output: '1'
           tag: CIS-7.2.6
     description: Enable Bad Error Message Protection
