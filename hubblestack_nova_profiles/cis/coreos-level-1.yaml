@@ -594,18 +594,6 @@ misc:
        tag: CIS-5.2.13
        function: check_ssh_timeout_config
        description: Ensure SSH Idle Timeout Interval is configured
-  no_unowned_file:
-    data:
-      '*CoreOS*':
-       tag: CIS-6.1.11
-       function: check_unowned_files
-       description: Ensure no unowned files or directories exist
-  no_ungrouped_file:
-    data:
-      '*CoreOS*':
-       tag: CIS-6.1.12
-       function: check_ungrouped_files
-       description: Ensure no ungrouped files or directories exist
   all_users_home_directory:
     data:
       '*CoreOS*':
