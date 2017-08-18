@@ -512,6 +512,14 @@ grep:
             pattern: Ciphers
             tag: CIS-5.2.11
       description: Ensure only approved ciphers are used
+    sshd_approved_macs:
+      data:
+        CentOS Linux-7:
+        - /etc/ssh/sshd_config:
+            match_output: 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
+            pattern: MACs
+            tag: CIS-5.2.12
+      description: Ensure only approved MAC algorithms are used
     sshd_banner:
       data:
         CentOS Linux-7:
