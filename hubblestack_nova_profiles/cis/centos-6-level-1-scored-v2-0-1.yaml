@@ -723,7 +723,8 @@ grep:
           - '/etc/ssh/sshd_config':
               tag: CIS-5.2.5
               pattern: "^MaxAuthTries"
-              match_output: "MaxAuthTries 4"
+              match_output_regex: True
+              match_output: "^MaxAuthTries +[1-4]$"
       description: Ensure SSH MaxAuthTries is set to 4 or less
 
     sshd_ignore_rhosts:
