@@ -13,45 +13,45 @@ grep:
               pattern: "^dc_local_interfaces = '127.0.0.1'"
       description: Configure Mail Transfer Agent for Local-Only Mode
 
-    fstab_tmp_partition:
+    mounts_tmp_partition:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.1'
               pattern: '/tmp'
       description: Create Separate Partition for /tmp
 
-    fstab_tmp_partition_nodev:
+    mounts_tmp_partition_nodev:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.2'
               pattern: '/tmp'
               match_output: 'nodev'
       description: Set nodev option for /tmp Partition
 
-    fstab_tmp_partition_nosuid:
+    mounts_tmp_partition_nosuid:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.3'
               pattern: '/tmp'
               match_output: 'nosuid'
       description: Set nosuid option for /tmp Partition
 
-    fstab_tmp_partition_noexec:
+    mounts_tmp_partition_noexec:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.4'
               pattern: '/tmp'
               match_output: 'nosuid'
       description: Set noexec option for /tmp Partition
 
-    fstab_var_partition:
+    mounts_var_partition:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.5'
               pattern: '/var'
       description: Create Separate Partition for /var
@@ -65,61 +65,61 @@ grep:
               match_output: '/var/tmp'
       description: Bind Mount the /var/tmp directory to /tmp
 
-    fstab_var_log_partition:
+    mounts_var_log_partition:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.7'
               pattern: '/var/log'
       description: Create Separate Partition for /var/log
 
-    fstab_var_log_audit_partition:
+    mounts_var_log_audit_partition:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.8'
               pattern: '/var/log/audit'
       description: Create Separate Partition for /var/log/audit
 
-    fstab_home_partition:
+    mounts_home_partition:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.9'
               pattern: '/home'
       description: Create Separate Partition for /home
 
-    fstab_home_partition_nodev:
+    mounts_home_partition_nodev:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.10'
               pattern: '/home'
               match_output: 'nodev'
       description: Add nodev Option to /home
 
-    fstab_dev_shm_partition_nodev:
+    mounts_dev_shm_partition_nodev:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.14'
               pattern: '/dev/shm'
               match_output: 'nodev'
       description: Add nodev Option to /run/shm Partition
 
-    fstab_dev_shm_partition_nosuid:
+    mounts_dev_shm_partition_nosuid:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.15'
               pattern: '/dev/shm'
               match_output: 'nosuid'
       description: Add nosuid Option to /run/shm Partition
 
-    fstab_dev_shm_partition_noexec:
+    mounts_dev_shm_partition_noexec:
       data:
         Debian*9:
-          - '/etc/fstab':
+          - '/proc/mounts':
               tag: 'CIS-2.16'
               pattern: '/dev/shm'
               match_output: 'noexec'
