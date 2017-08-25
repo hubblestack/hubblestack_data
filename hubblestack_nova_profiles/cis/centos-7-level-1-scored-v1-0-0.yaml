@@ -86,94 +86,94 @@ grep:
             pattern: ^umask 077
             tag: CIS-7.4
       description: Set Default umask for Users
-    fstab_dev_shm_partition_nodev:
+    mounts_dev_shm_partition_nodev:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             match_output: nodev
             pattern: /dev/shm
             tag: CIS-1.1.14
       description: Add nodev Option to /dev/shm Partition
-    fstab_dev_shm_partition_noexec:
+    mounts_dev_shm_partition_noexec:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             match_output: noexec
             pattern: /dev/shm
             tag: CIS-1.1.16
       description: Add noexec Option to /dev/shm Partition
-    fstab_dev_shm_partition_nosuid:
+    mounts_dev_shm_partition_nosuid:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             match_output: nosuid
             pattern: /dev/shm
             tag: CIS-1.1.15
       description: Add nosuid Option to /dev/shm Partition
-    fstab_home_partition:
+    mounts_home_partition:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             pattern: /home
             tag: CIS-1.1.9
       description: Create Separate Partition for /home
-    fstab_home_partition_nodev:
+    mounts_home_partition_nodev:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             match_output: nodev
             pattern: /home
             tag: CIS-1.1.10
       description: Add nodev Option to /home
-    fstab_tmp_partition:
+    mounts_tmp_partition:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             pattern: /tmp
             tag: CIS-1.1.1
       description: Create Separate Partition for /tmp
-    fstab_tmp_partition_nodev:
+    mounts_tmp_partition_nodev:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             match_output: nodev
             pattern: /tmp
             tag: CIS-1.1.2
       description: Set nodev option for /tmp Partition
-    fstab_tmp_partition_noexec:
+    mounts_tmp_partition_noexec:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             match_output: noexec
             pattern: /tmp
             tag: CIS-1.1.4
       description: Set noexec option for /tmp Partition
-    fstab_tmp_partition_nosuid:
+    mounts_tmp_partition_nosuid:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             match_output: nosuid
             pattern: /tmp
             tag: CIS-1.1.3
       description: Set nosuid option for /tmp Partition
-    fstab_var_log_audit_partition:
+    mounts_var_log_audit_partition:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             pattern: /var/log/audit
             tag: CIS-1.1.8
       description: Create Separate Partition for /var/log/audit
-    fstab_var_log_partition:
+    mounts_var_log_partition:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             pattern: /var/log
             tag: CIS-1.1.7
       description: Create Separate Partition for /var/log
-    fstab_var_partition:
+    mounts_var_partition:
       data:
         CentOS Linux-7:
-        - /etc/fstab:
+        - /proc/mounts:
             pattern: /var
             tag: CIS-1.1.5
       description: Create Separate Partition for /var
