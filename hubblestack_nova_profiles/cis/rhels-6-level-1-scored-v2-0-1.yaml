@@ -461,6 +461,29 @@ sysctl:
 
 grep:
   blacklist:
+    legacy_passwd_entries_passwd:
+      data:
+        'Red Hat Enterprise Linux Server-6':
+          - '/etc/passwd':
+              tag: CIS-6.2.2
+              pattern: "^+:"
+      description: Ensure no legacy "+" entries exist in /etc/passwd
+
+    legacy_passwd_entries_shadow:
+      data:
+        'Red Hat Enterprise Linux Server-6':
+          - '/etc/shadow':
+              tag: CIS-6.2.3
+              pattern: "^+:"
+      description: Ensure no legacy "+" entries exist in /etc/shadow
+
+    legacy_passwd_entries_group:
+      data:
+        'Red Hat Enterprise Linux Server-6':
+          - '/etc/group':
+              tag: CIS-6.2.4
+              pattern: "^+:"
+      description: Ensure no legacy "+" entries exist in /etc/group
     disable_mount_cramfs:
       data:
         Red Hat Enterprise Linux Server-6:
@@ -868,30 +891,6 @@ grep:
               pattern: "^umask 077"
       description: Ensure default user umask is 027 or more restrictive
 
-  blacklist:
-    legacy_passwd_entries_passwd:
-      data:
-        'Red Hat Enterprise Linux Server-6':
-          - '/etc/passwd':
-              tag: CIS-6.2.2
-              pattern: "^+:"
-      description: Ensure no legacy "+" entries exist in /etc/passwd
-
-    legacy_passwd_entries_shadow:
-      data:
-        'Red Hat Enterprise Linux Server-6':
-          - '/etc/shadow':
-              tag: CIS-6.2.3
-              pattern: "^+:"
-      description: Ensure no legacy "+" entries exist in /etc/shadow
-
-    legacy_passwd_entries_group:
-      data:
-        'Red Hat Enterprise Linux Server-6':
-          - '/etc/group':
-              tag: CIS-6.2.4
-              pattern: "^+:"
-      description: Ensure no legacy "+" entries exist in /etc/group
 
 service:
   whitelist:

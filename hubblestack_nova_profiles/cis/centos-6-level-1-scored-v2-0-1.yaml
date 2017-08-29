@@ -461,6 +461,29 @@ sysctl:
 
 grep:
   blacklist:
+    legacy_passwd_entries_passwd:
+      data:
+        'CentOS-6':
+          - '/etc/passwd':
+              tag: CIS-6.2.2
+              pattern: "^+:"
+      description: Ensure no legacy "+" entries exist in /etc/passwd
+
+    legacy_passwd_entries_shadow:
+      data:
+        'CentOS-6':
+          - '/etc/shadow':
+              tag: CIS-6.2.3
+              pattern: "^+:"
+      description: Ensure no legacy "+" entries exist in /etc/shadow
+
+    legacy_passwd_entries_group:
+      data:
+        'CentOS-6':
+          - '/etc/group':
+              tag: CIS-6.2.4
+              pattern: "^+:"
+      description: Ensure no legacy "+" entries exist in /etc/group
     disable_mount_cramfs:
       data:
         'CentOS-6':
@@ -868,31 +891,7 @@ grep:
               pattern: "^umask 077"
       description: Ensure default user umask is 027 or more restrictive
 
-  blacklist:
-    legacy_passwd_entries_passwd:
-      data:
-        'CentOS-6':
-          - '/etc/passwd':
-              tag: CIS-6.2.2
-              pattern: "^+:"
-      description: Ensure no legacy "+" entries exist in /etc/passwd
-
-    legacy_passwd_entries_shadow:
-      data:
-        'CentOS-6':
-          - '/etc/shadow':
-              tag: CIS-6.2.3
-              pattern: "^+:"
-      description: Ensure no legacy "+" entries exist in /etc/shadow
-
-    legacy_passwd_entries_group:
-      data:
-        'CentOS-6':
-          - '/etc/group':
-              tag: CIS-6.2.4
-              pattern: "^+:"
-      description: Ensure no legacy "+" entries exist in /etc/group
-
+ 
 service:
   whitelist:
     rsyslogd_running:
