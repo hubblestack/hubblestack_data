@@ -269,11 +269,13 @@ grep:
           - '/etc/ssh/sshd_config':
               tag: 'CIS-9.3.12'
               pattern: "^ClientAliveInterval"
-              match_output: "ClientAliveInterval 300"
+              match_output: "^ClientAliveInterval +300$"
+              match_output_regex: True
           - '/etc/ssh/sshd_config':
               tag: 'CIS-9.3.12'
               pattern: "^ClientAliveCountMax"
-              match_output: "ClientAliveCountMax 0"
+              match_output: "^ClientAliveCountMax +[0-3]$"
+              match_output_regex: True
       description: Set Idle Timeout Interval for User Login
 
     sshd_limit_access:
