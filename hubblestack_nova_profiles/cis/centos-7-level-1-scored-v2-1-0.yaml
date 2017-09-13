@@ -39,6 +39,62 @@ grep:
             pattern: '^+:'
             tag: CIS-6.2.3
       description: Ensure no legacy "+" entries exist in /etc/shadow
+    disable_mount_cramfs:
+      data:
+        CentOS Linux-7:
+        - /proc/modules:
+            pattern: "^cramfs "
+            tag: CIS-1.1.1.1
+      description: Ensure mounting of cramfs filesystems is disabled
+    disable_mount_freevxfs:
+      data:
+        CentOS Linux-7:
+        - /proc/modules:
+            pattern: "^freevxfs "
+            tag: CIS-1.1.1.2
+      description: Ensure mounting of freevxfs filesystems is disabled
+    disable_mount_jffs2:
+      data:
+        CentOS Linux-7:
+        - /proc/modules:
+            pattern: "^jffs2 "
+            tag: CIS-1.1.1.3
+      description: Ensure mounting of jffs2 filesystems is disabled
+    disable_mount_hfs:
+      data:
+        CentOS Linux-7:
+        - /proc/modules:
+            pattern: "^hfs "
+            tag: CIS-1.1.1.4
+      description: Ensure mounting of hfs filesystems is disabled
+    disable_mount_hfsplus:
+      data:
+        CentOS Linux-7:
+        - /proc/modules:
+            pattern: "^hfsplus "
+            tag: CIS-1.1.1.5
+      description: Ensure mounting of hfsplus filesystems is disabled
+    disable_mount_squashfs:
+      data:
+        CentOS Linux-7:
+        - /proc/modules:
+            pattern: "^squashfs "
+            tag: CIS-1.1.1.6
+      description: Ensure mounting of squashfs filesystems is disabled
+    disable_mount_udf:
+      data:
+        CentOS Linux-7:
+        - /proc/modules:
+            pattern: "^udf "
+            tag: CIS-1.1.1.7
+      description: Ensure mounting of udf filesystems is disabled
+    disable_mount_fat:
+      data:
+        CentOS Linux-7:
+        - /proc/modules:
+            pattern: "^vfat "
+            tag: CIS-1.1.1.8
+      description: Ensure mounting of FAT filesystems is disabled
   whitelist:
     activate_gpg_check:
       data:
@@ -173,86 +229,6 @@ grep:
               - '-r'
             tag: CIS-5.4.4
       description: Ensure default user umask is 027 or more restrictive
-    disable_mount_cramfs:
-      data:
-        CentOS Linux-7:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: cramfs
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.1
-      description: Ensure mounting of cramfs filesystems is disabled
-    disable_mount_freevxfs:
-      data:
-        CentOS Linux-7:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: freevxfs
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.2
-      description: Ensure mounting of freevxfs filesystems is disabled
-    disable_mount_jffs2:
-      data:
-        CentOS Linux-7:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: jffs2
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.3
-      description: Ensure mounting of jffs2 filesystems is disabled
-    disable_mount_hfs:
-      data:
-        CentOS Linux-7:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: hfs
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.4
-      description: Ensure mounting of hfs filesystems is disabled
-    disable_mount_hfsplus:
-      data:
-        CentOS Linux-7:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: hfsplus
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.5
-      description: Ensure mounting of hfsplus filesystems is disabled
-    disable_mount_squashfs:
-      data:
-        CentOS Linux-7:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: squashfs
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.6
-      description: Ensure mounting of squashfs filesystems is disabled
-    disable_mount_udf:
-      data:
-        CentOS Linux-7:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: udf
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.7
-      description: Ensure mounting of udf filesystems is disabled
-    disable_mount_fat:
-      data:
-        CentOS Linux-7:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: vfat
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.8
-      description: Ensure mounting of FAT filesystems is disabled
     mounts_var_tmp_partition_nodev:
       data:
         CentOS Linux-7:
