@@ -288,7 +288,7 @@ grep:
         Ubuntu-16.04:
         - /etc/ssh/sshd_config:
             pattern: ClientAliveInterval
-            match_output: ^ClientAliveInterval +([1-2]{0,1}d{1,2}|300)$
+            match_output: ^ClientAliveInterval +([1-2]{0,1}\d{1,2}|300)$
             match_output_regex: True
             tag: CIS-9.3.12
         - /etc/ssh/sshd_config:

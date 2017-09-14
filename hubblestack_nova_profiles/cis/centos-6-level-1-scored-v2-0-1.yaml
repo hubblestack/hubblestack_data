@@ -797,7 +797,7 @@ grep:
           - '/etc/ssh/sshd_config':
               tag: CIS-5.2.13
               pattern: "^ClientAliveInterval"
-              match_output: ^ClientAliveInterval +([1-2]{0,1}d{1,2}|300)$
+              match_output: ^ClientAliveInterval +([1-2]{0,1}\d{1,2}|300)$
               match_output_regex: True
           - '/etc/ssh/sshd_config':
               tag: CIS-5.2.13
