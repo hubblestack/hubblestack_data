@@ -806,13 +806,14 @@ grep:
               match_output_regex: True
       description: Ensure SSH Idle Timeout Interval is configured
 
-    sshd_login_grace:
+    sshd_gracetime:
       data:
         'Red Hat Enterprise Linux Server-6':
           - '/etc/ssh/sshd_config':
               tag: CIS-5.2.14
-              pattern: "LoginGraceTime"
-              match_output: "LoginGraceTime 60"
+              pattern: ^LoginGraceTime
+              match_output: ^LoginGraceTime ([0-5]{0,1}\d|60|1m)$
+              match_output_regex: True
       description: Ensure SSH LoginGraceTime is set to one minute or less
 
     sshd_limit_access:
