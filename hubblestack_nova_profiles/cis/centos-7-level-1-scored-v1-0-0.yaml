@@ -289,7 +289,7 @@ grep:
       data:
         CentOS Linux-7:
         - /etc/ssh/sshd_config:
-            match_output: ^ClientAliveInterval +([1-2]{0,1}d{1,2}|300)$
+            match_output: ^ClientAliveInterval +([1-2]{0,1}\d{1,2}|300)$
             match_output_regex: True
             pattern: ^ClientAliveInterval
             tag: CIS-6.2.12
