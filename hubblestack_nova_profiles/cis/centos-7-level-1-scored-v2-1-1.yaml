@@ -15,8 +15,6 @@
 #       6.2.5-12
 #       6.2.15-19
 
-
-
 grep:
   blacklist:
     legacy_passwd_entries_group:
@@ -618,49 +616,11 @@ grep:
       description: Ensure lockout for failed password attempts is configured
 pkg:
   blacklist:
-    avahi-daemon:
-      data:
-        CentOS Linux-7:
-        - avahi-daemon: CIS-2.2.3
-      description: Ensure Avahi Server is not enabled
-    cups:
-      data:
-        CentOS Linux-7:
-        - cups: CIS-2.2.4
-      description: Ensure CUPS is not enabled
-    dhcp:
-      data:
-        CentOS Linux-7:
-        - dhcp: CIS-2.2.5
-      description: Ensure DHCP Server is not enabled
-    slapd:
-      data:
-        CentOS Linux-7:
-        - openldap-servers: CIS-2.2.6
-      description: Ensure LDAP server is not enabled
-    ftp:
-      data:
-        CentOS Linux-7:
-        - perl-ftpd: CIS-2.2.9
-        - proftpd: CIS-2.2.9
-        - pure-ftpd: CIS-2.2.9
-        - vsftpd: CIS-2.2.9
-      description: Ensure FTP Server is not enabled
     nis-client:
       data:
         CentOS Linux-7:
         - ypbind: CIS-2.3.1
       description: Ensure NIS Client is not installed
-    nis-server:
-      data:
-        CentOS Linux-7:
-        - ypserv: CIS-2.2.16
-      description: Ensure NIS Server is not enabled
-    rsh:
-      data:
-        CentOS Linux-7:
-        - rsh-server: CIS-2.2.17
-      description: Ensure rsh server is not enabled
     rsh:
       data:
         CentOS Linux-7:
@@ -676,31 +636,11 @@ pkg:
         CentOS Linux-7:
         - talk: CIS-2.3.3
       description: Ensure talk client is not installed
-    talk-server:
-      data:
-        CentOS Linux-7:
-        - talk-server: CIS-2.2.21
-      description: Ensure talk server is not enabled
     telnet-client:
       data:
         CentOS Linux-7:
         - telnet: CIS-2.3.4
       description: Ensure telnet client is not installed
-    telnet-server:
-      data:
-        CentOS Linux-7:
-        - telnet-server: CIS-2.2.18
-      description: Ensure telnet server is not enabled
-    tftp-server:
-      data:
-        CentOS Linux-7:
-        - tftp-server: CIS-2.2.19
-      description: Ensure tftp server is not enabled
-    tftp:
-      data:
-        CentOS Linux-7:
-        - tftp: CIS-2.2.19
-      description: Ensure tftp server is not enabled
     xinetd:
       data:
         CentOS Linux-7:
@@ -744,67 +684,12 @@ service:
         CentOS Linux-7:
         - autofs: CIS-1.1.22
       description: Disable Automounting
-    rsync:
-      data:
-        CentOS Linux-7:
-        - rsyncd: CIS-2.2.20
-      description: Ensure rsync service is not enabled
-    nfs:
-      data:
-        CentOS Linux-7:
-        - nfs: CIS-2.2.7
-      description: Ensure NFS and RPC are not enabled
-    rpc:
-      data:
-        CentOS Linux-7:
-        - rpcbind: CIS-2.2.7
-      description: Ensure NFS and RPC are not enabled
-    named:
-      data:
-        CentOS Linux-7:
-        - named: CIS-2.2.8
-      description: Ensure DNS Server is not enabled
-    httpd:
-      data:
-        CentOS Linux-7:
-        - httpd: CIS-2.2.10
-      description: Ensure HTTP server is not enabled
-    pop3_imap:
-      data:
-        CentOS Linux-7:
-        - dovecot: CIS-2.2.11
-      description: Ensure IMAP and POP3 server is not enabled
-    samba:
-      data:
-        CentOS Linux-7:
-        - smb: CIS-2.2.12
-      description: Ensure Samba is not enabled
-    http_proxy:
-      data:
-        CentOS Linux-7:
-        - squid: CIS-2.2.13
-      description: Ensure HTTP Proxy Server is not enabled
-    snmp:
-      data:
-        CentOS Linux-7:
-        - snmpd: CIS-2.2.14
-      description: Ensure SNMP Server is not enabled
   whitelist:
-    rsyslogd_running:
-      data:
-        CentOS Linux-7:
-        - rsyslog: CIS-4.2.1.1
-      description: Ensure rsyslog Service is enabled
     syslog-ng_running:
       data:
         CentOS Linux-7:
         - syslog-ng: CIS-4.2.2.1
       description: Ensure syslog-ng service is enabled
-    crond_running:
-      data:
-        CentOS Linux-7:
-        - crond: CIS-5.1.1
-      description: Ensure cron daemon is enabled
 stat:
   at_cron_allow:
     data:
@@ -1156,6 +1041,147 @@ sysctl:
           match_output: '1'
           tag: CIS-3.2.8
     description: Ensure TCP SYN Cookies is enabled
+systemctl:
+  whitelist:
+    rsyslog_enabled:
+      data:
+        CentOS Linux-7:
+        - rsyslog:
+           tag: CIS-4.2.1.1
+      description: Ensure rsyslog Service is enabled
+    cron_deamon_enabled:
+      data:
+        CentOS Linux-7:
+        - crond:
+           tag: CIS-5.1.1
+      description: Ensure cron daemon is enabled
+  blacklist:
+    avahi-daemon-disabled:
+      data:
+        CentOS Linux-7:
+        - avahi-daemon:
+            tag: CIS-2.2.3
+      description: Ensure Avahi Server is not enabled
+    cups-disabled:
+      data:
+        CentOS Linux-7:
+        - cups:
+            tag: CIS-2.2.4
+      description: Ensure CUPS is not enabled
+    dhcpd-disabled:
+      data:
+        CentOS Linux-7:
+        - dhcpd:
+            tag: CIS-2.2.5
+      description: Ensure DHCP Server is not enabled
+    ldap-server-disabled:
+      data:
+        CentOS Linux-7:
+        - slapd:
+            tag: CIS-2.2.6
+      description: Ensure LDAP server is not enabled
+    nfs-disabled:
+      data:
+        CentOS Linux-7:
+        - nfs:
+            tag: CIS-2.2.7
+      description: Ensure NFS and RPC are not enabled
+    rpc-disabled:
+      data:
+        CentOS Linux-7:
+        - rpcbind:
+            tag: CIS-2.2.7
+      description: Ensure NFS and RPC are not enabled
+    dns-server-disabled:
+      data:
+        CentOS Linux-7:
+        - named:
+            tag: CIS-2.2.8
+      description: Ensure DNS Server is not enabled
+    ftp-server-disabled:
+      data:
+        CentOS Linux-7:
+        - vsftpd:
+            tag: CIS-2.2.9
+      description: Ensure FTP Server is not enabled
+    http-server-disabled:
+      data:
+        CentOS Linux-7:
+        - httpd:
+            tag: CIS-2.2.10
+      description: Ensure HTTP server is not enabled
+    imap-pop3-server-disabled:
+      data:
+        CentOS Linux-7:
+        - dovecot:
+            tag: CIS-2.2.11
+      description: Ensure IMAP and POP3 server is not enabled
+    samba-server-disabled:
+      data:
+        CentOS Linux-7:
+        - smb:
+            tag: CIS-2.2.12
+      description: Ensure Samba is not enabled
+    http-proxy-server-disabled:
+      data:
+        CentOS Linux-7:
+        - squid:
+            tag: CIS-2.2.13
+      description: Ensure HTTP Proxy Server is not enabled
+    snmp-server-disabled:
+      data:
+        CentOS Linux-7:
+        - snmpd:
+            tag: CIS-2.2.14
+      description: Ensure SNMP Server is not enabled
+    nis-server-disabled:
+      data:
+        CentOS Linux-7:
+        - ypserv:
+            tag: CIS-2.2.16
+      description: Ensure NIS Server is not enabled
+    rsh-socket-disabled:
+      data:
+        CentOS Linux-7:
+        - rsh.socket:
+            tag: CIS-2.2.17
+      description: Ensure rsh Server is not enabled
+    rlogin-socket-disabled:
+      data:
+        CentOS Linux-7:
+        - rlogin.socket:
+            tag: CIS-2.2.17
+      description: Ensure rsh Server is not enabled
+    rexec-socket-disabled:
+      data:
+        CentOS Linux-7:
+        - rexec.socket:
+            tag: CIS-2.2.17
+      description: Ensure rsh Server is not enabled
+    telnet-server-disabled:
+      data:
+        CentOS Linux-7:
+        - telnet.socket:
+            tag: CIS-2.2.18
+      description: Ensure telnet server is not enabled
+    tftp-server-disabled:
+      data:
+        CentOS Linux-7:
+        - tftp.socket:
+            tag: CIS-2.2.19
+      description: Ensure tftp server is not enabled
+    rsync-service-disabled:
+      data:
+        CentOS Linux-7:
+        - rsyncd:
+            tag: CIS-2.2.20
+      description: Ensure rsync service is not enabled
+    talk-server-disabled:
+      data:
+        CentOS Linux-7:
+        - ntalk:
+            tag: CIS-2.2.21
+      description: Ensure talk server is not enabled
 
 misc:
   mail_configured_for_local_only_mode:
