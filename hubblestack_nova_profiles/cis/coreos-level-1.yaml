@@ -125,7 +125,8 @@ grep:
         '*CoreOS*':
         - /etc/ssh/sshd_config:
             pattern: ^LoginGraceTime
-            match_output: '60'
+            match_output: ^LoginGraceTime ([0-5]{0,1}\d|60|1m)$
+            match_output_regex: True
             tag: CIS-5.2.14
       description: Ensure SSH LoginGraceTime is set to one minute or less
     sshd_ignore_rhosts:
