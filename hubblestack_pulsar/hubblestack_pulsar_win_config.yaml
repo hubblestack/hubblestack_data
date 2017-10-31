@@ -1,3 +1,6 @@
+C:\Program Files (x86)\Hubble:
+  exclude:
+    - C:\Program Files (x86)\Hubble\var
 C:\Users:
   exclude:
     - C:\Users\*\AppData\Local\VMware\vpx
