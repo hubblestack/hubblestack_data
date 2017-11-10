@@ -51,3 +51,5 @@ day:
     query: SELECT t.unix_time AS query_time, si.uuid, si.cpu_type, si.cpu_subtype, si.cpu_brand, si.cpu_physical_cores, si.cpu_logical_cores, si.hardware_vendor, mi.memory_total, mi.memory_free, mi.swap_total, mi.swap_free, pi.vendor AS bios_vendor, pi.version AS bios_version, pi.date AS bios_date, pi.revision AS bios_revision, (SELECT average FROM load_average WHERE period = '1m') AS load_1m, (SELECT average FROM load_average WHERE period = '5m') AS load_5m, (SELECT average FROM load_average WHERE period = '15m') AS load_15m FROM system_info AS si, memory_info AS mi, platform_info AS pi, time AS t;
   - query_name: ami_info
     query: SELECT t.unix_time AS query_time, filename AS image_info FROM file LEFT JOIN time AS t WHERE directory='/etc/image_info';
+  - query_name: profile_version
+    query: SELECT t.unix_time AS query_time, '2017-11-1' AS version FROM time AS t;
