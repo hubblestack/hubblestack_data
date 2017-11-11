@@ -13,6 +13,8 @@
 /usr/local/sbin: { recurse: True, auto_add: True }
 /opt/splunk/etc: { recurse: True, auto_add: True }
 /opt/bin: { recurse: True, auto_add: True }
+/opt/osquery: { recurse: True, auto_add: True }
+/opt/hubble: { recurse: True, auto_add: True }
 /etc:
   exclude:
     - /etc/passwd.lock
