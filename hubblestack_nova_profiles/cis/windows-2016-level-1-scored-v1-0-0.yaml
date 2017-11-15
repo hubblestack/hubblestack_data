@@ -1,12 +1,13 @@
-# NOTE: This CIS Profile only includes Level 1 Scored Items for Windows 2012
+# NOTE: This CIS Profile only includes Level 1 Scored Items for Windows 2016
 # NOTE: Within this file, there are a few sections that should be tailored to your
 #       organization's specific policy.  Search for '# NOTE: ' comments throughout the file
 # NOTE: The value_types are as follows:
 #         1) more = more than the number located in match_output.  *Must be a number*
 #         2) less = less than the number located in match_output.  *Must be a number*
-#         3) equal = equal to the item located in match_output.  *Does not need to be a number*
+#         3) equal = equal to the item located in match_output.  *Does not need to be a number but string must be in lowercase*
 #         4) account = Match account names.  *Must be account names only*
 #         5) configured = Must be set to company specific information.  *Cannot be blank or default*
+#         6) contains = Must conatins this value but might contain other values as well.  *Does need to be a lowercase string*
 
 
 
@@ -89,8 +90,8 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeNetworkLogonRight':
               tag: CIS-2.2.2
-              match_output: '*S-1-5-11,*S-1-5-32-544'
-              value_type: 'account'
+              match_output: '*s-1-5-11,*s-1-5-32-544'
+              value_type: 'equal'
       description: (l1) configure 'access this computer from the network'
     adjust_memory_quotas:
       data:
@@ -177,24 +178,24 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeDenyNetworkLogonRight':
               tag: CIS-2.2.17
-              match_output: '*S-1-5-114,*S-1-5-32-546'
-              value_type: 'account'
+              match_output: '*s-1-5-32-546'
+              value_type: 'contains'
       description: (l1) configure 'deny access to this computer from the network'
     deny_log_on_as_a_batch_job :
       data:
         'Microsoft Windows Server 2016*':
           - 'SeDenyBatchLogonRight':
               tag: CIS-2.2.18
-              match_output: 'Guests'
-              value_type: 'account'
+              match_output: '*s-1-5-32-546'
+              value_type: 'contains'
       description: (l1) ensure 'deny log on as a batch job' to include 'guests'
     deny_log_on_as_a_service :
       data:
         'Microsoft Windows Server 2016*':
           - 'SeDenyServiceLogonRight':
               tag: CIS-2.2.19
-              match_output: 'Guests'
-              value_type: 'account'
+              match_output: '*s-1-5-32-546'
+              value_type: 'contains'
       description: (l1) ensure 'deny log on as a service' to include 'guests'
     deny_log_on_locally :
       data:
@@ -209,8 +210,8 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeDenyRemoteInteractiveLogonRight':
               tag: CIS-2.2.21
-              match_output: '*S-1-5-113,*S-1-5-32-546'
-              value_type: 'account'
+              match_output: '*s-1-5-113,*s-1-5-32-546'
+              value_type: 'contains'
       description: (l1) ensure 'deny log on through remote desktop services' to include 'guests, local account'
     force_shutdown_from_a_remote_system :
       data:
@@ -233,8 +234,8 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeImpersonatePrivilege':
               tag: CIS-2.2.25
-              match_output: '*S-1-5-19,*S-1-5-32-544,*S-1-5-32-568,*S-1-5-6'
-              value_type: 'account'
+              match_output: '*s-1-5-19,*s-1-5-20,*s-1-5-32-544,*s-1-5-6'
+              value_type: 'equal'
       description: (l1) configure 'impersonate a client after authentication'
     increase_scheduling_priority :
       data:
@@ -289,8 +290,8 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeSystemProfilePrivilege':
               tag: CIS-2.2.35
-              match_output: '*S-1-5-32-544, NT SERVICE\WdiServiceHost' #Needs work for NT Service accounts
-              value_type: 'account'
+              match_output: '*s-1-5-32-544,*s-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420'
+              value_type: 'equal'
       description: (l1) ensure 'profile system performance' is set to 'administrators, nt service\wdiservicehost'
     replace_a_process_level_token :
       data:
@@ -483,6 +484,10 @@ win_secedit:
               tag: CIS-2.3.7.7
               match_output: '15' # between 5 and 14
               value_type: 'less'
+          - 'MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\PasswordExpiryWarning':
+              tag: CIS-2.3.7.7
+              match_output: '4' # between 5 and 14
+              value_type: 'more'
       description: (l1) ensure 'interactive logon - prompt user to change password before expiration' is set to 'between 5 and 14 days'
     interactive_logon_require_domain_controller_authentication_to_unlock_workstation :
       data:
@@ -827,15 +832,15 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'NewAdministratorName':
               tag: CIS-2.3.1.5
-              match_output: 'Administrator'
+              match_output: '"administrator"'
               value_type: 'equal'
       description: (l1) configure 'accounts - rename administrator account'
     accounts_rename_guest_account :
       data:
         'Microsoft Windows Server 2016*':
-          - 'AccountsRenameguestaccount':
+          - 'NewGuestName':
               tag: CIS-2.3.1.6
-              match_output: 'Guest'
+              match_output: '"guest"'
               value_type: 'equal'
       description: (l1) configure 'accounts - rename guest account'
     network_access_named_pipes_that_can_be_accessed_anonymously :
@@ -1419,7 +1424,7 @@ win_reg:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd\PasswordComplexity':
               tag: CIS-18.2.4
-              match_output: '4' 
+              match_output: '4'
               value_type: 'equal'
       description: 'Ensure Password Settings - Password Complexity is set to Enabled - Large letters + small letters + numbers + special characters '
     Password Settings_ Password Length :
@@ -1595,7 +1600,7 @@ win_reg:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Policies\EarlyLaunch\DriverLoadPolicy':
               tag: CIS-18.8.11.1
-              match_output: '3' 
+              match_output: '3'
               value_type: 'equal'
       description: (l1) ensure 'boot-start driver initialization policy' is set to 'enabled -  good, unknown and bad but critical'
     Configure registry policy processing_ Do not apply during periodic background processing :

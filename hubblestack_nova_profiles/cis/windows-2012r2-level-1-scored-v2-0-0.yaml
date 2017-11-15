@@ -98,7 +98,7 @@ win_secedit:
           - 'SeIncreaseQuotaPrivilege':
               tag: CIS-2.2.5
               match_output: 'Administrators, LOCAL SERVICE, NETWORK SERVICE'
-              value_type: 'match'
+              value_type: 'account'
       description: (l1) ensure 'adjust memory quotas for a process' is set to 'administrators, local service, network service'
     allow_logon_locally:
       data:
