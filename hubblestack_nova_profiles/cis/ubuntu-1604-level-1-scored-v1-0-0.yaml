@@ -1026,3 +1026,23 @@ command:
               shell: /bin/bash
               fail_if_matched: true
     description: Ensure root PATH Integrity
+
+misc:
+  system_account_non_login:
+    data:
+      Ubuntu-16.04:
+        tag: CIS-5.4.2
+        function: system_account_non_login
+        kwargs:
+            non_login_shell: '/usr/sbin/nologin'
+    description: Ensure system accounts are non-login
+  home_directory_permission:
+    data:
+      Ubuntu-16.04:
+        tag: CIS-6.2.8
+        function: check_users_home_directory_permissions
+        kwargs:
+            non_login_shell: '/usr/sbin/nologin'
+            extra_users: 'ubuntu'
+    description: 'Ensure users home directories permissions are 750 or more restrictive'
+
