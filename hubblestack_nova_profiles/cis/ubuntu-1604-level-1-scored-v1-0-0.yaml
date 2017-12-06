@@ -1045,6 +1045,6 @@ misc:
         kwargs:
             non_login_shell: '/usr/sbin/nologin'
             except_for_users: 'ubuntu'
-            allowed_permission: '750'       # optional, default value is 750
+            max_allowed_permission: '750'       # optional, default value is 750
     description: 'Ensure users home directories permissions are 750 or more restrictive'
 
