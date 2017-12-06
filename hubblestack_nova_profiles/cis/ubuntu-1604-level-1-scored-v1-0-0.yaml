@@ -1035,6 +1035,7 @@ misc:
         function: system_account_non_login
         kwargs:
             non_login_shell: '/usr/sbin/nologin'
+            max_system_uid: '500'            # optional, default value is 500
     description: Ensure system accounts are non-login
   home_directory_permission:
     data:
@@ -1043,6 +1044,7 @@ misc:
         function: check_users_home_directory_permissions
         kwargs:
             non_login_shell: '/usr/sbin/nologin'
-            extra_users: 'ubuntu'
+            except_for_users: 'ubuntu'
+            allowed_permission: '750'       # optional, default value is 750
     description: 'Ensure users home directories permissions are 750 or more restrictive'
 
