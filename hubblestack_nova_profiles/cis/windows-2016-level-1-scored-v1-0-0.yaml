@@ -987,7 +987,8 @@ win_firewall:
         'Microsoft Windows Server 2016*':
           - 'LogMaxSizeKilobytes':
               tag: CIS-9.1.8
-              match_output: '16384'
+              match_output: '16383'
+              match_type: '>'
               value_type: 'domain'
       description: (l1) ensure 'windows firewall - domain - logging - size limit (kb)' is set to '16,384 kb or greater'
     windows_firewall_domain_logging_log_dropped_packets :
@@ -1067,7 +1068,8 @@ win_firewall:
         'Microsoft Windows Server 2016*':
           - 'LogMaxSizeKilobytes':
               tag: CIS-9.2.8
-              match_output: '16384'
+              match_output: '16383'
+              match_type: '>'
               value_type: 'private'
       description: (l1) ensure 'windows firewall - private - logging - size limit (kb)' is set to '16,384 kb or greater'
     windows_firewall_private_logging_log_dropped_packets :
@@ -1147,7 +1149,8 @@ win_firewall:
         'Microsoft Windows Server 2016*':
           - 'LogMaxSizeKilobytes':
               tag: CIS-9.3.8
-              match_output: '16384'
+              match_output: '16383'
+              match_type: '>'
               value_type: 'public'
       description: (l1) ensure 'windows firewall - public - logging -  size limit (kb)' is set to '16,384 kb or greater'
     windows_firewall_public_logging_log_dropped_packets :
