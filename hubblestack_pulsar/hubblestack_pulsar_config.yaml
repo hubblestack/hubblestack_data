@@ -7,10 +7,12 @@
 /usr/bin: { recurse: True, auto_add: True }
 /usr/sbin: { recurse: True, auto_add: True }
 /usr/lib64: { recurse: True, auto_add: True }
+/usr/libexec: { recurse: True, auto_add: True }
 /usr/local/etc: { recurse: True, auto_add: True }
 /usr/local/bin: { recurse: True, auto_add: True }
 /usr/local/lib: { recurse: True, auto_add: True }
 /usr/local/sbin: { recurse: True, auto_add: True }
+/usr/local/libexec: { recurse: True, auto_add: True }
 /opt/splunk/etc: { recurse: True, auto_add: True }
 /opt/bin: { recurse: True, auto_add: True }
 /opt/osquery: { recurse: True, auto_add: True }
