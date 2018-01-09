@@ -43,8 +43,9 @@ nova:
     - cis.amazon-level-1-scored-v1-0-0
   'G@osfinger:Amazon*Linux*2018*':
     - cis.amazon-level-1-scored-v1-0-0
-  '*':
-     - security.pcid
+  'G@kernel:Linux':
+    - security.pcid
+  #'*':
   #  - misc
   #'G@kernel:Linux and not G@osfinger:*CoreOS*':
   #  - cve.scan-v2
