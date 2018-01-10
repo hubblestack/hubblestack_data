@@ -9,4 +9,4 @@ grep:
               match_output: ' pcid'
               grep_args:
                 - '-i'
-      description: 'This checks the /proc/cpuinfo file for the pcid flag. Helpful for triaging Spectre and Meltdown.'
+      description: 'This checks the /proc/cpuinfo file for the pcid flag.'
