@@ -1,0 +1,12 @@
+grep:
+  whitelist:
+    check_cpuinfo_for_pcid:
+      data:
+        '*':
+          - '/proc/cpuinfo':
+              tag: 'Meltdown/Spectre'
+              pattern: 'flags'
+              match_output: ' pcid'
+              grep_args:
+                - '-i'
+      description: 'This checks the /proc/cpuinfo file for the pcid flag.'

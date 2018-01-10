@@ -43,6 +43,8 @@ nova:
     - cis.amazon-level-1-scored-v1-0-0
   'G@osfinger:Amazon*Linux*2018*':
     - cis.amazon-level-1-scored-v1-0-0
+  'G@kernel:Linux':
+    - security.meltdown_spectre
   #'*':
   #  - misc
   #'G@kernel:Linux and not G@osfinger:*CoreOS*':
