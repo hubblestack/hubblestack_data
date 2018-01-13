@@ -127,7 +127,7 @@ win_secedit:
     change_the_system_time :
       data:
         'Microsoft Windows Server 2008*':
-          - 'Changethesystemtime':
+          - 'SeTimeZonePrivilege':
               tag: CIS-2.2.9
               match_output: 'Administrators, LOCAL SERVICE'
               value_type: 'account'
