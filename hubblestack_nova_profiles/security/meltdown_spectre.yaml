@@ -19,10 +19,9 @@ grep:
           - '/sys/kernel/debug/x86/pti_enabled':
               tag: 'CVE-2017-5754'
               pattern: '0'
-              match_output: '0'
               match_on_file_missing: True
       description: |
-        This check determines if Centos 7 has pti active.
+        This check determines if pti is active in Centos 7.
         It should fail if pti isn't present or it has been disabled.
 
 stat:
@@ -35,7 +34,8 @@ stat:
             uid: 0
             group: root
             gid: 0
-    description: 'Page Table Isolation (pti)'
+    description: |
+      This check determines pti capability in Centos 7.
 
 grep:
   whitelist:
@@ -47,18 +47,19 @@ grep:
               pattern: 'Kernel page table isolation enabled'
               match_on_file_missing: False
       description: |
-        This check determines if Centos 6 has pti active.
+        This check determines if pti is active in Centos 6.
         In Centos 6 the path in debugfs is not available by default.
 
 pkg:
   blacklist:
-    kernel:
+    centos6-meltdown-present:
       data:
         CentOS-6:
           - kernel:
-              tag: 'Spectre'
+              tag: 'CVE-2017-5754'
               version: '<2.6.32-696.18.7'
-      description: 'CVE-2017-5753'
+      description: |
+        An unideal Meltdown related mitigation check due to lack of better options.
 
 grep:
   whitelist:
