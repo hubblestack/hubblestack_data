@@ -10,7 +10,7 @@ grep:
         CentOS Linux-7:
           - '/sys/kernel/debug/x86/pti_enabled':
               tag: 'CVE-2017-5754-fix-enabled'
-              pattern: '1'
+              pattern: '0'
               match_on_file_missing: True
       description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Centos 7.'
     amazonlinux-meltdown-disabled:
@@ -32,7 +32,7 @@ grep:
               grep_args:
                 - '-o'
                 - '-P'
-              match_on_file_missing: False
+              match_on_file_missing: True
       description: 'Check if CVE-2017-5754 mitigation has NOT been disabled.'
   whitelist:
     centos6-meltdown-disabled:
