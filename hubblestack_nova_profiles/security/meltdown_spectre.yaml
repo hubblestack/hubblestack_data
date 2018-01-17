@@ -1,80 +1,90 @@
-grep:
-  whitelist:
-    check_cpuinfo_for_pcid:
-      data:
-        '*':
-          - '/proc/cpuinfo':
-              tag: 'Meltdown/Spectre'
-              pattern: 'flags'
-              match_output: ' pcid'
-              grep_args:
-                - '-i'
-      description: 'This checks the /proc/cpuinfo file for the pcid flag.'
+#
+# explanation for the following checks will be written here
+#
+#
 
 grep:
   blacklist:
-    centos7-meltdown-present-and-active:
+    centos7-meltdown-disabled:
       data:
         CentOS Linux-7:
           - '/sys/kernel/debug/x86/pti_enabled':
-              tag: 'CVE-2017-5754'
-              pattern: '0'
+              tag: 'CVE-2017-5754-fix-enabled'
+              pattern: '1'
               match_on_file_missing: True
-      description: |
-        This check determines if pti is active in Centos 7.
-        It should fail if pti isn't present or it has been disabled.
-
-stat:
-  centos7-meltdown-present:
-    data:
-      CentOS Linux-7:
-        - '/sys/kernel/debug/x86/pti_enabled':
-            tag: 'CVE-2017-5754'
-            user: root
-            uid: 0
-            group: root
-            gid: 0
-    description: |
-      This check determines pti capability in Centos 7.
-
-grep:
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Centos 7.'
+    amazonlinux-meltdown-disabled:
+      data:
+        'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
+              tag: 'CVE-2017-5754-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Amazon Linux.'
+    linux-meltdown-disabled:
+      data:
+        '*Ubuntu*,*CoreOS*':
+          - '/proc/cmdline':
+              tag: 'CVE-2017-5754-fix-enabled'
+              pattern: '.*\\K\(?<=\ \)\(nopti|pti=off\)\(?=\ .*\)'
+              match_output: (nopti|pti=off)
+              match_output_regex: True
+              grep_args:
+                - '-o'
+                - '-P'
+              match_on_file_missing: False
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled.'
   whitelist:
-    centos6-meltdown-present-and-active:
+    centos6-meltdown-disabled:
       data:
         CentOS-6:
           - '/var/log/dmesg':
-              tag: 'CVE-2017-5754'
+              tag: 'CVE-2017-5754-fix-enabled'
               pattern: 'Kernel page table isolation enabled'
               match_on_file_missing: False
-      description: |
-        This check determines if pti is active in Centos 6.
-        In Centos 6 the path in debugfs is not available by default.
-
-pkg:
-  blacklist:
-    centos6-meltdown-present:
-      data:
-        CentOS-6:
-          - kernel:
-              tag: 'CVE-2017-5754'
-              version: '<2.6.32-696.18.7'
-      description: |
-        An unideal Meltdown related mitigation check due to lack of better options.
-
-grep:
-  whitelist:
+      description: 'Check for CVE-2017-5754 mitigation in Centos 6.'
     linux-meltdown-present:
       data:
-        '*':
+        '*Ubuntu*,*CoreOS*': 
           - '/proc/cpuinfo':
-              tag: 'CVE-2017-5754'
-              pattern: '^flags\s*:.*\K(?<=\ )(pti|kaiser)(?=\ .*)'
+              tag: 'CVE-2017-5754-fix-present'
+              pattern: '^flags\\s*:.*\\K\(?<=\ \)\(pti|kaiser\)\(?=\ .*\)'
               match_output: (pti|kaiser)
               match_output_regex: True
               grep_args:
                 - '-o'
                 - '-P'
               match_on_file_missing: False
-      description: |
-        This check determines if Meltdown or Page Table Isolation fix is present.
+      description: 'Check for CVE-2017-5754 mitigation presence.'
+    check_cpuinfo_for_pcid:
+      data:
+        '*':
+          - '/proc/cpuinfo':
+              tag: 'Meltdown/Spectre/pcid'
+              pattern: 'flags'
+              match_output: ' pcid'
+              grep_args:
+                - '-i'
+      description: 'Check the /proc/cpuinfo file for the pcid flag.'
 
+stat:
+  centos7-meltdown-present:
+    data:
+      CentOS Linux-7:
+        - '/sys/kernel/debug/x86/pti_enabled':
+            tag: 'CVE-2017-5754-fix-present'
+            user: root
+            uid: 0
+            group: root
+            gid: 0
+    description: 'Check for CVE-2017-5754 mitigation presence in Centos 7.'
+  amazonlinux-meltdown-present:
+    data:
+      'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
+             tag: 'CVE-2017-5754-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5754 mitigation presence in Amazon Linux.'
