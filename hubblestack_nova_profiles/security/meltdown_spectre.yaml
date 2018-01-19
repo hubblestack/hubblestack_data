@@ -29,6 +29,22 @@ grep:
               pattern: 'Vulnerable'
               match_on_file_missing: True
       description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Amazon Linux.'
+    amazonlinux-spectrev1-not-disabled:
+      data:
+        'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
+              tag: 'CVE-2017-5753-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5753 mitigation has been enabled in Amazon Linux.'
+    amazonlinux-spectrev2-not-disabled:
+      data:
+        'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
+              tag: 'CVE-2017-5715-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5715 mitigation has been enabled in Amazon Linux.'
     linux-meltdown-not-disabled:
       data:
         '*Debian*,*Ubuntu*,*CoreOS*':
@@ -163,3 +179,23 @@ stat:
              group: root
              gid: 0
     description: 'Check for CVE-2017-5754 mitigation presence in Amazon Linux.'
+  amazonlinux-spectre-present:
+    data:
+      'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
+             tag: 'CVE-2017-5753-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5753 mitigation presence in Amazon Linux.'
+  amazonlinux-meltdown-present:
+    data:
+      'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
+             tag: 'CVE-2017-5715-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5715 mitigation presence in Amazon Linux.'
