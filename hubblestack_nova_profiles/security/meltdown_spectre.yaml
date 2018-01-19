@@ -15,20 +15,12 @@ grep:
   blacklist:
     centos7-meltdown-not-disabled:
       data:
-        CentOS Linux-7:
+        CentOS Linux-7,Red Hat Enterprise Linux Server-7:
           - '/sys/kernel/debug/x86/pti_enabled':
               tag: 'CVE-2017-5754-fix-enabled'
               pattern: '0'
               match_on_file_missing: True
-      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Centos 7.'
-    rhel7-meltdown-not-disabled:
-      data:
-        Red Hat Enterprise Linux Server-7:
-          - '/sys/kernel/debug/x86/pti_enabled':
-              tag: 'CVE-2017-5754-fix-enabled'
-              pattern: '0'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in RHEL 7.'
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in RHEL/Centos 7.'
     amazonlinux-meltdown-not-disabled:
       data:
         'Amazon Linux*':
@@ -55,7 +47,7 @@ grep:
       description: 'Check if CVE-2017-5715 mitigation has been enabled in Amazon Linux.'
     linux-meltdown-not-disabled:
       data:
-        '*Debian*,*Ubuntu*,*CoreOS*':
+        '*Debian*,*Ubuntu*,*CoreOS*,CentOS-6':
           - '/proc/cmdline':
               tag: 'CVE-2017-5754-fix-enabled'
               pattern: '.*\\K\(?<=\ \)\(nopti|pti=off\)\(?=\ .*\)'
@@ -69,20 +61,12 @@ grep:
   whitelist:
     centos6-meltdown-presence:
       data:
-        CentOS-6:
+        CentOS-6,Red Hat Enterprise Linux Server-6:
           - '/var/log/dmesg':
               tag: 'CVE-2017-5754-fix-present'
               pattern: 'Kernel page table isolation enabled'
               match_on_file_missing: False
-      description: 'Check for CVE-2017-5754 mitigation presence in Centos 6.'
-    rhel6-meltdown-presence:
-      data:
-        Red Hat Enterprise Linux Server-6:
-          - '/var/log/dmesg':
-              tag: 'CVE-2017-5754-fix-present'
-              pattern: 'Kernel page table isolation enabled'
-              match_on_file_missing: False
-      description: 'Check for CVE-2017-5754 mitigation presence in RHEL 6.'
+      description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos 6.'
     debian7-meltdown-present:
       data:
         Debian GNU/Linux-7:
@@ -159,24 +143,14 @@ grep:
 stat:
   centos7-meltdown-present:
     data:
-      CentOS Linux-7:
+      CentOS Linux-7,Red Hat Enterprise Linux Server-7:
         - '/sys/kernel/debug/x86/pti_enabled':
             tag: 'CVE-2017-5754-fix-present'
             user: root
             uid: 0
             group: root
             gid: 0
-    description: 'Check for CVE-2017-5754 mitigation presence in Centos 7.'
-  rhel7-meltdown-present:
-    data:
-      Red Hat Enterprise Linux Server-7:
-        - '/sys/kernel/debug/x86/pti_enabled':
-            tag: 'CVE-2017-5754-fix-present'
-            user: root
-            uid: 0
-            group: root
-            gid: 0
-    description: 'Check for CVE-2017-5754 mitigation presence in RHEL 7.'
+    description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos 7.'
   amazonlinux-meltdown-present:
     data:
       'Amazon Linux*':
@@ -187,7 +161,7 @@ stat:
              group: root
              gid: 0
     description: 'Check for CVE-2017-5754 mitigation presence in Amazon Linux.'
-  amazonlinux-spectre-present:
+  amazonlinux-spectrev1-present:
     data:
       'Amazon Linux*':
           - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
@@ -197,7 +171,7 @@ stat:
              group: root
              gid: 0
     description: 'Check for CVE-2017-5753 mitigation presence in Amazon Linux.'
-  amazonlinux-meltdown-present:
+  amazonlinux-spectrev2-present:
     data:
       'Amazon Linux*':
           - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
