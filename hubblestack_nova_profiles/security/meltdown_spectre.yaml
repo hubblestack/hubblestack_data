@@ -139,6 +139,14 @@ grep:
               grep_args:
                 - '-i'
       description: 'Check the /proc/cpuinfo file for the invpcid_single flag.'
+    check_cpuinfo_for_intel:
+      data:
+        '*':
+          - '/proc/cpuinfo':
+              tag: 'Meltdown-intel'
+              pattern: 'vendor_id'
+              match_output: ' GenuineIntel'
+      description: 'Check if it is an Intel cpu.'
 
 stat:
   centos7-meltdown-present:
