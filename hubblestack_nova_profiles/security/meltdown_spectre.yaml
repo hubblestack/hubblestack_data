@@ -1,12 +1,191 @@
+#
+# The following checks aim to detect if a relevant mitigation technique against
+# Meltdown or Spectre vulnerabilities is active.
+# This is done in two separate checks: first checks if a needed kernel feature
+# is present, the second checks if the feature reports as active or at
+# least is not disabled. If both checks succeed, a host should be protected against
+# the vulnerability in question.
+# The reasoning for this approach is two fold:
+# * in some Linux distros there is no other way to detect.
+# * in large fleets of different Linux flavors tracking many different types of
+# check results can become burdensome.
+#
+
 grep:
+  blacklist:
+    centos7-meltdown-not-disabled:
+      data:
+        CentOS Linux-7,Red Hat Enterprise Linux Server-7:
+          - '/sys/kernel/debug/x86/pti_enabled':
+              tag: 'CVE-2017-5754-fix-enabled'
+              pattern: '0'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in RHEL/Centos 7.'
+    amazonlinux-meltdown-not-disabled:
+      data:
+        'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
+              tag: 'CVE-2017-5754-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Amazon Linux.'
+    amazonlinux-spectrev1-not-disabled:
+      data:
+        'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
+              tag: 'CVE-2017-5753-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5753 mitigation has been enabled in Amazon Linux.'
+    amazonlinux-spectrev2-not-disabled:
+      data:
+        'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
+              tag: 'CVE-2017-5715-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5715 mitigation has been enabled in Amazon Linux.'
+    linux-meltdown-not-disabled:
+      data:
+        '*Debian*,*Ubuntu*,*CoreOS*,CentOS-6':
+          - '/proc/cmdline':
+              tag: 'CVE-2017-5754-fix-enabled'
+              pattern: '.*\\K\(?<=\ \)\(nopti|pti=off\)\(?=\ .*\)'
+              match_output: (nopti|pti=off)
+              match_output_regex: True
+              grep_args:
+                - '-o'
+                - '-P'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled.'
   whitelist:
+    centos6-meltdown-presence:
+      data:
+        CentOS-6,Red Hat Enterprise Linux Server-6:
+          - '/var/log/dmesg':
+              tag: 'CVE-2017-5754-fix-present'
+              pattern: 'Kernel page table isolation enabled'
+              match_on_file_missing: False
+      description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos 6.'
+    debian7-meltdown-present:
+      data:
+        Debian GNU/Linux-7:
+          - '/var/log/dmesg':
+              tag: 'CVE-2017-5754-fix-present'
+              pattern: 'Kernel/User page tables isolation: enabled'
+              match_on_file_missing: False
+      description: 'Check for CVE-2017-5754 mitigation presence in Debian 7 Wheezy.'
+    debian8-meltdown-present:
+      data:
+        Debian GNU/Linux-8:
+          - '/var/log/kern.log':
+              tag: 'CVE-2017-5754-fix-present'
+              pattern: 'Kernel/User page tables isolation: enabled'
+              match_on_file_missing: False
+      description: 'Check for CVE-2017-5754 mitigation presence in Debian 8 Jessie.'
+    debian9-meltdown-present:
+      data:
+        Debian GNU/Linux-9:
+          - '/proc/cpuinfo':
+              tag: 'CVE-2017-5754-fix-present'
+              pattern: '^flags\\s*:.*\\K\(?<=\ \)\(pti|kaiser\)\(?=\ .*\)'
+              match_output: (pti|kaiser)
+              match_output_regex: True
+              grep_args:
+                - '-o'
+                - '-P'
+              match_on_file_missing: False
+      description: 'Check for CVE-2017-5754 mitigation presence in Debian 9 Stretch.'
+    linux-meltdown-present:
+      data:
+        '*Ubuntu*,*CoreOS*': 
+          - '/proc/cpuinfo':
+              tag: 'CVE-2017-5754-fix-present'
+              pattern: '^flags\\s*:.*\\K\(?<=\ \)\(pti|kaiser\)\(?=\ .*\)'
+              match_output: (pti|kaiser)
+              match_output_regex: True
+              grep_args:
+                - '-o'
+                - '-P'
+              match_on_file_missing: False
+      description: 'Check for CVE-2017-5754 mitigation presence.'
     check_cpuinfo_for_pcid:
       data:
         '*':
           - '/proc/cpuinfo':
-              tag: 'Meltdown/Spectre'
+              tag: 'Meltdown-pcid'
               pattern: 'flags'
               match_output: ' pcid'
               grep_args:
                 - '-i'
-      description: 'This checks the /proc/cpuinfo file for the pcid flag.'
+      description: 'Check the /proc/cpuinfo file for the pcid flag.'
+    check_cpuinfo_for_invpcid:
+      data:
+        '*':
+          - '/proc/cpuinfo':
+              tag: 'Meltdown-invpcid'
+              pattern: 'flags'
+              match_output: ' invpcid '
+              grep_args:
+                - '-i'
+      description: 'Check the /proc/cpuinfo file for the invpcid flag.'
+    check_cpuinfo_for_invpcid_single:
+      data:
+        '*':
+          - '/proc/cpuinfo':
+              tag: 'Meltdown-invpcid_single'
+              pattern: 'flags'
+              match_output: ' invpcid_single'
+              grep_args:
+                - '-i'
+      description: 'Check the /proc/cpuinfo file for the invpcid_single flag.'
+    check_cpuinfo_for_intel:
+      data:
+        '*':
+          - '/proc/cpuinfo':
+              tag: 'Meltdown-intel'
+              pattern: 'vendor_id'
+              match_output: ' GenuineIntel'
+      description: 'Check if it is an Intel cpu.'
+
+stat:
+  centos7-meltdown-present:
+    data:
+      CentOS Linux-7,Red Hat Enterprise Linux Server-7:
+        - '/sys/kernel/debug/x86/pti_enabled':
+            tag: 'CVE-2017-5754-fix-present'
+            user: root
+            uid: 0
+            group: root
+            gid: 0
+    description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos 7.'
+  amazonlinux-meltdown-present:
+    data:
+      'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
+             tag: 'CVE-2017-5754-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5754 mitigation presence in Amazon Linux.'
+  amazonlinux-spectrev1-present:
+    data:
+      'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
+             tag: 'CVE-2017-5753-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5753 mitigation presence in Amazon Linux.'
+  amazonlinux-spectrev2-present:
+    data:
+      'Amazon Linux*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
+             tag: 'CVE-2017-5715-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5715 mitigation presence in Amazon Linux.'
