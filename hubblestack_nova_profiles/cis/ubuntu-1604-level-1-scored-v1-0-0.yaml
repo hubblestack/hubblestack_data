@@ -104,13 +104,6 @@ grep:
             pattern: /dev/shm
             tag: CIS-1.1.15
       description: Ensure nosuid option set on /dev/shm partition
-    mounts_tmp_partition:
-      data:
-        Ubuntu-16.04:
-        - /proc/mounts:
-            pattern: /tmp
-            tag: CIS-1.1.2
-      description: Ensure separate partition exists for /tmp
     mounts_tmp_partition_nodev:
       data:
         Ubuntu-16.04:
@@ -127,21 +120,6 @@ grep:
             pattern: /tmp
             tag: CIS-1.1.4
       description: Ensure nosuid option set on /tmp partition
-    mounts_var_partition:
-      data:
-        Ubuntu-16.04:
-        - /proc/mounts:
-            pattern: /var
-            tag: CIS-1.1.5
-      description: Ensure separate partition exists for /var
-    fstab_var_tmp_bind_mount:
-      data:
-        Ubuntu-16.04:
-        - /etc/fstab:
-            match_output: /var/tmp
-            pattern: /var
-            tag: CIS-1.1.6
-      description: Ensure separate partition exists for /var/tmp
     mount_var_tmp_partition_nodev:
       data:
         Ubuntu-16.04:
@@ -920,7 +898,7 @@ pkg:
         - iptables: CIS-3.6.1
       description: Ensure iptables is installed
 stat:
-  grub_cfg_owner:
+  grub_cfg_perms:
     data:
       Ubuntu-16.04:
       - /boot/grub/grub.cfg:
@@ -928,12 +906,6 @@ stat:
           group: root
           uid: 0
           user: root
-          tag: CIS-1.4.1
-    description: Ensure permissions on bootloader config are configured
-  grub_cfg_perms:
-    data:
-      Ubuntu-16.04:
-      - /boot/grub/grub.cfg:
           mode: 600
           allow_more_strict: true
           tag: CIS-1.4.1
@@ -1094,18 +1066,6 @@ stat:
           allow_more_strict: true
           tag: CIS-1.7.1.5
     description: Ensure permissions on /etc/issue are configured
-  banner_files_issue_net:
-    data:
-      Ubuntu-16.04:
-      - /etc/issue.net:
-          uid: 0
-          gid: 0
-          user: root
-          group: root
-          mode: 644
-          allow_more_strict: true
-          tag: CIS-1.7.1.6
-    description: Set Warning Banner for Standard Login Services
   passwd_perms:
     data:
       Ubuntu-16.04:
@@ -1479,21 +1439,9 @@ systemctl:
         - telnet.socket:
             tag: CIS-2.1.8
       description: Ensure telnet server is not enabled
-    tftp-server-disabled:
-      data:
-        Ubuntu-16.04:
-        - tftp.socket:
-            tag: CIS-2.2.19
-      description: Ensure tftp server is not enabled
     rsync-service-disabled:
       data:
         Ubuntu-16.04:
         - rsync:
             tag: CIS-2.2.16
       description: Ensure rsync service is not enabled
-    talk-server-disabled:
-      data:
-        Ubuntu-16.04:
-        - ntalk:
-            tag: CIS-2.2.21
-      description: Ensure talk server is not enabled
