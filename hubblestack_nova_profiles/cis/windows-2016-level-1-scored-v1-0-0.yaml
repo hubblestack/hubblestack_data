@@ -1,13 +1,12 @@
-# NOTE: This CIS Profile only includes Level 1 Scored Items for Windows 2016
+# NOTE: This CIS Profile only includes Level 1 Scored Items for Windows 2012
 # NOTE: Within this file, there are a few sections that should be tailored to your
 #       organization's specific policy.  Search for '# NOTE: ' comments throughout the file
 # NOTE: The value_types are as follows:
 #         1) more = more than the number located in match_output.  *Must be a number*
 #         2) less = less than the number located in match_output.  *Must be a number*
-#         3) equal = equal to the item located in match_output.  *Does not need to be a number but string must be in lowercase*
+#         3) equal = equal to the item located in match_output.  *Does not need to be a number*
 #         4) account = Match account names.  *Must be account names only*
 #         5) configured = Must be set to company specific information.  *Cannot be blank or default*
-#         6) contains = Must conatins this value but might contain other values as well.  *Does need to be a lowercase string*
 
 
 
@@ -90,23 +89,23 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeNetworkLogonRight':
               tag: CIS-2.2.2
-              match_output: '*s-1-5-11,*s-1-5-32-544'
-              value_type: 'equal'
+              match_output: '*S-1-5-11,*S-1-5-32-544'
+              value_type: 'account'
       description: (l1) configure 'access this computer from the network'
     adjust_memory_quotas:
       data:
         'Microsoft Windows Server 2016*':
           - 'SeIncreaseQuotaPrivilege':
               tag: CIS-2.2.5
-              match_output: 'Administrators, LOCAL SERVICE, NETWORK SERVICE'
-              value_type: 'match'
+              match_output: '*S-1-5-19,*S-1-5-20,*S-1-5-32-544'
+              value_type: 'account'
       description: (l1) ensure 'adjust memory quotas for a process' is set to 'administrators, local service, network service'
     allow_logon_locally:
       data:
         'Microsoft Windows Server 2016*':
           - 'SeInteractiveLogonRight':
               tag: CIS-2.2.6
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) configure 'allow log on locally'
     allow_log_on_through_remote_desktop_services :
@@ -122,7 +121,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeBackupPrivilege':
               tag: CIS-2.2.8
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'back up files and directories' is set to 'administrators'
     change_the_system_time :
@@ -130,7 +129,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeTimeZonePrivilege':
               tag: CIS-2.2.9
-              match_output: 'Administrators, LOCAL SERVICE'
+              match_output: '*S-1-5-19,*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'change the system time' is set to 'administrators, local service'
     change_the_time_zone :
@@ -138,7 +137,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeSystemtimePrivilege':
               tag: CIS-2.2.10
-              match_output: 'Administrators, LOCAL SERVICE'
+              match_output: '*S-1-5-19,*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'change the time zone' is set to 'administrators, local service'
     create_a_pagefile :
@@ -146,7 +145,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeCreatePagefilePrivilege':
               tag: CIS-2.2.11
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'create a pagefile' is set to 'administrators'
     create_global_objects :
@@ -154,7 +153,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeCreateGlobalPrivilege':
               tag: CIS-2.2.13
-              match_output: 'Administrators, LOCAL SERVICE, NETWORK SERVICE, SERVICE'
+              match_output: '*S-1-5-19,*S-1-5-20,*S-1-5-32-544,*S-1-5-6'
               value_type: 'account'
       description: (l1) ensure 'create global objects' is set to 'administrators, local service, network service, service'
     create_symbolic_links :
@@ -162,7 +161,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeCreateSymbolicLinkPrivilege':
               tag: CIS-2.2.15
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) configure 'create symbolic links'
     debug_programs :
@@ -170,7 +169,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeDebugPrivilege':
               tag: CIS-2.2.16
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'debug programs' is set to 'administrators'
     deny_access_to_this_computer_from_the_network :
@@ -178,31 +177,31 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeDenyNetworkLogonRight':
               tag: CIS-2.2.17
-              match_output: '*s-1-5-32-546'
-              value_type: 'contains'
+              match_output: '*S-1-5-114,*S-1-5-32-546'
+              value_type: 'account'
       description: (l1) configure 'deny access to this computer from the network'
     deny_log_on_as_a_batch_job :
       data:
         'Microsoft Windows Server 2016*':
           - 'SeDenyBatchLogonRight':
               tag: CIS-2.2.18
-              match_output: '*s-1-5-32-546'
-              value_type: 'contains'
+              match_output: '*S-1-5-32-546'
+              value_type: 'account'
       description: (l1) ensure 'deny log on as a batch job' to include 'guests'
     deny_log_on_as_a_service :
       data:
         'Microsoft Windows Server 2016*':
           - 'SeDenyServiceLogonRight':
               tag: CIS-2.2.19
-              match_output: '*s-1-5-32-546'
-              value_type: 'contains'
+              match_output: '*S-1-5-32-546'
+              value_type: 'account'
       description: (l1) ensure 'deny log on as a service' to include 'guests'
     deny_log_on_locally :
       data:
         'Microsoft Windows Server 2016*':
           - 'SeDenyInteractiveLogonRight':
               tag: CIS-2.2.20
-              match_output: 'Guests'
+              match_output: '*S-1-5-32-546'
               value_type: 'account'
       description: (l1) ensure 'deny log on locally' to include 'guests'
     deny_log_on_through_remote_desktop_services :
@@ -210,15 +209,15 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeDenyRemoteInteractiveLogonRight':
               tag: CIS-2.2.21
-              match_output: '*s-1-5-113,*s-1-5-32-546'
-              value_type: 'contains'
+              match_output: '*S-1-5-113,*S-1-5-32-546'
+              value_type: 'account'
       description: (l1) ensure 'deny log on through remote desktop services' to include 'guests, local account'
     force_shutdown_from_a_remote_system :
       data:
         'Microsoft Windows Server 2016*':
           - 'SeRemoteShutdownPrivilege':
               tag: CIS-2.2.23
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'force shutdown from a remote system' is set to 'administrators'
     generate_security_audits :
@@ -226,7 +225,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeAuditPrivilege':
               tag: CIS-2.2.24
-              match_output: 'LOCAL SERVICE, NETWORK SERVICE'
+              match_output: '*S-1-5-19,*S-1-5-20'
               value_type: 'account'
       description: (l1) ensure 'generate security audits' is set to 'local service, network service'
     impersonate_a_client_after_authentication :
@@ -234,15 +233,15 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeImpersonatePrivilege':
               tag: CIS-2.2.25
-              match_output: '*s-1-5-19,*s-1-5-20,*s-1-5-32-544,*s-1-5-6'
-              value_type: 'equal'
+              match_output: '*S-1-5-19,*S-1-5-32-544,*S-1-5-32-568,*S-1-5-6'
+              value_type: 'account'
       description: (l1) configure 'impersonate a client after authentication'
     increase_scheduling_priority :
       data:
         'Microsoft Windows Server 2016*':
           - 'SeIncreaseBasePriorityPrivilege':
               tag: CIS-2.2.26
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'increase scheduling priority' is set to 'administrators'
     load_and_unload_device_drivers :
@@ -250,7 +249,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeLoadDriverPrivilege':
               tag: CIS-2.2.27
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'load and unload device drivers' is set to 'administrators'
     manage_auditing_and_security_log :
@@ -258,7 +257,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeSecurityPrivilege':
               tag: CIS-2.2.30
-              match_output: '*S-1-5-32-544' #Administrators
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) configure 'manage auditing and security log'
     modify_firmware_environment_values :
@@ -266,7 +265,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeSystemEnvironmentPrivilege':
               tag: CIS-2.2.32
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'modify firmware environment values' is set to 'administrators'
     perform_volume_maintenance_tasks :
@@ -274,7 +273,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeManageVolumePrivilege':
               tag: CIS-2.2.33
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'perform volume maintenance tasks' is set to 'administrators'
     profile_single_process :
@@ -282,7 +281,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeProfileSingleProcessPrivilege':
               tag: CIS-2.2.34
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'profile single process' is set to 'administrators'
     profile_system_performance :
@@ -290,15 +289,15 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeSystemProfilePrivilege':
               tag: CIS-2.2.35
-              match_output: '*s-1-5-32-544,*s-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420'
-              value_type: 'equal'
+              match_output: '*S-1-5-32-544,*S-1-5-80-3139157870-2983391045-3678747466-658725712-1809340420'
+              value_type: 'account'
       description: (l1) ensure 'profile system performance' is set to 'administrators, nt service\wdiservicehost'
     replace_a_process_level_token :
       data:
         'Microsoft Windows Server 2016*':
           - 'SeAssignPrimaryTokenPrivilege':
               tag: CIS-2.2.36
-              match_output: 'LOCAL SERVICE, NETWORK SERVICE'
+              match_output: '*S-1-5-19,*S-1-5-20'
               value_type: 'account'
       description: (l1) ensure 'replace a process level token' is set to 'local service, network service'
     restore_files_and_directories :
@@ -306,7 +305,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeRestorePrivilege':
               tag: CIS-2.2.37
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'restore files and directories' is set to 'administrators'
     shut_down_the_system :
@@ -314,7 +313,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeShutdownPrivilege':
               tag: CIS-2.2.38
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'shut down the system' is set to 'administrators'
     take_ownership_of_files_or_other_objects :
@@ -322,7 +321,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'SeTakeOwnershipPrivilege':
               tag: CIS-2.2.40
-              match_output: 'Administrators'
+              match_output: '*S-1-5-32-544'
               value_type: 'account'
       description: (l1) ensure 'take ownership of files or other objects' is set to 'administrators'
     accounts_administrator_account_status :
@@ -458,7 +457,7 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\InactivityTimeoutSecs':
               tag: CIS-2.3.7.3
-              match_output: '901'
+              match_output: '4,901'
               value_type: 'less'
       description: (l1) ensure 'interactive logon - machine inactivity limit' is set to '900 or fewer second(s), but not 0'
     interactive_logon_message_text_for_users_attempting_to_log_on :
@@ -484,10 +483,6 @@ win_secedit:
               tag: CIS-2.3.7.7
               match_output: '15' # between 5 and 14
               value_type: 'less'
-          - 'MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\PasswordExpiryWarning':
-              tag: CIS-2.3.7.7
-              match_output: '4' # between 5 and 14
-              value_type: 'more'
       description: (l1) ensure 'interactive logon - prompt user to change password before expiration' is set to 'between 5 and 14 days'
     interactive_logon_require_domain_controller_authentication_to_unlock_workstation :
       data:
@@ -832,15 +827,15 @@ win_secedit:
         'Microsoft Windows Server 2016*':
           - 'NewAdministratorName':
               tag: CIS-2.3.1.5
-              match_output: '"administrator"'
+              match_output: 'Administrator'
               value_type: 'equal'
       description: (l1) configure 'accounts - rename administrator account'
     accounts_rename_guest_account :
       data:
         'Microsoft Windows Server 2016*':
-          - 'NewGuestName':
+          - 'AccountsRenameguestaccount':
               tag: CIS-2.3.1.6
-              match_output: '"guest"'
+              match_output: 'Guest'
               value_type: 'equal'
       description: (l1) configure 'accounts - rename guest account'
     network_access_named_pipes_that_can_be_accessed_anonymously :
@@ -987,8 +982,7 @@ win_firewall:
         'Microsoft Windows Server 2016*':
           - 'LogMaxSizeKilobytes':
               tag: CIS-9.1.8
-              match_output: '16383'
-              match_type: '>'
+              match_output: '16384'
               value_type: 'domain'
       description: (l1) ensure 'windows firewall - domain - logging - size limit (kb)' is set to '16,384 kb or greater'
     windows_firewall_domain_logging_log_dropped_packets :
@@ -1068,8 +1062,7 @@ win_firewall:
         'Microsoft Windows Server 2016*':
           - 'LogMaxSizeKilobytes':
               tag: CIS-9.2.8
-              match_output: '16383'
-              match_type: '>'
+              match_output: '16384'
               value_type: 'private'
       description: (l1) ensure 'windows firewall - private - logging - size limit (kb)' is set to '16,384 kb or greater'
     windows_firewall_private_logging_log_dropped_packets :
@@ -1149,8 +1142,7 @@ win_firewall:
         'Microsoft Windows Server 2016*':
           - 'LogMaxSizeKilobytes':
               tag: CIS-9.3.8
-              match_output: '16383'
-              match_type: '>'
+              match_output: '16384'
               value_type: 'public'
       description: (l1) ensure 'windows firewall - public - logging -  size limit (kb)' is set to '16,384 kb or greater'
     windows_firewall_public_logging_log_dropped_packets :
@@ -1427,7 +1419,7 @@ win_reg:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd\PasswordComplexity':
               tag: CIS-18.2.4
-              match_output: '4'
+              match_output: '4' 
               value_type: 'equal'
       description: 'Ensure Password Settings - Password Complexity is set to Enabled - Large letters + small letters + numbers + special characters '
     Password Settings_ Password Length :
@@ -1603,7 +1595,7 @@ win_reg:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Policies\EarlyLaunch\DriverLoadPolicy':
               tag: CIS-18.8.11.1
-              match_output: '3'
+              match_output: '3' 
               value_type: 'equal'
       description: (l1) ensure 'boot-start driver initialization policy' is set to 'enabled -  good, unknown and bad but critical'
     Configure registry policy processing_ Do not apply during periodic background processing :
