@@ -59,7 +59,7 @@ grep:
               match_on_file_missing: True
       description: 'Check if CVE-2017-5754 mitigation has NOT been disabled.'
   whitelist:
-    centos6-meltdown-presence:
+    centos6-meltdown-present:
       data:
         CentOS-6,Red Hat Enterprise Linux Server-6:
           - '/var/log/dmesg':
@@ -67,6 +67,22 @@ grep:
               pattern: 'Kernel page table isolation enabled'
               match_on_file_missing: False
       description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos 6.'
+    centos6-spectrev1-not-disabled:
+      data:
+        CentOS-6,Red Hat Enterprise Linux Server-6:
+          - '/var/log/dmesg':
+              tag: 'CVE-2017-5753-fix-present'
+              pattern: 'FEATURE SPEC_CTRL'
+              match_on_file_missing: False
+      description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 6.'
+    centos6-spectrev1-present:
+      data:
+        CentOS-6,Red Hat Enterprise Linux Server-6:
+          - '/var/log/dmesg':
+              tag: 'CVE-2017-5753-fix-enabled'
+              pattern: 'FEATURE SPEC_CTRL'
+              match_on_file_missing: False
+      description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 6.'
     debian7-meltdown-present:
       data:
         Debian GNU/Linux-7:
@@ -159,6 +175,26 @@ stat:
             group: root
             gid: 0
     description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos 7.'
+  centos7-spectrev1-present:
+    data:
+      CentOS Linux-7,Red Hat Enterprise Linux Server-7:
+        - '/sys/kernel/debug/x86/pti_enabled':
+            tag: 'CVE-2017-5753-fix-present'
+            user: root
+            uid: 0
+            group: root
+            gid: 0
+    description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 7.'
+  centos7-spectrev1-not-disabled:
+    data:
+      CentOS Linux-7,Red Hat Enterprise Linux Server-7:
+        - '/sys/kernel/debug/x86/ibrs_enabled':
+            tag: 'CVE-2017-5753-fix-enabled'
+            user: root
+            uid: 0
+            group: root
+            gid: 0
+    description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 7.'
   amazonlinux-meltdown-present:
     data:
       'Amazon Linux*':
