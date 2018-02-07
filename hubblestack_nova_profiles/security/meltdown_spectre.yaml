@@ -64,7 +64,7 @@ grep:
         CentOS-6,Red Hat Enterprise Linux Server-6:
           - '/var/log/dmesg':
               tag: 'CVE-2017-5754-fix-present'
-              pattern: 'Kernel page table isolation enabled'
+              pattern: 'Kernel\ page\ table\ isolation\ enabled'
               match_on_file_missing: False
       description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos 6.'
     centos6-spectrev1-not-disabled:
@@ -72,7 +72,7 @@ grep:
         CentOS-6,Red Hat Enterprise Linux Server-6:
           - '/var/log/dmesg':
               tag: 'CVE-2017-5753-fix-present'
-              pattern: 'FEATURE SPEC_CTRL'
+              pattern: 'FEATURE\ SPEC_CTRL'
               match_on_file_missing: False
       description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 6.'
     centos6-spectrev1-present:
@@ -80,7 +80,7 @@ grep:
         CentOS-6,Red Hat Enterprise Linux Server-6:
           - '/var/log/dmesg':
               tag: 'CVE-2017-5753-fix-enabled'
-              pattern: 'FEATURE SPEC_CTRL'
+              pattern: 'FEATURE\ SPEC_CTRL'
               match_on_file_missing: False
       description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 6.'
     debian7-meltdown-present:
@@ -88,7 +88,7 @@ grep:
         Debian GNU/Linux-7:
           - '/var/log/dmesg':
               tag: 'CVE-2017-5754-fix-present'
-              pattern: 'Kernel/User page tables isolation: enabled'
+              pattern: 'Kernel/User\ page\ tables\ isolation:\ enabled'
               match_on_file_missing: False
       description: 'Check for CVE-2017-5754 mitigation presence in Debian 7 Wheezy.'
     debian8-meltdown-present:
@@ -96,7 +96,7 @@ grep:
         Debian GNU/Linux-8:
           - '/var/log/kern.log':
               tag: 'CVE-2017-5754-fix-present'
-              pattern: 'Kernel/User page tables isolation: enabled'
+              pattern: 'Kernel/User\ page\ tables\ isolation:\ enabled'
               match_on_file_missing: False
       description: 'Check for CVE-2017-5754 mitigation presence in Debian 8 Jessie.'
     debian9-meltdown-present:
