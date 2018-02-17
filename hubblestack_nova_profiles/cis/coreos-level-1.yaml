@@ -506,12 +506,6 @@ misc:
          - noexec
          - soft
        description: Ensure noexec option set on /dev/shm partition
-  sticky_bit_on_writable_directories:
-    data:
-      '*CoreOS*':
-       tag: CIS-1.1.21
-       function: sticky_bit_on_world_writable_dirs
-       description: Ensure sticky bit is set on all world-writable directories
   ensure_path_integrity:
     data:
       '*CoreOS*':
