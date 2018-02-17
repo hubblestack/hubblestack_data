@@ -1174,12 +1174,6 @@ sysctl:
           tag: CIS-3.2.8
     description: Ensure TCP SYN Cookies is enabled
 misc:
-  sticky_bit_on_world_writable_directories:
-    data:
-      Red Hat Enterprise Linux Server-7:
-        tag: CIS-1.1.21
-        function: sticky_bit_on_world_writable_dirs
-    description: Ensure sticky bit is set on all world-writable directories
   check_any_package:
     data:
       Red Hat Enterprise Linux Server-7:
@@ -1237,24 +1231,6 @@ misc:
         tag: CIS-5.4.3
         function: default_group_for_root
     description: Ensure default group for the root account is GID 0
-  no_world_writable_file:
-    data:
-      Red Hat Enterprise Linux Server-7:
-        tag: CIS-6.1.10
-        function: world_writable_file
-    description: Ensure no world writable files exist
-  no_unowned_file_or_directories:
-    data:
-      Red Hat Enterprise Linux Server-7:
-        tag: CIS-6.1.11
-        function: unowned_files_or_dir
-    description: Ensure no unowned files or directories exist
-  no_ungrouped_file_or_directories:
-    data:
-      Red Hat Enterprise Linux Server-7:
-        tag: CIS-6.1.12
-        function: ungrouped_files_or_dir
-    description: Ensure no ungrouped files or directories exist
   ensure_password_fields_non_empty:
     data:
       Red Hat Enterprise Linux Server-7:
