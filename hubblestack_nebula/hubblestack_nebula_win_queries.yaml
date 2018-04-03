@@ -17,7 +17,5 @@ day:
     query: SELECT t.unix_time AS query_time, total_seconds AS uptime FROM uptime LEFT JOIN time AS t;
   - query_name: win_programs
     query: SELECT t.unix_time AS query_time, p.* FROM programs AS p LEFT JOIN time AS t;
-  - query_name: ami_info
-    query: SELECT t.unix_time AS query_time, filename AS image_info FROM file LEFT JOIN time AS t WHERE directory='C:\ProgramData\image_info';
   - query_name: profile_version
     query: SELECT t.unix_time AS query_time, '2017-11-1' AS version FROM time AS t;
