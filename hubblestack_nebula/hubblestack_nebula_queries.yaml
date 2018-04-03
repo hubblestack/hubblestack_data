@@ -62,7 +62,7 @@ day:
   - query_name: profile_version
     query: SELECT t.unix_time AS query_time, '2017-11-1' AS version FROM time AS t;
   - query_name: pci_devices
-    query: SELECT t.unix_time as query_time , pi.pci_slot as pci_slot , pi.pci_class as pci_class , pi.driver as driver , pi.vendor as vendor , pi.vendor_id as vendorid , pi.model as model , pi.model_id as model_id FROM pci_devices as pi LEFT JOIN time AS t;
-  - query_name: hardware_events
-    query: SELECT t.unix_time as query_time , he.action as action , he.type as type , he.time as time , he.model as model  FROM hardware_events as he LEFT JOIN time AS t;
+    query: SELECT t.unix_time As query_time , pi.pci_slot As pci_slot , pi.pci_class As pci_class , pi.driver As driver , pi.vendor As vendor , pi.vendor_id As vendor_id , pi.model As model , pi.model_id As model_id FROM pci_devices As pi LEFT JOIN time AS t WHERE pi.driver <> '' ;
+
+
 
