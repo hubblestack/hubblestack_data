@@ -45,6 +45,7 @@ nova:
     - cis.amazon-level-1-scored-v1-0-0
   'G@kernel:Linux':
     - security.meltdown_spectre
+    - security.ssh_passwordauthentication  
   #'*':
   #  - misc
   #'G@kernel:Linux and not G@osfinger:*CoreOS*':
