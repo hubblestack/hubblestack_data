@@ -13,14 +13,30 @@
 
 grep:
   blacklist:
-    centos7-meltdown-not-disabled:
+    centos-meltdown-not-disabled:
       data:
-        CentOS Linux-7,Red Hat Enterprise Linux Server-7:
-          - '/sys/kernel/debug/x86/pti_enabled':
+        'CentOS*,Red Hat Enterprise Linux Server*':
+          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
               tag: 'CVE-2017-5754-fix-enabled'
-              pattern: '0'
+              pattern: 'Vulnerable'
               match_on_file_missing: True
-      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in RHEL/Centos 7.'
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in RHEL/Centos.'
+    centos-spectrev1-not-disabled:
+      data:
+        'CentOS*,Red Hat Enterprise Linux Server*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
+              tag: 'CVE-2017-5753-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5753 mitigation has NOT been disabled in RHEL/Centos.'
+    centos-spectrev2-not-disabled:
+      data:
+        'CentOS*,Red Hat Enterprise Linux Server*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
+              tag: 'CVE-2017-5715-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in RHEL/Centos.'
     amazonlinux-meltdown-not-disabled:
       data:
         'Amazon Linux*':
@@ -95,7 +111,7 @@ grep:
       description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in Ubuntu Linux.'
     linux-meltdown-not-disabled:
       data:
-        'Debian GNU/Linux-7,Debian GNU/Linux-8,*CoreOS*,CentOS-6':
+        'Debian GNU/Linux-7,Debian GNU/Linux-8,*CoreOS*':
           - '/proc/cmdline':
               tag: 'CVE-2017-5754-fix-enabled'
               pattern: '.*\\K\(?<=\ \)\(nopti|pti=off\)\(?=\ .*\)'
@@ -107,30 +123,6 @@ grep:
               match_on_file_missing: True
       description: 'Check if CVE-2017-5754 mitigation has NOT been disabled.'
   whitelist:
-    centos6-meltdown-present:
-      data:
-        CentOS-6,Red Hat Enterprise Linux Server-6:
-          - '/var/log/dmesg':
-              tag: 'CVE-2017-5754-fix-present'
-              pattern: 'Kernel\ page\ table\ isolation\ enabled'
-              match_on_file_missing: False
-      description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos 6.'
-    centos6-spectrev1-not-disabled:
-      data:
-        CentOS-6,Red Hat Enterprise Linux Server-6:
-          - '/var/log/dmesg':
-              tag: 'CVE-2017-5753-fix-present'
-              pattern: 'FEATURE\ SPEC_CTRL'
-              match_on_file_missing: False
-      description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 6.'
-    centos6-spectrev1-present:
-      data:
-        CentOS-6,Red Hat Enterprise Linux Server-6:
-          - '/var/log/dmesg':
-              tag: 'CVE-2017-5753-fix-enabled'
-              pattern: 'FEATURE\ SPEC_CTRL'
-              match_on_file_missing: False
-      description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 6.'
     debian7-meltdown-present:
       data:
         Debian GNU/Linux-7:
@@ -200,36 +192,6 @@ grep:
       description: 'Check if it is an Intel cpu.'
 
 stat:
-  centos7-meltdown-present:
-    data:
-      CentOS Linux-7,Red Hat Enterprise Linux Server-7:
-        - '/sys/kernel/debug/x86/pti_enabled':
-            tag: 'CVE-2017-5754-fix-present'
-            user: root
-            uid: 0
-            group: root
-            gid: 0
-    description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos 7.'
-  centos7-spectrev1-present:
-    data:
-      CentOS Linux-7,Red Hat Enterprise Linux Server-7:
-        - '/sys/kernel/debug/x86/pti_enabled':
-            tag: 'CVE-2017-5753-fix-present'
-            user: root
-            uid: 0
-            group: root
-            gid: 0
-    description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 7.'
-  centos7-spectrev1-not-disabled:
-    data:
-      CentOS Linux-7,Red Hat Enterprise Linux Server-7:
-        - '/sys/kernel/debug/x86/ibrs_enabled':
-            tag: 'CVE-2017-5753-fix-enabled'
-            user: root
-            uid: 0
-            group: root
-            gid: 0
-    description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos 7.'
   amazonlinux-meltdown-present:
     data:
       'Amazon Linux*':
@@ -320,3 +282,33 @@ stat:
              group: root
              gid: 0
     description: 'Check for CVE-2017-5715 mitigation presence in Ubuntu Linux.'
+  centos-meltdown-present:
+    data:
+      'CentOS*,Red Hat Enterprise Linux Server*':
+          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
+             tag: 'CVE-2017-5754-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos.'
+  centos-spectrev1-present:
+    data:
+      'CentOS*,Red Hat Enterprise Linux Server*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
+             tag: 'CVE-2017-5753-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos.'
+  centos-spectrev2-present:
+    data:
+     'CentOS*,Red Hat Enterprise Linux Server*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
+             tag: 'CVE-2017-5715-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5715 mitigation presence in RHEL/Centos.'
