@@ -37,6 +37,30 @@ grep:
               pattern: 'Vulnerable'
               match_on_file_missing: True
       description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in RHEL/Centos.'
+    coreos-meltdown-not-disabled:
+      data:
+        '*CoreOS*':
+          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
+              tag: 'CVE-2017-5754-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in CoreOS.'
+    coreos-spectrev1-not-disabled:
+      data:
+        '*CoreOS*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
+              tag: 'CVE-2017-5753-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5753 mitigation has NOT been disabled in CoreOS.'
+    coreos-spectrev2-not-disabled:
+      data:
+        '*CoreOS*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
+              tag: 'CVE-2017-5715-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in CoreOS.'
     amazonlinux-meltdown-not-disabled:
       data:
         'Amazon Linux*':
@@ -111,7 +135,7 @@ grep:
       description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in Ubuntu Linux.'
     linux-meltdown-not-disabled:
       data:
-        'Debian GNU/Linux-7,Debian GNU/Linux-8,*CoreOS*':
+        'Debian GNU/Linux-7,Debian GNU/Linux-8':
           - '/proc/cmdline':
               tag: 'CVE-2017-5754-fix-enabled'
               pattern: '.*\\K\(?<=\ \)\(nopti|pti=off\)\(?=\ .*\)'
@@ -139,19 +163,6 @@ grep:
               pattern: 'Kernel/User\ page\ tables\ isolation:\ enabled'
               match_on_file_missing: False
       description: 'Check for CVE-2017-5754 mitigation presence in Debian 8 Jessie.'
-    linux-meltdown-present:
-      data:
-        '*CoreOS*': 
-          - '/proc/cpuinfo':
-              tag: 'CVE-2017-5754-fix-present'
-              pattern: '^flags\\s*:.*\\K\(?<=\ \)\(pti|kaiser\)\(?=\ .*\)'
-              match_output: (pti|kaiser)
-              match_output_regex: True
-              grep_args:
-                - '-o'
-                - '-P'
-              match_on_file_missing: False
-      description: 'Check for CVE-2017-5754 mitigation presence.'
     check_cpuinfo_for_pcid:
       data:
         '*':
@@ -312,3 +323,33 @@ stat:
              group: root
              gid: 0
     description: 'Check for CVE-2017-5715 mitigation presence in RHEL/Centos.'
+  coreos-meltdown-present:
+    data:
+      '*CoreOS*':
+          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
+             tag: 'CVE-2017-5754-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5754 mitigation presence in CoreOS.'
+  coreos-spectrev1-present:
+    data:
+      '*CoreOS*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
+             tag: 'CVE-2017-5753-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5753 mitigation presence in CoreOS.'
+  coreos-spectrev2-present:
+    data:
+     '*CoreOS*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
+             tag: 'CVE-2017-5715-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2017-5715 mitigation presence in CoreOS.'
