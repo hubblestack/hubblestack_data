@@ -1,30 +1,29 @@
 C:\Program Files (x86)\Hubble:
   exclude:
-    - C:\Program Files (x86)\Hubble\var
+    - C:\Program Files (x86)\Hubble\var\*
 C:\Users:
   exclude:
-    - C:\Users\*\AppData\Local\VMware\vpx
-    - C:\Users\*\AppData\Local\Mozilla\Firefox\Profiles
-    - C:\Users\*\AppData\Local\Temp
+    - C:\Users\*\AppData\Local\VMware\vpx\*
+    - C:\Users\*\AppData\Local\Mozilla\Firefox\Profiles\*
+    - C:\Users\*\AppData\Local\Temp\*
 C:\Windows:
   mask:
-    - Write
-    - Delete
-    - DeleteSubdirectoriesAndFiles
-    - ChangePermissions
-    - TakeOwnership
+    - File create
+    - File delete
+    - Security change
+    - 'Rename: old name'
   exclude:
-    - C:\Windows\System32
+    - C:\Windows\System32\*
     - C:\Windows\security\logs\diagnosis.log
     - C:\Windows\ServiceProfiles\LocalService\AppData\Local\lastalive?.dat
-    - C:\Windows\WinSxS\FileMaps
-    - C:\Windows\security\logs
-    - C:\Windows\ServiceProfiles\LocalService\AppData\Local
-    - C:\Windows\security\templates\policies
-    - C:\Windows\CCM\Logs
-    - C:\Windows\security\database
-    - C:\Windows\SoftwareDistribution
-    - C:\Windows\WinSxS
-win_notify_interval: 30 # MUST be the same as interval in pillar config
+    - C:\Windows\WinSxS\FileMaps\*
+    - C:\Windows\security\logs\*
+    - C:\Windows\ServiceProfiles\LocalService\AppData\Local\*
+    - C:\Windows\security\templates\policies\*
+    - C:\Windows\CCM\Logs\*
+    - C:\Windows\security\database\*
+    - C:\Windows\SoftwareDistribution\*
+    - C:\Windows\WinSxS\*
 return: splunk_pulsar_return
 batch: True
+checksum: sha256
