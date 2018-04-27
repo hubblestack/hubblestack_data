@@ -41,6 +41,8 @@ day:
     query: SELECT t.unix_time AS query_time, os.* FROM os_version AS os LEFT JOIN time AS t;
   - query_name: interface_addresses
     query: SELECT t.unix_time AS query_time, ia.interface, ia.address, id.mac FROM interface_addresses AS ia JOIN interface_details AS id ON ia.interface=id.interface LEFT JOIN time AS t WHERE NOT ia.interface='lo';
+  - query_name: routes
+    query: SELECT DISTINCT t.unix_time, r.destination AS route_destination, r.netmask AS route_netmask, r.gateway, r.source AS source_ip, r.flags AS route_flags, r.interface AS interface, r.metric AS route_metric, r.type AS route_type FROM routes AS r LEFT JOIN time AS t WHERE NOT ((type='broadcast' OR type='other') AND interface='lo');
   - query_name: uptime
     query: SELECT t.unix_time AS query_time, total_seconds AS uptime, strftime('%s','now')-u.total_seconds AS system_start_time FROM uptime AS u LEFT JOIN time AS t;
   - query_name: mounts
