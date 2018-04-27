@@ -17,5 +17,7 @@ day:
     query: SELECT t.unix_time AS query_time, total_seconds AS uptime FROM uptime LEFT JOIN time AS t;
   - query_name: win_programs
     query: SELECT t.unix_time AS query_time, p.* FROM programs AS p LEFT JOIN time AS t;
+  - query_name: win_hubble_default_conf
+    query: SELECT t.unix_time AS query_time, f.path AS object_path, f.mode AS file_acl, f.size AS file_size, h.sha256 AS sha256 FROM file AS f JOIN hash AS h ON f.path=h.path LEFT JOIN time AS t WHERE f.path='C:\Program Files (x86)\Hubble\etc\hubble\hubble.conf';
   - query_name: profile_version
     query: SELECT t.unix_time AS query_time, '2018-04-1' AS version FROM time AS t;
