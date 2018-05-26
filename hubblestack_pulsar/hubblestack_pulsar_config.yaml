@@ -13,7 +13,6 @@
 /usr/local/lib: { recurse: True, auto_add: True }
 /usr/local/sbin: { recurse: True, auto_add: True }
 /usr/local/libexec: { recurse: True, auto_add: True }
-/opt/splunk/etc: { recurse: True, auto_add: True }
 /opt/bin: { recurse: True, auto_add: True }
 /opt/osquery: { recurse: True, auto_add: True }
 /opt/hubble: { recurse: True, auto_add: True }
