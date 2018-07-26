@@ -1,36 +1,72 @@
+# This file is used by hubble's nebula module to selectively prevent some information
+# ( like passwords ) from getting logged.
+
+# query_name can be an actual 'query_name' or a '*'
+# column can not be '*'. It needs to a an actual column name
+
+
+# passwords are masked by this field
+# it is optional
+# it's default value is written in code
 mask_by: '***masked*by*hubble***'
 
-
+# this section contains the strings/part of strings which are to be masked
 blacklisted_strings:
 
-        - query_name: 'running_procs'
-          column: 'effective_username'
+        - query_name: 'running_procs' # Name of the osquery to be masked. Put '*' to match all queries.
+          column: 'command_line'      # Column name in the osquery to be masked. Regex/* NOT SUPPORTED
           blacklisted_patterns:
-            - '()(root)'
+            - '(password_prefix_1)(actual_password_regex_1)'
+            - '(password_prefix_2)(actual_password_regex_2)'
+            - '(prefix)(password)(suffix)' # a blacklisted pattern consists of 3 parts. Suffix is optional
+            # If multiple patterns are provided, all regex substitutions will be made sequentially
+            # prefix:  String preceding the actual password. Prefix will not be masked. Regex supported.
+            # password:  Actual password. Only this part will be masked. Regex supported.
+            # suffix:  String after the password. This part will not be masked. This part is optional
 
+      # Examples
+
+      # To mask docker logging level in 'command_line'  ( in all queries )
         - query_name: '*'
-          column: 'path'
+          column: 'command_line'
           blacklisted_patterns:
-            - '(/sbin)(\S+)'
+            - '(--logging_level=)(\S*)'
+
+      # To mask ETCDCTL_READ_PASSWORD passed an an envrironment variable to docker command line
+        - query_name: 'running_procs'
+          column: 'command_line'
+          blacklisted_patterns:
+            - '(docker.*-e\s+ETCDCTL_WRITE_PASSWORD=)(\S*)'
 
 
+
+# some of the osquery information is printed as json objects.
+# this section contains the information about masking such objects
 blacklisted_objects:
 
-        - query_name: 'running_procs'
-          column: 'open_files'
-          attribute_to_check: 'fd'
-          attributes_to_mask: 
-            - 'path'
-          blacklisted_patterns:
-            - '0'
+        - query_name: 'running_procs' #  Name of the osquery to be masked. Put '*' to match all queries.
+          column: 'open_files'        #  Column name in the osquery to be masked. Regex/* NOT SUPPORTED
+          attribute_to_check: 'fd'    #  In the json object, this attribute will be tested against
+                                      #  blacklisted patterns.
+          attributes_to_mask:         #  These attributes will be masked 
+            - 'path'                  #  Mask the value of path attribute
+            - 'cwd'                   #  Mask the value of cwd attribute
+          blacklisted_patterns:       #  'attribute_to_check' will be tested against these strings
+            - 'pattern1'              #   Regex NOT SUPPORTED here
+            - 'pattern2'  
+            - 'pattern3'  
 
-        - query_name: '*'
+
+      # Examples
+      
+      # Mask ETCDCTL passwords value. 
+      # This is how it's json looks currently:  
+      #      environment: [...{ value: 'SOME_PASSWORD', variable_name: 'ETCDCTL_READ_PASSWORD' }...]
+        - query_name: 'docker_running_procs'
           column: 'environment'
           attribute_to_check: 'variable_name'
           attributes_to_mask:
             - 'value'
           blacklisted_patterns:
-            - 'PATH'
-
-# query_name can be an actual 'query_name' or a '*'
-# column can not be '*'. It needs to a an actual column name
+            - 'ETCDCTL_READ_PASSWORD'
+            - 'ETCDCTL_WRITE_PASSWORD'
