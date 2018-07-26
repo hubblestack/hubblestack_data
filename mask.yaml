@@ -1,0 +1,36 @@
+mask_by: '***masked*by*hubble***'
+
+
+blacklisted_strings:
+
+        - query_name: 'running_procs'
+          column: 'effective_username'
+          blacklisted_patterns:
+            - '()(root)'
+
+        - query_name: '*'
+          column: 'path'
+          blacklisted_patterns:
+            - '(/sbin)(\S+)'
+
+
+blacklisted_objects:
+
+        - query_name: 'running_procs'
+          column: 'open_files'
+          attribute_to_check: 'fd'
+          attributes_to_mask: 
+            - 'path'
+          blacklisted_patterns:
+            - '0'
+
+        - query_name: '*'
+          column: 'environment'
+          attribute_to_check: 'variable_name'
+          attributes_to_mask:
+            - 'value'
+          blacklisted_patterns:
+            - 'PATH'
+
+# query_name can be an actual 'query_name' or a '*'
+# column can not be '*'. It needs to a an actual column name
