@@ -1,3 +1,9 @@
+# !!!!!  DO NOT USE THIS FILE DIRECTLY ON YOUR PRODUCTION ENVIRONMENT !!!!!
+
+# This file is just a sample to demonstrate the functionalities of masking feature
+# You should properly test you mask.yaml file before using it on production.
+# Using wrong regular expressions can cost performance issues.
+
 # This file is used by hubble's nebula module to selectively prevent some information
 # ( like passwords ) from getting logged.
 
