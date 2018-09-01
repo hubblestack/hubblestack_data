@@ -20,4 +20,4 @@ day:
   win_programs:
     query: SELECT t.unix_time AS query_time, p.* FROM programs AS p LEFT JOIN time AS t;
   profile_version:
-    query: SELECT t.unix_time AS query_time, '2018-04-1' AS version FROM time AS t;
+    query: SELECT t.unix_time AS query_time, '2018-08-1' AS version FROM time AS t;
