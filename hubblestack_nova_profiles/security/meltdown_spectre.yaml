@@ -5,164 +5,39 @@
 # is present, the second checks if the feature reports as active or at
 # least is not disabled. If both checks succeed, a host should be protected against
 # the vulnerability in question.
-# The reasoning for this approach is two fold:
-# * in some Linux distros there is no other way to detect.
+# The reasoning for this approach was two fold:
+# * in some Linux distros there was no other way to detect.
 # * in large fleets of different Linux flavors tracking many different types of
 # check results can become burdensome.
 #
 
 grep:
   blacklist:
-    centos-meltdown-not-disabled:
-      data:
-        'CentOS*,Red Hat Enterprise Linux Server*':
-          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-              tag: 'CVE-2017-5754-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in RHEL/Centos.'
-    centos-spectrev1-not-disabled:
-      data:
-        'CentOS*,Red Hat Enterprise Linux Server*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-              tag: 'CVE-2017-5753-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5753 mitigation has NOT been disabled in RHEL/Centos.'
-    centos-spectrev2-not-disabled:
-      data:
-        'CentOS*,Red Hat Enterprise Linux Server*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-              tag: 'CVE-2017-5715-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in RHEL/Centos.'
-    coreos-meltdown-not-disabled:
-      data:
-        '*CoreOS*':
-          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-              tag: 'CVE-2017-5754-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in CoreOS.'
-    coreos-spectrev1-not-disabled:
-      data:
-        '*CoreOS*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-              tag: 'CVE-2017-5753-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5753 mitigation has NOT been disabled in CoreOS.'
-    coreos-spectrev2-not-disabled:
-      data:
-        '*CoreOS*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-              tag: 'CVE-2017-5715-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in CoreOS.'
-    amazonlinux-meltdown-not-disabled:
-      data:
-        'Amazon Linux*':
-          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-              tag: 'CVE-2017-5754-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Amazon Linux.'
-    amazonlinux-spectrev1-not-disabled:
-      data:
-        'Amazon Linux*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-              tag: 'CVE-2017-5753-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5753 mitigation has NOT been disabled in Amazon Linux.'
-    amazonlinux-spectrev2-not-disabled:
-      data:
-        'Amazon Linux*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-              tag: 'CVE-2017-5715-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in Amazon Linux.'
-    debian9-meltdown-not-disabled:
-      data:
-        Debian GNU/Linux-9:
-          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-              tag: 'CVE-2017-5754-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Debian 9 Stretch.'
-    debian9-spectrev1-not-disabled:
-      data:
-        Debian GNU/Linux-9:
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-              tag: 'CVE-2017-5753-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5753 mitigation has NOT been disabled in Debian 9 Stretch.'
-    debian9-spectrev2-not-disabled:
-      data:
-        Debian GNU/Linux-9:
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-              tag: 'CVE-2017-5715-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in Debian 9 Stretch.'
-    ubuntu-meltdown-not-disabled:
-      data:
-        '*Ubuntu*':
-          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-              tag: 'CVE-2017-5754-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Ubuntu Linux.'
-    ubuntu-spectrev1-not-disabled:
-      data:
-        '*Ubuntu*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-              tag: 'CVE-2017-5753-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5753 mitigation has NOT been disabled in Ubuntu Linux.'
-    ubuntu-spectrev2-not-disabled:
-      data:
-        '*Ubuntu*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-              tag: 'CVE-2017-5715-fix-enabled'
-              pattern: 'Vulnerable'
-              match_on_file_missing: True
-      description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in Ubuntu Linux.'
     linux-meltdown-not-disabled:
       data:
-        'Debian GNU/Linux-7,Debian GNU/Linux-8':
-          - '/proc/cmdline':
+        '*':
+          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
               tag: 'CVE-2017-5754-fix-enabled'
-              pattern: '.*\\K\(?<=\ \)\(nopti|pti=off\)\(?=\ .*\)'
-              match_output: (nopti|pti=off)
-              match_output_regex: True
-              grep_args:
-                - '-o'
-                - '-P'
+              pattern: 'Vulnerable'
               match_on_file_missing: True
-      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled.'
+      description: 'Check if CVE-2017-5754 mitigation has NOT been disabled in Linux.'
+    linux-spectrev1-not-disabled:
+      data:
+        '*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
+              tag: 'CVE-2017-5753-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5753 mitigation has NOT been disabled in Linux.'
+    linux-spectrev2-not-disabled:
+      data:
+        '*':
+          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
+              tag: 'CVE-2017-5715-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+      description: 'Check if CVE-2017-5715 mitigation has NOT been disabled in Linux.'
   whitelist:
-    debian7-meltdown-present:
-      data:
-        Debian GNU/Linux-7:
-          - '/var/log/dmesg':
-              tag: 'CVE-2017-5754-fix-present'
-              pattern: 'Kernel/User\ page\ tables\ isolation:\ enabled'
-              match_on_file_missing: False
-      description: 'Check for CVE-2017-5754 mitigation presence in Debian 7 Wheezy.'
-    debian8-meltdown-present:
-      data:
-        Debian GNU/Linux-8:
-          - '/var/log/kern.log':
-              tag: 'CVE-2017-5754-fix-present'
-              pattern: 'Kernel/User\ page\ tables\ isolation:\ enabled'
-              match_on_file_missing: False
-      description: 'Check for CVE-2017-5754 mitigation presence in Debian 8 Jessie.'
     check_cpuinfo_for_pcid:
       data:
         '*':
@@ -203,153 +78,55 @@ grep:
       description: 'Check if it is an Intel cpu.'
 
 stat:
-  amazonlinux-meltdown-present:
+# The kernel is unconditionally protected against L1TF attacks from malicious user space running on the host.
+# This check is for consistency with other Spectre variants which can be disabled.
+  linux-l1tf-not-disabled:
     data:
-      'Amazon Linux*':
+      '*':
+          - '/sys/devices/system/cpu/vulnerabilities/l1tf':
+             tag: 'CVE-2018-3620-fix-enabled'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check if CVE-2018-3620 mitigation has NOT been disabled in Linux.'
+  linux-l1tf-present:
+    data:
+      '*':
+          - '/sys/devices/system/cpu/vulnerabilities/l1tf':
+             tag: 'CVE-2018-3620-fix-present'
+             user: root
+             uid: 0
+             group: root
+             gid: 0
+    description: 'Check for CVE-2018-3620 mitigation presence in Linux.'
+  linux-meltdown-present:
+    data:
+      '*':
           - '/sys/devices/system/cpu/vulnerabilities/meltdown':
              tag: 'CVE-2017-5754-fix-present'
              user: root
              uid: 0
              group: root
              gid: 0
-    description: 'Check for CVE-2017-5754 mitigation presence in Amazon Linux.'
-  amazonlinux-spectrev1-present:
+    description: 'Check for CVE-2017-5754 mitigation presence in Linux.'
+  linux-spectrev1-present:
     data:
-      'Amazon Linux*':
+      '*':
           - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
              tag: 'CVE-2017-5753-fix-present'
              user: root
              uid: 0
              group: root
              gid: 0
-    description: 'Check for CVE-2017-5753 mitigation presence in Amazon Linux.'
-  amazonlinux-spectrev2-present:
+    description: 'Check for CVE-2017-5753 mitigation presence in Linux.'
+  linux-spectrev2-present:
     data:
-      'Amazon Linux*':
+      '*':
           - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
              tag: 'CVE-2017-5715-fix-present'
              user: root
              uid: 0
              group: root
              gid: 0
-    description: 'Check for CVE-2017-5715 mitigation presence in Amazon Linux.'
-  debian9-meltdown-present:
-    data:
-      Debian GNU/Linux-9:
-          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-             tag: 'CVE-2017-5754-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5754 mitigation presence in Debian 9 Stretch.'
-  debian9-spectrev1-present:
-    data:
-      Debian GNU/Linux-9:
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-             tag: 'CVE-2017-5753-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5753 mitigation presence in Debian 9 Stretch.'
-  debian9-spectrev2-present:
-    data:
-      Debian GNU/Linux-9:
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-             tag: 'CVE-2017-5715-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5715 mitigation presence in Debian 9 Stretch.'
-  ubuntu-meltdown-present:
-    data:
-      '*Ubuntu*':
-          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-             tag: 'CVE-2017-5754-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5754 mitigation presence in Ubuntu Linux.'
-  ubuntu-spectrev1-present:
-    data:
-      '*Ubuntu*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-             tag: 'CVE-2017-5753-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5753 mitigation presence in Ubuntu Linux.'
-  ubuntu-spectrev2-present:
-    data:
-      '*Ubuntu*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-             tag: 'CVE-2017-5715-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5715 mitigation presence in Ubuntu Linux.'
-  centos-meltdown-present:
-    data:
-      'CentOS*,Red Hat Enterprise Linux Server*':
-          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-             tag: 'CVE-2017-5754-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5754 mitigation presence in RHEL/Centos.'
-  centos-spectrev1-present:
-    data:
-      'CentOS*,Red Hat Enterprise Linux Server*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-             tag: 'CVE-2017-5753-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5753 mitigation presence in RHEL/Centos.'
-  centos-spectrev2-present:
-    data:
-     'CentOS*,Red Hat Enterprise Linux Server*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-             tag: 'CVE-2017-5715-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5715 mitigation presence in RHEL/Centos.'
-  coreos-meltdown-present:
-    data:
-      '*CoreOS*':
-          - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-             tag: 'CVE-2017-5754-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5754 mitigation presence in CoreOS.'
-  coreos-spectrev1-present:
-    data:
-      '*CoreOS*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-             tag: 'CVE-2017-5753-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5753 mitigation presence in CoreOS.'
-  coreos-spectrev2-present:
-    data:
-     '*CoreOS*':
-          - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-             tag: 'CVE-2017-5715-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check for CVE-2017-5715 mitigation presence in CoreOS.'
+    description: 'Check for CVE-2017-5715 mitigation presence in Linux.'
