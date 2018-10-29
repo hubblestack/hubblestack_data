@@ -47,7 +47,5 @@ nova:
     - security.meltdown_spectre
     - security.ssh_passwordauthentication
     - cis.distribution-independent-linux-level-1-all-v1-1-0
-  #'*':
-  #  - misc
   #'G@kernel:Linux and not G@osfinger:*CoreOS*':
-  #  - cve.scan-v2
+  #  - cve.vulners
