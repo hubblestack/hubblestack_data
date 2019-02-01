@@ -59,13 +59,13 @@ pkg:
     rsyslog:
       data:
         'Amazon Linux AMI-2014':
-          'rsyslog': 'CIS-5.1.1'
+          - 'rsyslog': 'CIS-5.1.1'
       description: 'Install rsyslog'
 
     anacron:
       data:
         'Amazon Linux AMI-2014':
-          'cronie-anacron': 'CIS-6.1.1'
+          - 'cronie-anacron': 'CIS-6.1.1'
       description: 'Enable anacron Daemon'
 
 
