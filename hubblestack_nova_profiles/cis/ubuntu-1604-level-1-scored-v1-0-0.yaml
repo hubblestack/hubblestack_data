@@ -1350,12 +1350,14 @@ systemctl:
     ldap-server-disabled:
       data:
         Ubuntu-16.04:
-        - slapd: CIS-2.2.6
+        - slapd:
+            tag: CIS-2.2.6
       description: Ensure LDAP server is not enabled
     nfs-disabled:
       data:
         Ubuntu-16.04:
-        - nfs-kernel-server: CIS-2.2.7
+        - nfs-kernel-server:
+            tag: CIS-2.2.7
       description: Ensure NFS and RPC are not enabled
 #    rpc-disabled:
 #      data:
