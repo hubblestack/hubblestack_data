@@ -289,7 +289,7 @@ stat:
             user: 'root'
             uid: 0
             group: 'root'
-            uid: 0
+            gid: 0
     description: '/etc/passwd must be owned by root'
 
   shadow_perm:
