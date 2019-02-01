@@ -500,7 +500,7 @@ win_secedit:
               match_output: 'Lock Workstation' # can be anything but No Action
               value_type: 'equal'
       description: (l1) ensure 'interactive logon - smart card removal behavior' is set to 'lock workstation' or higher
-    microsoft_network_client_digitally_sign_communications_ :
+    microsoft_network_require_client_digitally_sign_communications_ :
       data:
         'Microsoft Windows Server 2016*':
           - 'MACHINE\System\CurrentControlSet\Services\LanmanWorkstation\Parameters\RequireSecuritySignature':
@@ -532,7 +532,7 @@ win_secedit:
               match_output: '16'
               value_type: 'less'
       description: (l1) ensure 'microsoft network server - amount of idle time required before suspending session' is set to '15 or fewer minute(s), but not 0'
-    microsoft_network_server_digitally_sign_communications_ :
+    microsoft_network_server_require_digitally_sign_communications_ :
       data:
         'Microsoft Windows Server 2016*':
           - 'MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\RequireSecuritySignature':
@@ -540,7 +540,7 @@ win_secedit:
               match_output: '1'
               value_type: 'equal'
       description: (l1) ensure 'microsoft network server - digitally sign communications (always)' is set to 'enabled'
-    microsoft_network_server_digitally_sign_communications_ :
+    microsoft_network_server_enable_digitally_sign_communications_ :
       data:
         'Microsoft Windows Server 2016*':
           - 'MACHINE\System\CurrentControlSet\Services\LanManServer\Parameters\EnableSecuritySignature':
@@ -1419,7 +1419,7 @@ win_reg:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft Services\AdmPwd\PasswordComplexity':
               tag: CIS-18.2.4
-              match_output: '4' 
+              match_output: '4'
               value_type: 'equal'
       description: 'Ensure Password Settings - Password Complexity is set to Enabled - Large letters + small letters + numbers + special characters '
     Password Settings_ Password Length :
@@ -1595,7 +1595,7 @@ win_reg:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Policies\EarlyLaunch\DriverLoadPolicy':
               tag: CIS-18.8.11.1
-              match_output: '3' 
+              match_output: '3'
               value_type: 'equal'
       description: (l1) ensure 'boot-start driver initialization policy' is set to 'enabled -  good, unknown and bad but critical'
     Configure registry policy processing_ Do not apply during periodic background processing :
@@ -1814,7 +1814,7 @@ win_reg:
               match_output: '0'
               value_type: 'equal'
       description: (l1) ensure 'do not preserve zone information in file attachments' is set to 'disabled'
-    Always install with elevated privileges :
+    Always install with elevated privileges HKU :
       data:
         'Microsoft Windows Server 2016*':
           - 'HKEY_USERS\<SID>\Software\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated':
@@ -2151,7 +2151,7 @@ win_reg:
               match_output: '0'
               value_type: 'equal'
       description: (l1) ensure 'allow user control over installs' is set to 'disabled'
-    Always install with elevated privileges :
+    Always install with elevated privileges HKLM :
       data:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated':
@@ -2183,7 +2183,7 @@ win_reg:
               match_output: '0'
               value_type: 'equal'
       description: (l1) ensure 'turn on powershell transcription' is set to 'disabled'
-    Allow Basic authentication :
+    Allow Basic authentication client :
       data:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WinRM\Client\AllowBasic':
@@ -2191,7 +2191,7 @@ win_reg:
               match_output: '0'
               value_type: 'equal'
       description: (l1) ensure 'allow basic authentication' is set to 'disabled'
-    Allow unencrypted traffic :
+    Allow unencrypted traffic client :
       data:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WinRM\Client\AllowUnencryptedTraffic':
@@ -2207,7 +2207,7 @@ win_reg:
               match_output: '0'
               value_type: 'equal'
       description: (l1) ensure 'disallow digest authentication' is set to 'enabled'
-    Allow Basic authentication :
+    Allow Basic authentication service:
       data:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WinRM\Service\AllowBasic':
@@ -2215,7 +2215,7 @@ win_reg:
               match_output: '0'
               value_type: 'equal'
       description: (l1) ensure 'allow basic authentication' is set to 'disabled'
-    Allow unencrypted traffic :
+    Allow unencrypted traffic service:
       data:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WinRM\Service\AllowUnencryptedTraffic':
@@ -2231,7 +2231,7 @@ win_reg:
               match_output: '1'
               value_type: 'equal'
       description: (l1) ensure 'disallow winrm from storing runas credentials' is set to 'enabled'
-    Configure Automatic Updates :
+    Enable Configure Automatic Updates:
       data:
         'Microsoft Windows Server 2016*':
           - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\WindowsUpdate\AU\NoAutoUpdate':
