@@ -664,7 +664,7 @@ pkg:
         CentOS Linux-7:
         - ypserv: CIS-2.2.16
       description: Ensure NIS Server is not enabled
-    rsh:
+    rsh-server:
       data:
         CentOS Linux-7:
         - rsh-server: CIS-2.2.17

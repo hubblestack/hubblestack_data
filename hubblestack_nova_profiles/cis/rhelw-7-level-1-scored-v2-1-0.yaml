@@ -644,7 +644,7 @@ pkg:
         Red Hat Enterprise Linux Workstation-7:
         - ypserv: CIS-2.2.16
       description: Ensure NIS Server is not enabled
-    rsh:
+    rsh-server:
       data:
         Red Hat Enterprise Linux Workstation-7:
         - rsh-server: CIS-2.2.17
