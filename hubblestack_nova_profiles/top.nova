@@ -18,7 +18,7 @@ nova:
   'G@osfinger:Red*Hat*Enterprise*Linux*Server-6':
     - cis.rhels-6-level-1-scored-v2-0-1
   'G@osfinger:Red*Hat*Enterprise*Linux*Server-7':
-    - cis.rhels-7-level-1-scored-v2-1-0
+    - cis.rhels-7-level-1-scored-v2-2-0
   'G@osfinger:Red*Hat*Enterprise*Linux*Workstation-7':
     - cis.rhelw-7-level-1-scored-v2-1-0
   'G@osfinger:Ubuntu-12.04':
