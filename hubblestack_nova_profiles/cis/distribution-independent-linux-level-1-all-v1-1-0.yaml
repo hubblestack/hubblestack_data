@@ -76,6 +76,76 @@ grep:
             pattern: "^udf "
             tag: CIS-1.1.1.7
       description: Ensure mounting of udf filesystems is disabled
+    chargen_disabled:
+      data:
+        '*':
+        - /etc/xinetd.d/chargen-dgram:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.1
+            match_on_file_missing: False
+        - /etc/xinetd.d/chargen-stream:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.1
+            match_on_file_missing: False
+      description: Ensure chargen services are not enabled
+    daytime_disabled:
+      data:
+        '*':
+        - /etc/xinetd.d/daytime-dgram:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.2
+            match_on_file_missing: False
+        - /etc/xinetd.d/daytime-stream:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.2
+            match_on_file_missing: False
+      description: Ensure daytime services are not enabled
+    discard_disabled:
+      data:
+        '*':
+        - /etc/xinetd.d/discard-dgram:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.3
+            match_on_file_missing: False
+        - /etc/xinetd.d/discard-stream:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.3
+            match_on_file_missing: False
+      description: Ensure discard services are not enabled
+    echo_disabled:
+      data:
+        '*':
+        - /etc/xinetd.d/echo-dgram:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.4
+            match_on_file_missing: False
+        - /etc/xinetd.d/echo-stream:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.4
+            match_on_file_missing: False
+      description: Ensure echo services are not enabled
+    time_disabled:
+      data:
+        '*':
+        - /etc/xinetd.d/time-dgram:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.5
+            match_on_file_missing: False
+        - /etc/xinetd.d/time-stream:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.5
+            match_on_file_missing: False
+      description: Ensure time services are not enabled
     root_only_uid_0_account:
       data:
         '*':
@@ -107,7 +177,7 @@ grep:
     boot_loader_passwd:
       data:
         '*':
-        - /etc/grub.conf:
+        - /boot/grub2/grub.cfg:
             pattern: password
             tag: CIS-1.4.2
       description: Ensure bootloader password is set
@@ -120,66 +190,6 @@ grep:
               - '-E'
             tag: CIS-1.7.1.1
       description: Ensure message of the day is configured properly
-    chargen_disabled:
-      data:
-        '*':
-        - /etc/xinetd.d/chargen-dgram:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.1
-        - /etc/xinetd.d/chargen-stream:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.1
-      description: Ensure chargen services are not enabled
-    daytime_disabled:
-      data:
-        '*':
-        - /etc/xinetd.d/daytime-dgram:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.2
-        - /etc/xinetd.d/daytime-stream:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.2
-      description: Ensure daytime services are not enabled
-    discard_disabled:
-      data:
-        '*':
-        - /etc/xinetd.d/discard-dgram:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.3
-        - /etc/xinetd.d/discard-stream:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.3
-      description: Ensure discard services are not enabled
-    echo_disabled:
-      data:
-        '*':
-        - /etc/xinetd.d/echo-dgram:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.4
-        - /etc/xinetd.d/echo-stream:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.4
-      description: Ensure echo services are not enabled
-    time_disabled:
-      data:
-        '*':
-        - /etc/xinetd.d/time-dgram:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.5
-        - /etc/xinetd.d/time-stream:
-            pattern: disable
-            match_output: 'yes'
-            tag: CIS-2.1.5
-      description: Ensure time services are not enabled
     configure_ntp:
       data:
         '*':
@@ -212,13 +222,22 @@ grep:
         '*':
         - /etc/bashrc:
             pattern: umask
-            match_pattern: '027'
+            match_pattern: '0[257]7'
+            grep_args:
+              - '-E'
             tag: CIS-5.4.4
         - /etc/profile.d:
             pattern: umask
-            match_pattern: '027'
+            match_pattern: '0[257]7'
             grep_args:
               - '-r'
+              - '-E'
+            tag: CIS-5.4.4
+        - /etc/profile:
+            pattern: umask
+            match_pattern: '0[257]7'
+            grep_arge:
+              - '-E'
             tag: CIS-5.4.4
       description: Ensure default user umask is 027 or more restrictive
     mounts_var_tmp_partition_nodev:
@@ -626,11 +645,6 @@ pkg:
         '*':
         - telnet: CIS-2.3.4
       description: Ensure telnet client is not installed
-    xinetd:
-      data:
-        '*':
-        - xinetd: CIS-2.1.10
-      description: Ensure xinetd is not enabled
     xorg-x11-server-common:
       data:
         '*':
@@ -824,6 +838,7 @@ stat:
       '*':
       - /etc/passwd-:
           group: root
+          gid: 0
           tag: CIS-6.1.6
           uid: 0
           user: root
@@ -860,7 +875,7 @@ stat:
       - /etc/gshadow-:
           gid: 0
           group: root
-          mode: 640
+          mode: '000'
           tag: CIS-6.1.9
           uid: 0
           user: root
@@ -869,7 +884,7 @@ stat:
   grub_conf_own_perm:
     data:
       '*':
-      - /etc/grub.conf:
+      - /etc/grub2.cfg:
           gid: 0
           group: root
           mode: 600
@@ -1059,6 +1074,12 @@ systemctl:
            tag: CIS-5.1.1
       description: Ensure cron daemon is enabled
   blacklist:
+    xinetd:
+      data:
+        '*':
+        - xinetd:
+            tag: CIS-2.1.10
+      description: Ensure xinetd is not enabled
     avahi-daemon-disabled:
       data:
         '*':
@@ -1101,10 +1122,28 @@ systemctl:
         - named:
             tag: CIS-2.2.8
       description: Ensure DNS Server is not enabled
-    ftp-server-disabled:
+    vsftpd-server-disabled:
       data:
-        '*':
+        CentOS Linux-7:
         - vsftpd:
+            tag: CIS-2.2.9
+      description: Ensure FTP Server is not enabled
+    proftpd-server-disabled:
+      data:
+        CentOS Linux-7:
+        - proftpd:
+            tag: CIS-2.2.9
+      description: Ensure FTP Server is not enabled
+    pure-ftpd-server-disabled:
+      data:
+        CentOS Linux-7:
+        - pure-ftpd:
+            tag: CIS-2.2.9
+      description: Ensure FTP Server is not enabled
+    perl-ftpd-server-disabled:
+      data:
+        CentOS Linux-7:
+        - perl-ftpd:
             tag: CIS-2.2.9
       description: Ensure FTP Server is not enabled
     http-server-disabled:
@@ -1187,6 +1226,12 @@ systemctl:
       description: Ensure talk server is not enabled
 
 misc:
+  mail_configured_for_local_only_mode:
+    data:
+      '*':
+        tag: CIS-2.2.15
+        function: mail_conf_check
+    description: Ensure mail transfer agent is configured for local-only mode
   check_any_package:
     data:
       '*':
@@ -1273,19 +1318,13 @@ misc:
       '*':
         tag: CIS-6.2.13
         function: check_netrc_files_accessibility
-    description: Ensure users' .netrc Files are not group or world accessible
+    description: Ensure users .netrc Files are not group or world accessible
   user_rhosts_files_check:
     data:
       '*':
         tag: CIS-6.2.14
         function: check_users_rhosts_files
     description: Ensure no users have .rhosts files
-  mail_configured_for_local_only_mode:
-    data:
-      '*':
-        tag: CIS-2.2.15
-        function: mail_conf_check
-    description: Ensure mail transfer agent is configured for local-only mode
   check_groups_validity_in_systemfiles:
     data:
       '*':
