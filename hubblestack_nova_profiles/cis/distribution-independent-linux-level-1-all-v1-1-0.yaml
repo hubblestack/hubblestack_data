@@ -1124,25 +1124,25 @@ systemctl:
       description: Ensure DNS Server is not enabled
     vsftpd-server-disabled:
       data:
-        CentOS Linux-7:
+        '*':
         - vsftpd:
             tag: CIS-2.2.9
       description: Ensure FTP Server is not enabled
     proftpd-server-disabled:
       data:
-        CentOS Linux-7:
+        '*':
         - proftpd:
             tag: CIS-2.2.9
       description: Ensure FTP Server is not enabled
     pure-ftpd-server-disabled:
       data:
-        CentOS Linux-7:
+        '*':
         - pure-ftpd:
             tag: CIS-2.2.9
       description: Ensure FTP Server is not enabled
     perl-ftpd-server-disabled:
       data:
-        CentOS Linux-7:
+        '*':
         - perl-ftpd:
             tag: CIS-2.2.9
       description: Ensure FTP Server is not enabled
