@@ -8,7 +8,7 @@ nova:
   'G@osfinger:CentOS-6':
     - cis.centos-6-level-1-scored-v2-0-1
   'G@osfinger:CentOS*Linux-7':
-    - cis.centos-7-level-1-scored-v2-1-1
+    - cis.centos-7-level-1-scored-v2-2-0
   'G@osfinger:Debian*7':
     - cis.debian-7
   'G@osfinger:Debian*8':
