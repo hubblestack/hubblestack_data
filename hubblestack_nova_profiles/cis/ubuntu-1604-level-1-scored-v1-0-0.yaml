@@ -921,7 +921,6 @@ stat:
           tag: CIS-3.4.4
           uid: 0
           user: root
-          tag: CIS-3.4.4
     description: Ensure permissions on /etc/hosts.allow are configured
   hosts_deny_perms:
     data:
@@ -934,7 +933,6 @@ stat:
           tag: CIS-3.4.5
           uid: 0
           user: root
-          tag: CIS-3.4.5
     description: Ensure permissions on /etc/hosts.deny are configured
   crontab_own_perms:
     data:
@@ -1175,7 +1173,7 @@ misc:
         tag: CIS-5.4.2
         function: system_account_non_login
     description: Ensure system accounts are non-login
-    control: Code change required for filtering the users by their login shell 
+    control: Code change required for filtering the users by their login shell
   default_group_for_root_account:
     data:
       Ubuntu-16.04:
@@ -1350,12 +1348,14 @@ systemctl:
     ldap-server-disabled:
       data:
         Ubuntu-16.04:
-        - slapd: CIS-2.2.6
+        - slapd:
+            tag: CIS-2.2.6
       description: Ensure LDAP server is not enabled
     nfs-disabled:
       data:
         Ubuntu-16.04:
-        - nfs-kernel-server: CIS-2.2.7
+        - nfs-kernel-server:
+            tag: CIS-2.2.7
       description: Ensure NFS and RPC are not enabled
 #    rpc-disabled:
 #      data:

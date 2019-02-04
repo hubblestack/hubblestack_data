@@ -463,13 +463,6 @@ grep:
             pattern: hard core
             tag: CIS-1.5.1
       description: Ensure core dumps are restricted
-    rsyslog_remote_logging:
-      data:
-        CentOS Linux-7:
-        - /etc/rsyslog.conf:
-            pattern: ^*.*[^I][^I]*@
-            tag: CIS-4.2.1.4
-      description: Ensure rsyslog is configured to send logs to a remote log host
     sshd_approved_cipher:
       data:
         CentOS Linux-7:

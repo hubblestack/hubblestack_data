@@ -279,7 +279,7 @@ stat:
             user: 'root'
             uid: 0
             group: 'root'
-            uid: 0
+            gid: 0
     description: Ensure permissions on /etc/passwd- are configured
 
   shadow_perm:

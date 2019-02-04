@@ -204,9 +204,6 @@ grep:
             pattern: wheel
             tag: CIS-6.5
       description: Restrict Access to the su Command
-    pam_cracklib_try_first_pass:
-      data: {}
-      description: PAM cracklib policy
     passwd_change_min_days:
       data:
         Red Hat Enterprise Linux Server-7:
@@ -450,9 +447,6 @@ pkg:
         Red Hat Enterprise Linux Server-7:
         - firewalld: CIS-4.7
       description: Enable firewalld
-    iptables:
-      data: {}
-      description: Install IPtables
     rsyslog:
       data:
         Red Hat Enterprise Linux Server-7:
@@ -710,9 +704,6 @@ sysctl:
           match_output: '1'
           tag: CIS-4.2.6
     description: Enable Bad Error Message Protection
-  exec_shield:
-    data: {}
-    description: Configure ExecShield
   icmp_redirect_acceptance:
     data:
       Red Hat Enterprise Linux Server-7:
@@ -754,9 +745,6 @@ sysctl:
           match_output: '2'
           tag: CIS-1.6.2
     description: Enable Randomized Virtual Memory Region Placement
-  restrict_suid_core_dumps:
-    data: {}
-    description: Restrict SUID Core Dumps
   send_packet_redirect:
     data:
       Red Hat Enterprise Linux Server-7:
