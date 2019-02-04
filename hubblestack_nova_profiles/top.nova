@@ -14,7 +14,7 @@ nova:
   'G@osfinger:Debian*8':
     - cis.debian-8-level-1-scored-v1-0-0
   'G@osfinger:Debian*9':
-    - cis.debian-9
+    - cis.debian-9-level-1-scored-v1-0-0
   'G@osfinger:Red*Hat*Enterprise*Linux*Server-6':
     - cis.rhels-6-level-1-scored-v2-0-1
   'G@osfinger:Red*Hat*Enterprise*Linux*Server-7':
