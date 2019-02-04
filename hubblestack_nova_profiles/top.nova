@@ -40,11 +40,11 @@ nova:
   'G@osfinger:Amazon*Linux*2015*':
     - cis.amazon-level-1-scored-v1-0-0
   'G@osfinger:Amazon*Linux*2016*':
-    - cis.amazon-level-1-scored-v2-0-0
+    - cis.amazon-level-1-scored-v2-1-0
   'G@osfinger:Amazon*Linux*2017*':
-    - cis.amazon-level-1-scored-v1-0-0
+    - cis.amazon-level-1-scored-v2-1-0
   'G@osfinger:Amazon*Linux*2018*':
-    - cis.amazon-level-1-scored-v1-0-0
+    - cis.amazon-level-1-scored-v2-1-0
   'G@kernel:Linux':
     - security.meltdown_spectre
     - security.ssh_passwordauthentication
