@@ -27,6 +27,8 @@ nova:
     - cis.ubuntu-1404-level-1-scored-v1-0-0
   'G@osfinger:Ubuntu-16.04':
     - cis.ubuntu-1604-level-1-scored-v1-0-0
+  'G@osfinger:Ubuntu-18.04':
+    - cis.ubuntu-1804-level-1-scored-v1-0-0
   'G@osfullname:Microsoft*Windows*Server*2008*':
     - cis.windows-2008r2-level-1-scored-v3-0-1
   'G@osfullname:Microsoft*Windows*Server*2012*':

@@ -626,6 +626,24 @@ grep:
             pattern: '^+'
             tag: CIS-6.2.4
       description: Ensure No Legacy "+" Entries Exist in /etc/group File
+    ensure_local_login_warning:
+      data:
+        Ubuntu-16.04:
+        - /etc/issue:
+            pattern: '"(\\\v|\\\r|\\\m|\\\s)"'
+            grep_args:
+              - '-E'
+            tag: CIS-1.7.1.2
+      description: Ensure local login warning banner is configured properly
+    ensure_remote_login_warning:
+      data:
+        Ubuntu-16.04:
+        - /etc/issue.net:
+            pattern: '"(\\\v|\\\r|\\\m|\\\s)"'
+            grep_args:
+              - '-E'
+            tag: CIS-1.7.1.3
+      description: Ensure remote login warning banner is configured properly
     talkd:
       data:
         Ubuntu-16.04:
@@ -1059,6 +1077,17 @@ stat:
           allow_more_strict: true
           tag: CIS-5.2.1
     description: Ensure permissions on /etc/ssh/sshd_config are configured
+  warning_banner_motd:
+    data:
+      Ubuntu-16.04:
+      - /etc/motd:
+          gid: 0
+          group: root
+          mode: 644
+          tag: CIS-1.7.1.4
+          uid: 0
+          user: root
+    description: Ensure permissions on /etc/motd are configured
   banner_files_issue:
     data:
       Ubuntu-16.04:
@@ -1071,6 +1100,17 @@ stat:
           allow_more_strict: true
           tag: CIS-1.7.1.5
     description: Ensure permissions on /etc/issue are configured
+  banner_files_issue_net:
+    data:
+      Ubuntu-16.04:
+      - /etc/issue.net:
+          gid: 0
+          group: root
+          mode: 644
+          tag: CIS-1.7.1.6
+          uid: 0
+          user: root
+    description: Ensure permissions on /etc/issue.net are configured
   passwd_perms:
     data:
       Ubuntu-16.04:
