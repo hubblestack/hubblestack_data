@@ -112,6 +112,14 @@ win_auditpol:
             tag: CIS-17.3.1
             value_type: 'equal'
       description: Ensure 'Audit Process Creation' is set to 'Success'
+    audit_other_object_access_events:
+      data:
+        '*':
+        - 'other_object_access_events':
+            match_output: 'Success and Failure'
+            tag: CIS-17.6.1
+            value_type: 'equal'
+      description: Ensure 'Audit Other Object Access Events' is set to 'Success and Failure'
     audit_removable_storage:
       data:
         '*':
@@ -390,6 +398,7 @@ win_firewall:
             tag: CIS-9.3.10
             value_type: 'public'
       description: Ensure 'Windows Firewall - Public - Logging - Log successful connections' is set to 'Yes'
+
 win_pkg:
   whitelist:
     laps_admpwd_gpo_extension_cse_is_installed:
@@ -400,14 +409,14 @@ win_pkg:
             tag: CIS-18.2.1
             value_type: 'equal'
       description: Ensure LAPS AdmPwd GPO Extension / CSE is installed
-    emet_5.51:
+    emet_5_52:
       data:
         '*':
         - 'EMET':
-            match_output: '5.5'
+            match_output: '5.51'
             tag: CIS-18.9.24.1
             value_type: 'more'
-      description: Ensure 'EMET 5.51' or higher is installed
+      description: Ensure 'EMET 5.52' or higher is installed
 
 win_reg:
   whitelist:
@@ -475,6 +484,14 @@ win_reg:
             tag: CIS-19.7.40.1
             value_type: 'equal'
       description: Ensure 'Always install with elevated privileges' is set to 'Disabled'
+    allow_user_control_over_installs:
+      data:
+        '*':
+          - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Installer\EnableUserControl':
+              tag: CIS-18.9.85.1
+              match_output: '0'
+              value_type: 'equal'
+      description: Ensure 'Allow user control over installs' is set to 'Disabled'
     always_install_with_elevated_privileges_hklm:
       data:
         '*':
@@ -515,6 +532,30 @@ win_reg:
             tag: CIS-18.3.1
             value_type: 'equal'
       description: Ensure 'Apply UAC restrictions to local accounts on network logons' is set to 'Enabled'
+    configure_smbv1_client_driver:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\mrxsmb10\Start':
+            match_output: '1'
+            tag: CIS-18.3.2
+            value_type: 'equal'
+      description: Ensure 'Configure SMB v1 client driver' is set to 'Enabled - Disable driver'
+    configure_smbv1_server:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\LanmanServer\Parameters\SMB1':
+            match_output: '1'
+            tag: CIS-18.3.3
+            value_type: 'equal'
+      description: Ensure 'Configure SMB v1 server' is set to 'Disabled'
+    enable_sehop:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session_Manager\kernel\DisableExceptionChainValidation':
+            match_output: '1'
+            tag: CIS-18.3.4
+            value_type: 'equal'
+      description: Ensure 'Enable Structured Exception Handling Overwrite Protection (SEHOP)' is set to 'Enabled'
     automatically_send_memory_dumps_for_os-generated_error_reports:
       data:
         '*':
@@ -547,6 +588,14 @@ win_reg:
             tag: CIS-18.9.101.3
             value_type: 'equal'
       description: Ensure 'Configure Automatic Updates - Scheduled install day' is set to '0 - Every day'
+    configure_local_settings_overide_for_reporting_to_microsoft_maps:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\\Windows_Defender\Spynet\LocalSettingOverrideSpynetReporting':
+            match_output: '0'
+            tag: CIS-18.9.76.3.1
+            value_type: 'equal'
+      description: Ensure 'Configure local setting override for reporting to Microsoft MAPS' is set to 'Disabled'
     configure_default_consent:
       data:
         '*':
@@ -555,6 +604,22 @@ win_reg:
             tag: CIS-18.9.81.2.1
             value_type: 'equal'
       description: Ensure 'Configure Default consent' is set to 'Enabled - Always ask before sending data'
+    require_password_when_computer_wakes_on_battery:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51\DCSettingIndex':
+            match_output: '1'
+            tag: CIS-18.8.33.6.1
+            value_type: 'equal'
+      description: Ensure 'Require a password when a computer wakes (on battery)' is set to 'Enabled'
+    require_password_when_computer_wakes_plugged_in:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Power\PowerSettings\0e796bdb-100d-47d6-a2d5-f7d2daa51f51\ACSettingIndex':
+            match_output: '1'
+            tag: CIS-18.8.33.6.2
+            value_type: 'equal'
+      description: Ensure 'Require a password when a computer wakes (plugged in)' is set to 'Enabled'
     configure_offer_remote_assistance:
       data:
         '*':
@@ -571,14 +636,14 @@ win_reg:
             tag: CIS-18.8.35.2
             value_type: 'equal'
       description: Ensure 'Configure Solicited Remote Assistance' is set to 'Disabled'
-    configure_windows_smartscreen:
+    configure_windows_defender_smartscreen:
       data:
         '*':
         - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System\EnableSmartScreen':
             match_output: '2'
-            tag: CIS-18.9.30.2
+            tag: CIS-18.9.80.1.1
             value_type: 'equal'
-      description: Ensure 'Configure Windows SmartScreen' is set to 'Enabled - Require approval from an administrator before running downloaded unknown software'
+      description: Ensure 'Configure Windows Defender SmartScreen' is set to 'Enabled - Warn and prevent bypass'
     configure_registry_policy_processing_do_not_apply_during_periodic_background_processing:
       data:
         '*':
@@ -606,7 +671,7 @@ win_reg:
     default_protections_for_internet_explorer:
       data:
         '*':
-        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\EMET\Defaults':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\EMET\Defaults\IE':
             match_output: '1'
             tag: CIS-18.9.24.3
             value_type: 'equal'
@@ -787,6 +852,14 @@ win_reg:
             tag: CIS-18.8.3.1
             value_type: 'equal'
       description: Ensure 'Include command line in process creation events' is set to 'Disabled'
+    allow_remote_host_delegation_of_non_exportable_credentials:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\CredentialsDelegation\AllowProtectedCreds':
+            match_output: '1'
+            tag: CIS-18.8.4.1
+            value_type: 'equal'
+      description: Ensure 'Remote host allows delegation of non-exportable credentials' is set to 'Enabled'
     mss_enable_automatic_logon:
       data:
         '*':
@@ -1078,7 +1151,7 @@ win_reg:
     system_aslr:
       data:
         '*':
-        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\EMET\SysSettings\DEP':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\EMET\SysSettings\ASLR':
             match_output: '1'
             tag: CIS-18.9.24.6
             value_type: 'equal'
@@ -1086,7 +1159,7 @@ win_reg:
     system_dep:
       data:
         '*':
-        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\EMET\SysSettings\SEHOP':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\EMET\SysSettings\DEP':
             match_output: '2'
             tag: CIS-18.9.24.7
             value_type: 'equal'
@@ -1128,9 +1201,25 @@ win_reg:
         '*':
         - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Explorer\NoDataExecutionPrevention':
             match_output: '0'
-            tag: CIS-18.9.30.3
+            tag: CIS-18.9.30.2
             value_type: 'equal'
       description: Ensure 'Turn off Data Execution Prevention for Explorer' is set to 'Disabled'
+    turn_off_heap_termination_on_corruption:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Explorer\NoHeapTerminationOnCorruption':
+            match_output: '0'
+            tag: CIS-18.9.30.3
+            value_type: 'equal'
+      description: Ensure 'Turn off heap termination on corruption' is set to 'Disabled'
+    turn_off_shell_protocol_protected_mode:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\PreXPSP2ShellProtocolBehavior':
+            match_output: '0'
+            tag: CIS-18.9.30.4
+            value_type: 'equal'
+      description: Ensure 'Turn off shell protocol protected mode' is set to 'Disabled'
     turn_off_app_notifications_on_the_lock_screen:
       data:
         '*':
@@ -1139,6 +1228,14 @@ win_reg:
             tag: CIS-18.8.27.4
             value_type: 'equal'
       description: Ensure 'Turn off app notifications on the lock screen' is set to 'Enabled'
+    turn_off_picture_password_sign_in:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System\BlockDomainPicturePassword':
+            match_output: '1'
+            tag: CIS-18.8.27.5
+            value_type: 'equal'
+      description: Ensure 'Turn off picture password sign-in' is set to 'Enabled'
     turn_off_background_refresh_of_group_policy:
       data:
         '*':
@@ -1147,22 +1244,30 @@ win_reg:
             tag: CIS-18.8.21.4
             value_type: 'equal'
       description: Ensure 'Turn off background refresh of Group Policy' is set to 'Disabled'
-    turn_off_heap_termination_on_corruption:
+    turn_off_downloading_of_print_drivers_over_http:
       data:
         '*':
-        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\Explorer\NoHeapTerminationOnCorruption':
-            match_output: '0'
-            tag: CIS-18.9.30.4
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows_NT\Printers\DisableWebPnPDownload':
+            match_output: '1'
+            tag: CIS-18.8.22.1.1
             value_type: 'equal'
-      description: Ensure 'Turn off heap termination on corruption' is set to 'Disabled'
-    turn_off_shell_protocol_protected_mode:
+      description: Ensure 'Turn off downloading of print drivers over HTTP' is set to 'Enabled'
+    turn_off_internet_download_for_web_publishing_and_online_ordering_wizards:
       data:
         '*':
-        - 'HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\PreXPSP2ShellProtocolBehavior':
-            match_output: '0'
-            tag: CIS-18.9.30.5
+        - 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoWebServices':
+            match_output: '1'
+            tag: CIS-18.8.22.1.5
             value_type: 'equal'
-      description: Ensure 'Turn off shell protocol protected mode' is set to 'Disabled'
+      description: Ensure 'Turn off Internet download for Web publishing and online ordering wizards' is set to 'Enabled'
+    turn_off_printing_over_http:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows_NT\Printers\DisableHTTPPrinting':
+            match_output: '1'
+            tag: CIS-18.8.22.1.6
+            value_type: 'equal'
+      description: Ensure 'Turn off printing over HTTP' is set to 'Enabled'
     turn_off_the_offer_to_update_to_the_latest_version_of_windows:
       data:
         '*':
@@ -1171,6 +1276,30 @@ win_reg:
             tag: CIS-18.9.61.2
             value_type: 'equal'
       description: Ensure 'Turn off the offer to update to the latest version of Windows' is set to 'Enabled'
+    turn_on_behavior_monitoring:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows_Defender\Real-Time_Protection\DisableBehaviorMonitoring':
+            match_output: '1'
+            tag: CIS-18.9.76.7.1
+            value_type: 'equal'
+      description: Ensure 'Turn on behavior monitoring' is set to 'Enabled'
+    turn_on_email_scanning:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows_Defender\Scan\DisableEmailScanning':
+            match_output: '1'
+            tag: CIS-18.9.76.10.2
+            value_type: 'equal'
+      description: Ensure 'Turn on e-mail scanning' is set to 'Enabled'
+    turn_off_windows_defender_antivirus:
+      data:
+        '*':
+        - 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows_Defender\DisableAntiSpyware':
+            match_output: '0'
+            tag: CIS-18.9.76.14
+            value_type: 'equal'
+      description: Ensure 'Turn off Windows Defender AntiVirus' is set to 'Disabled'
     turn_on_powershell_script_block_logging:
       data:
         '*':
