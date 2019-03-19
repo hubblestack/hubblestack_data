@@ -1235,12 +1235,12 @@ misc:
         args:
         - 1000
     description: Ensure users own their home directories
-  check_users_dot_files_not_writable:
-    data:
-      Ubuntu-16.04:
-        tag: CIS-6.2.10
-        function: check_users_dot_files
-    description: Ensure users dot files are not group or world writable
+#  check_users_dot_files_not_writable:
+#    data:
+#      Ubuntu-16.04:
+#        tag: CIS-6.2.10
+#        function: check_users_dot_files
+#    description: Ensure users dot files are not group or world writable
   check_users_not_forward_files:
     data:
       Ubuntu-16.04:
