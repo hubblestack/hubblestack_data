@@ -1173,161 +1173,161 @@ sysctl:
           match_output: '1'
           tag: CIS-3.2.8
     description: Ensure TCP SYN Cookies is enabled
-#misc:
-#  check_any_package:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#       tag: CIS-4.2.3
-#       function: check_if_any_pkg_installed
-#       args:
-#         - rsyslog, syslog-ng
-#    description: Ensure rsyslog or syslog-ng is installed
-#  check_log_files_permission:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#       tag: CIS-4.2.4
-#       function: check_directory_files_permission
-#       args:
-#        - /var/log
-#        - 740
-#    description: Ensure permissions on all logfiles are configured
-#  sshd_approved_macs:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#       tag: CIS-5.2.12
-#       function: check_list_values
-#       args:
-#         - /etc/ssh/sshd_config
-#         - '^MACs'
-#         - '^MACs(.*)$'
-#         - null
-#         - hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-#         - null
-#         - ','
-#    description: Ensure only approved MAC algorithms are used
-#  sshd_approved_ciphers:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#       tag: CIS-5.2.11
-#       function: check_list_values
-#       args:
-#         - /etc/ssh/sshd_config
-#         - '^Ciphers'
-#         - '^Ciphers(.*)$'
-#         - null
-#         - 'aes256-ctr,aes192-ctr,aes128-ctr,aes256-gcm@openssh.com,aes128-gcm@openssh.com,chacha20-poly1305@openssh.com'
-#         - null
-#         - ','
-#    description: Ensure only approved ciphers are used
-#  system_account_non_login:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-5.4.2
-#        function: system_account_non_login
-#    description: Ensure system accounts are non-login
-#  default_group_for_root_account:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-5.4.3
-#        function: default_group_for_root
-#    description: Ensure default group for the root account is GID 0
-#  ensure_password_fields_non_empty:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.1
-#        function: check_password_fields_not_empty
-#    description: Ensure password fields are not empty
-#  root_is_only_uid_0_account:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.5
-#        function: root_is_only_uid_0_account
-#    description: Ensure root is the only UID 0 account
-#  check_path_integrity:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.6
-#        function: check_path_integrity
-#    description: Ensure root PATH Integrity
-#  valid_home_directory:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.7
-#        function: check_all_users_home_directory
-#        args:
-#        - 1000
-#    description: Ensure all users home directories exist
-#  home_directory_permission:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.8
-#        function: check_users_home_directory_permissions
-#    description: Ensure users home directories permissions are 750 or more restrictive
-#  user_own_home_directory:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.9
-#        function: check_users_own_their_home
-#        args:
-#        - 1000
-#    description: Ensure users own their home directories
+misc:
+  check_any_package:
+    data:
+      Red Hat Enterprise Linux Server-7:
+       tag: CIS-4.2.3
+       function: check_if_any_pkg_installed
+       args:
+         - rsyslog, syslog-ng
+    description: Ensure rsyslog or syslog-ng is installed
+  check_log_files_permission:
+    data:
+      Red Hat Enterprise Linux Server-7:
+       tag: CIS-4.2.4
+       function: check_directory_files_permission
+       args:
+        - /var/log
+        - 740
+    description: Ensure permissions on all logfiles are configured
+  sshd_approved_macs:
+    data:
+      Red Hat Enterprise Linux Server-7:
+       tag: CIS-5.2.12
+       function: check_list_values
+       args:
+         - /etc/ssh/sshd_config
+         - '^MACs'
+         - '^MACs(.*)$'
+         - null
+         - hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com,curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+         - null
+         - ','
+    description: Ensure only approved MAC algorithms are used
+  sshd_approved_ciphers:
+    data:
+      Red Hat Enterprise Linux Server-7:
+       tag: CIS-5.2.11
+       function: check_list_values
+       args:
+         - /etc/ssh/sshd_config
+         - '^Ciphers'
+         - '^Ciphers(.*)$'
+         - null
+         - 'aes256-ctr,aes192-ctr,aes128-ctr,aes256-gcm@openssh.com,aes128-gcm@openssh.com,chacha20-poly1305@openssh.com'
+         - null
+         - ','
+    description: Ensure only approved ciphers are used
+  system_account_non_login:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-5.4.2
+        function: system_account_non_login
+    description: Ensure system accounts are non-login
+  default_group_for_root_account:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-5.4.3
+        function: default_group_for_root
+    description: Ensure default group for the root account is GID 0
+  ensure_password_fields_non_empty:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.1
+        function: check_password_fields_not_empty
+    description: Ensure password fields are not empty
+  root_is_only_uid_0_account:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.5
+        function: root_is_only_uid_0_account
+    description: Ensure root is the only UID 0 account
+  check_path_integrity:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.6
+        function: check_path_integrity
+    description: Ensure root PATH Integrity
+  valid_home_directory:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.7
+        function: check_all_users_home_directory
+        args:
+        - 1000
+    description: Ensure all users home directories exist
+  home_directory_permission:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.8
+        function: check_users_home_directory_permissions
+    description: Ensure users home directories permissions are 750 or more restrictive
+  user_own_home_directory:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.9
+        function: check_users_own_their_home
+        args:
+        - 1000
+    description: Ensure users own their home directories
 #  check_users_dot_files_not_writable:
 #    data:
 #      Red Hat Enterprise Linux Server-7:
 #        tag: CIS-6.2.10
 #        function: check_users_dot_files
 #    description: Ensure users dot files are not group or world writable
-#  check_users_not_forward_files:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.11
-#        function: check_users_forward_files
-#    description: Ensure no users have .forward files
-#  check_no_users_netrc_files:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.12
-#        function: check_users_netrc_files
-#    description: Ensure no users have .netrc files
-#  check_netrc_files_not_world_writable:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.13
-#        function: check_netrc_files_accessibility
-#    description: Ensure users .netrc Files are not group or world accessible
-#  check_no_users_have_rhosts_files:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.14
-#        function: check_users_rhosts_files
-#    description: Ensure no users have .rhosts files
-#  check_groups_validity_in_systemfiles:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.15
-#        function: check_groups_validity
-#    description: Ensure all groups in /etc/passwd exist in /etc/group
-#  no_duplicate_sid:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.16
-#        function: check_duplicate_uids
-#    description: Ensure no duplicate UIDs exist
-#  no_duplicate_gid:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.17
-#        function: check_duplicate_gids
-#    description: Ensure no duplicate GIDs exist
-#  check_duplicate_unames_exist:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.18
-#        function: check_duplicate_unames
-#    description: Ensure no duplicate user names exist
-#  check_duplicate_gnames_exist:
-#    data:
-#      Red Hat Enterprise Linux Server-7:
-#        tag: CIS-6.2.19
-#        function: check_duplicate_gnames
-#    description: Ensure no duplicate group names exist
+  check_users_not_forward_files:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.11
+        function: check_users_forward_files
+    description: Ensure no users have .forward files
+  check_no_users_netrc_files:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.12
+        function: check_users_netrc_files
+    description: Ensure no users have .netrc files
+  check_netrc_files_not_world_writable:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.13
+        function: check_netrc_files_accessibility
+    description: Ensure users .netrc Files are not group or world accessible
+  check_no_users_have_rhosts_files:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.14
+        function: check_users_rhosts_files
+    description: Ensure no users have .rhosts files
+  check_groups_validity_in_systemfiles:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.15
+        function: check_groups_validity
+    description: Ensure all groups in /etc/passwd exist in /etc/group
+  no_duplicate_sid:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.16
+        function: check_duplicate_uids
+    description: Ensure no duplicate UIDs exist
+  no_duplicate_gid:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.17
+        function: check_duplicate_gids
+    description: Ensure no duplicate GIDs exist
+  check_duplicate_unames_exist:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.18
+        function: check_duplicate_unames
+    description: Ensure no duplicate user names exist
+  check_duplicate_gnames_exist:
+    data:
+      Red Hat Enterprise Linux Server-7:
+        tag: CIS-6.2.19
+        function: check_duplicate_gnames
+    description: Ensure no duplicate group names exist
