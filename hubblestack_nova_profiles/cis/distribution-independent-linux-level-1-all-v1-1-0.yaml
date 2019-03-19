@@ -1225,133 +1225,133 @@ systemctl:
             tag: CIS-2.1.7
       description: Ensure talk server is not enabled
 
-misc:
-  mail_configured_for_local_only_mode:
-    data:
-      '*':
-        tag: CIS-2.2.15
-        function: mail_conf_check
-    description: Ensure mail transfer agent is configured for local-only mode
-  check_any_package:
-    data:
-      '*':
-        tag: CIS-4.2.3
-        function: check_if_any_pkg_installed
-        args:
-          - rsyslog, syslog-ng
-    description: Ensure rsyslog or syslog-ng is installed
-  system_account_non_login:
-    data:
-      '*':
-        tag: CIS-5.4.2
-        function: system_account_non_login
-    description: Ensure system accounts are non-login
-  default_group_for_root_account:
-    data:
-      '*':
-        tag: CIS-5.4.3
-        function: default_group_for_root
-    description: Ensure default group for the root account is GID 0
-  check_log_files_permission:
-    data:
-      '*':
-        tag: CIS-4.2.4
-        function: check_directory_files_permission
-        args:
-          - /var/log
-          - 740
-    description: Ensure permissions on all logfiles are configured
-  ensure_password_fields_non_empty:
-    data:
-      '*':
-        tag: CIS-6.2.1
-        function: check_password_fields_not_empty
-    description: Ensure password fields are not empty
-  check_path_integrity:
-    data:
-      '*':
-        tag: CIS-6.2.6
-        function: check_path_integrity
-    description: Ensure root PATH Integrity
-  valid_home_directory:
-    data:
-      '*':
-        tag: CIS-6.2.7
-        function: check_all_users_home_directory
-        args:
-        - 1000
-    description: 'Ensure all users home directories exist'
-  home_directory_permission:
-    data:
-      '*':
-        tag: CIS-6.2.8
-        function: check_users_home_directory_permissions
-    description: 'Ensure users home directories permissions are 750 or more restrictive'
-  user_own_home_directory:
-    data:
-      '*':
-        tag: CIS-6.2.9
-        function: check_users_own_their_home
-        args:
-        - 1000
-    description: Ensure users own their home directories
-  check_users_dot_files_not_writable:
-    data:
-      '*':
-        tag: CIS-6.2.10
-        function: check_users_dot_files
-    description: Ensure users dot files are not group or world writable
-  check_users_not_forward_files:
-    data:
-      '*':
-        tag: CIS-6.2.11
-        function: check_users_forward_files
-    description: 'Ensure no users have .forward files'
-  check_no_users_netrc_files:
-    data:
-      '*':
-        tag: CIS-6.2.12
-        function: check_users_netrc_files
-    description: Ensure no users have .netrc files
-  check_netrc_files_permission:
-    data:
-      '*':
-        tag: CIS-6.2.13
-        function: check_netrc_files_accessibility
-    description: Ensure users .netrc Files are not group or world accessible
-  user_rhosts_files_check:
-    data:
-      '*':
-        tag: CIS-6.2.14
-        function: check_users_rhosts_files
-    description: Ensure no users have .rhosts files
-  check_groups_validity_in_systemfiles:
-    data:
-      '*':
-        tag: CIS-6.2.15
-        function: check_groups_validity
-    description: Ensure all groups in /etc/passwd exist in /etc/group
-  no_duplicate_sid:
-    data:
-      '*':
-        tag: CIS-6.2.16
-        function: check_duplicate_uids
-    description: Ensure no duplicate UIDs exist
-  no_duplicate_gid:
-    data:
-      '*':
-        tag: CIS-6.2.17
-        function: check_duplicate_gids
-    description: Ensure no duplicate GIDs exist
-  check_duplicate_unames_exist:
-    data:
-      '*':
-        tag: CIS-6.2.18
-        function: check_duplicate_unames
-    description: Ensure no duplicate user names exist
-  check_duplicate_gnames_exist:
-    data:
-      '*':
-        tag: CIS-6.2.19
-        function: check_duplicate_gnames
-    description: Ensure no duplicate group names exist
+#misc:
+#  mail_configured_for_local_only_mode:
+#    data:
+#      '*':
+#        tag: CIS-2.2.15
+#        function: mail_conf_check
+#    description: Ensure mail transfer agent is configured for local-only mode
+#  check_any_package:
+#    data:
+#      '*':
+#        tag: CIS-4.2.3
+#        function: check_if_any_pkg_installed
+#        args:
+#          - rsyslog, syslog-ng
+#    description: Ensure rsyslog or syslog-ng is installed
+#  system_account_non_login:
+#    data:
+#      '*':
+#        tag: CIS-5.4.2
+#        function: system_account_non_login
+#    description: Ensure system accounts are non-login
+#  default_group_for_root_account:
+#    data:
+#      '*':
+#        tag: CIS-5.4.3
+#        function: default_group_for_root
+#    description: Ensure default group for the root account is GID 0
+#  check_log_files_permission:
+#    data:
+#      '*':
+#        tag: CIS-4.2.4
+#        function: check_directory_files_permission
+#        args:
+#          - /var/log
+#          - 740
+#    description: Ensure permissions on all logfiles are configured
+#  ensure_password_fields_non_empty:
+#    data:
+#      '*':
+#        tag: CIS-6.2.1
+#        function: check_password_fields_not_empty
+#    description: Ensure password fields are not empty
+#  check_path_integrity:
+#    data:
+#      '*':
+#        tag: CIS-6.2.6
+#        function: check_path_integrity
+#    description: Ensure root PATH Integrity
+#  valid_home_directory:
+#    data:
+#      '*':
+#        tag: CIS-6.2.7
+#        function: check_all_users_home_directory
+#        args:
+#        - 1000
+#    description: 'Ensure all users home directories exist'
+#  home_directory_permission:
+#    data:
+#      '*':
+#        tag: CIS-6.2.8
+#        function: check_users_home_directory_permissions
+#    description: 'Ensure users home directories permissions are 750 or more restrictive'
+#  user_own_home_directory:
+#    data:
+#      '*':
+#        tag: CIS-6.2.9
+#        function: check_users_own_their_home
+#        args:
+#        - 1000
+#    description: Ensure users own their home directories
+#  check_users_dot_files_not_writable:
+#    data:
+#      '*':
+#        tag: CIS-6.2.10
+#        function: check_users_dot_files
+#    description: Ensure users dot files are not group or world writable
+#  check_users_not_forward_files:
+#    data:
+#      '*':
+#        tag: CIS-6.2.11
+#        function: check_users_forward_files
+#    description: 'Ensure no users have .forward files'
+#  check_no_users_netrc_files:
+#    data:
+#      '*':
+#        tag: CIS-6.2.12
+#        function: check_users_netrc_files
+#    description: Ensure no users have .netrc files
+#  check_netrc_files_permission:
+#    data:
+#      '*':
+#        tag: CIS-6.2.13
+#        function: check_netrc_files_accessibility
+#    description: Ensure users .netrc Files are not group or world accessible
+#  user_rhosts_files_check:
+#    data:
+#      '*':
+#        tag: CIS-6.2.14
+#        function: check_users_rhosts_files
+#    description: Ensure no users have .rhosts files
+#  check_groups_validity_in_systemfiles:
+#    data:
+#      '*':
+#        tag: CIS-6.2.15
+#        function: check_groups_validity
+#    description: Ensure all groups in /etc/passwd exist in /etc/group
+#  no_duplicate_sid:
+#    data:
+#      '*':
+#        tag: CIS-6.2.16
+#        function: check_duplicate_uids
+#    description: Ensure no duplicate UIDs exist
+#  no_duplicate_gid:
+#    data:
+#      '*':
+#        tag: CIS-6.2.17
+#        function: check_duplicate_gids
+#    description: Ensure no duplicate GIDs exist
+#  check_duplicate_unames_exist:
+#    data:
+#      '*':
+#        tag: CIS-6.2.18
+#        function: check_duplicate_unames
+#    description: Ensure no duplicate user names exist
+#  check_duplicate_gnames_exist:
+#    data:
+#      '*':
+#        tag: CIS-6.2.19
+#        function: check_duplicate_gnames
+#    description: Ensure no duplicate group names exist
