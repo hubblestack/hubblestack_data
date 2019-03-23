@@ -279,7 +279,7 @@ stat:
             user: 'root'
             uid: 0
             group: 'root'
-            uid: 0
+            gid: 0
     description: Ensure permissions on /etc/passwd- are configured
 
   shadow_perm:
@@ -894,7 +894,7 @@ grep:
               pattern: "^umask 077"
       description: Ensure default user umask is 027 or more restrictive
 
- 
+
 service:
   whitelist:
     rsyslogd_running:

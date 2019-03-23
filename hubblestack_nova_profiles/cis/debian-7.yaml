@@ -566,7 +566,7 @@ sysctl:
             match_output: '0'
     description: Disable ICMP Redirect Acceptance
 
-  icmp_redirect_acceptance:
+  icmp_secure_redirect_acceptance:
     data:
       Debian*7:
         - 'net.ipv4.conf.all.secure_redirects':

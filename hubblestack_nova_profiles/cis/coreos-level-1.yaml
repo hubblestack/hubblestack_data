@@ -612,12 +612,12 @@ misc:
        args:
          - 1000
        description: Ensure users own their home directories
-  users_dot_file_check:
-    data:
-      '*CoreOS*':
-       tag: CIS-6.2.10
-       function: check_users_dot_files
-       description: Ensure users' dot files are not group or world writable
+#  users_dot_file_check:
+#    data:
+#      '*CoreOS*':
+#       tag: CIS-6.2.10
+#       function: check_users_dot_files
+#       description: Ensure users' dot files are not group or world writable
   users_forward_files_check:
     data:
       '*CoreOS*':

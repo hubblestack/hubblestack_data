@@ -1,85 +1,20 @@
 grep:
   whitelist:
-    disable_mount_cramfs:
+    single_user_mode_check:
       data:
         Ubuntu-16.04:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: cramfs
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.1
-      description: Ensure mounting of cramfs filesystems is disabled
-    disable_mount_freevxfs:
+        - /etc/shadow:
+            pattern: '^root:[*\!]:'
+            tag: CIS-1.4.3
+      description: Ensure authentication required for single user mode
+    mounts_home_partition_nodev:
       data:
         Ubuntu-16.04:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: freevxfs
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.2
-      description: Ensure mounting of freevxfs filesystems is disabled
-    disable_mount_jffs2:
-      data:
-        Ubuntu-16.04:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: jffs2
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.3
-      description: Ensure mounting of jffs2 filesystems is disabled
-    disable_mount_hfs:
-      data:
-        Ubuntu-16.04:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: hfs
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.4
-      description: Ensure mounting of hfs filesystems is disabled
-    disable_mount_hfsplus:
-      data:
-        Ubuntu-16.04:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: hfsplus
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.5
-      description: Ensure mounting of hfsplus filesystems is disabled
-    disable_mount_squashfs:
-      data:
-        Ubuntu-16.04:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: squashfs
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.6
-      description: Ensure mounting of squashfs filesystems is disabled
-    disable_mount_udf:
-      data:
-        Ubuntu-16.04:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: udf
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.7
-      description: Ensure mounting of udf filesystems is disabled
-    disable_mount_fat:
-      data:
-        Ubuntu-16.04:
-        - /etc/modprobe.d:
-            match_output: /bin/true
-            pattern: vfat
-            grep_args:
-              - '-r'
-            tag: CIS-1.1.1.8
-      description: Ensure mounting of FAT filesystems is disabled
+        - /proc/mounts:
+            match_output: nodev
+            pattern: /home
+            tag: CIS-1.1.13
+      description: Ensure nodev option set on /home partition
     mounts_dev_shm_partition_nodev:
       data:
         Ubuntu-16.04:
@@ -147,11 +82,19 @@ grep:
     aide_filesystem_scans:
       data:
         Ubuntu-16.04:
-        - /var/spool/cron/crontabs/root:
-#            match_output: '0 5 * * * /usr/bin/aide --check'
+        - /etc/cron.d:
             pattern: aide
+            grep_args:
+              - '-r'
             tag: CIS-1.3.2
       description: Ensure filesystem integrity is regularly checked
+    boot_loader_passwd:
+      data:
+        Ubuntu-16.04:
+        - /boot/grub/grub.cfg:
+            pattern: password
+            tag: CIS-1.4.2
+      description: Ensure bootloader password is set
     core_hard_limit:
       data:
         Ubuntu-16.04:
@@ -177,6 +120,16 @@ grep:
             pattern: RUNASUSER=
             tag: CIS-2.2.1.2
       description: Ensure NTP is configured
+    configure_chrony:
+      data:
+        Ubuntu-16.04:
+        - /etc/chrony.conf:
+            tag: CIS-2.2.1.3
+            pattern: '^server'
+        - /etc/sysconfig/chronyd:
+            tag: CIS-2.2.1.3
+            pattern: 'chrony'
+      description: Ensure chrony is configured
     local_mta:
       data:
         Ubuntu-16.04:
@@ -256,6 +209,30 @@ grep:
             pattern: ^*.*[^I][^I]*@
             tag: CIS-4.2.1.4
       description: Ensure rsyslog is configured to send logs to a remote log host
+    syslog-ng_file_perms:
+      data:
+        Ubuntu-16.04:
+        - /etc/syslog-ng/syslog-ng.conf:
+            pattern: ^options
+            match_output: 'perm(0640)'
+            tag: CIS-4.2.2.3
+      description: Ensure syslog-ng default file permissions configured
+    lockout_account:
+      data:
+        Ubuntu-16.04:
+        - /etc/pam.d/system-auth:
+            pattern: '"^auth\s+required\s+pam_faillock\.so.*"'
+            match_output: deny=5
+            grep_args:
+              - '-E'
+            tag: CIS-5.3.2
+        - /etc/pam.d/password-auth:
+            pattern: '"^auth\s+required\s+pam_faillock\.so.*"'
+            match_output: deny=5
+            grep_args:
+              - '-E'
+            tag: CIS-5.3.2
+      description: Ensure lockout for failed password attempts is configured
     pam_password_reuse:
       data:
         Ubuntu-16.04:
@@ -486,138 +463,132 @@ grep:
             tag: CIS-5.4.1.4
       description: Ensure inactive password lock is 30 days or less
   blacklist:
-    talkd:
+    disable_mount_cramfs:
       data:
         Ubuntu-16.04:
-        - /etc/xinetd*:
-            pattern: '^talk'
-            grep_args:
-              - '-r'
-            tag: CIS-2.1.7
-        - /etc/xinetd*:
-            pattern: '^ntalk'
-            grep_args:
-              - '-r'
-            tag: CIS-2.1.7
-      description: Ensure talk server is not enabled
-    telnet:
+        - /proc/modules:
+            pattern: "^cramfs "
+            tag: CIS-1.1.1.1
+      description: Ensure mounting of cramfs filesystems is disabled
+    disable_mount_freevxfs:
       data:
         Ubuntu-16.04:
-        - /etc/xinetd*:
-            pattern: '^telnet'
-            greps_args:
-              - '-r'
-            tag: CIS-2.1.8
-      description: Ensure Telnet Server is not Enabled
-    tftp:
+        - /proc/modules:
+            pattern: "^freevxfs "
+            tag: CIS-1.1.1.2
+      description: Ensure mounting of freevxfs filesystems is disabled
+    disable_mount_jffs2:
       data:
         Ubuntu-16.04:
-        - /etc/xinetd*:
-            pattern: '^tftp'
-            grep_args:
-              - '-r'
-            tag: CIS-2.1.9
-      description: Ensure tftp server is not enabled
-    chargen:
+        - /proc/modules:
+            pattern: "^jffs2 "
+            tag: CIS-1.1.1.3
+      description: Ensure mounting of jffs2 filesystems is disabled
+    disable_mount_hfs:
       data:
         Ubuntu-16.04:
-        - /etc/xinetd.d/chargen:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: chargen-stream
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
+        - /proc/modules:
+            pattern: "^hfs "
+            tag: CIS-1.1.1.4
+      description: Ensure mounting of hfs filesystems is disabled
+    disable_mount_hfsplus:
+      data:
+        Ubuntu-16.04:
+        - /proc/modules:
+            pattern: "^hfsplus "
+            tag: CIS-1.1.1.5
+      description: Ensure mounting of hfsplus filesystems is disabled
+    disable_mount_squashfs:
+      data:
+        Ubuntu-16.04:
+        - /proc/modules:
+            pattern: "^squashfs "
+            tag: CIS-1.1.1.6
+      description: Ensure mounting of squashfs filesystems is disabled
+    disable_mount_udf:
+      data:
+        Ubuntu-16.04:
+        - /proc/modules:
+            pattern: "^udf "
+            tag: CIS-1.1.1.7
+      description: Ensure mounting of udf filesystems is disabled
+    disable_mount_fat:
+      data:
+        Ubuntu-16.04:
+        - /proc/modules:
+            pattern: "^vfat "
+            tag: CIS-1.1.1.8
+      description: Ensure mounting of FAT filesystems is disabled
+    chargen_disabled:
+      data:
+        Ubuntu-16.04:
+        - /etc/xinetd.d/chargen-dgram:
+            pattern: disable
+            match_output: 'no'
             tag: CIS-2.1.1
-        - /etc/xinetd.d/chargen:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: chargen-dgram
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
+            match_on_file_missing: False
+        - /etc/xinetd.d/chargen-stream:
+            pattern: disable
+            match_output: 'no'
             tag: CIS-2.1.1
-      description: Ensure Chargen Services are not Enabled
-    daytime:
+            match_on_file_missing: False
+      description: Ensure chargen services are not enabled
+    daytime_disabled:
       data:
         Ubuntu-16.04:
-        - /etc/xinetd.d/daytime:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: daytime-stream
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
+        - /etc/xinetd.d/daytime-dgram:
+            pattern: disable
+            match_output: 'no'
             tag: CIS-2.1.2
-        - /etc/xinetd.d/daytime:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: daytime-dgram
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
+            match_on_file_missing: False
+        - /etc/xinetd.d/daytime-stream:
+            pattern: disable
+            match_output: 'no'
             tag: CIS-2.1.2
+            match_on_file_missing: False
       description: Ensure daytime services are not enabled
-    echo:
+    discard_disabled:
       data:
         Ubuntu-16.04:
-        - /etc/xinetd.d/echo:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: echo-stream
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
-            tag: CIS-2.1.4
-        - /etc/xinetd.d/echo:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: echo-dgram
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
-            tag: CIS-2.1.4
-      description: Ensure echo services are not enabled
-    discard:
-      data:
-        Ubuntu-16.04:
-        - /etc/xinetd.d/discard:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: discard-stream
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
+        - /etc/xinetd.d/discard-dgram:
+            pattern: disable
+            match_output: 'no'
             tag: CIS-2.1.3
-        - /etc/xinetd.d/discard:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: discard-dgram
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
+            match_on_file_missing: False
+        - /etc/xinetd.d/discard-stream:
+            pattern: disable
+            match_output: 'no'
             tag: CIS-2.1.3
+            match_on_file_missing: False
       description: Ensure discard services are not enabled
-    time:
+    echo_disabled:
       data:
         Ubuntu-16.04:
-        - /etc/xinetd.d/time:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: time-stream
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
+        - /etc/xinetd.d/echo-dgram:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.4
+            match_on_file_missing: False
+        - /etc/xinetd.d/echo-stream:
+            pattern: disable
+            match_output: 'no'
+            tag: CIS-2.1.4
+            match_on_file_missing: False
+      description: Ensure echo services are not enabled
+    time_disabled:
+      data:
+        Ubuntu-16.04:
+        - /etc/xinetd.d/time-dgram:
+            pattern: disable
+            match_output: 'no'
             tag: CIS-2.1.5
-        - /etc/xinetd.d/time:
-            match_output: '^\s*disable\s*=\s*no'
-            pattern: time-dgram
-            match_output_regex: True
-            grep_args:
-              - '-B'
-              - '3'
+            match_on_file_missing: False
+        - /etc/xinetd.d/time-stream:
+            pattern: disable
+            match_output: 'no'
             tag: CIS-2.1.5
-      description: Ensure time Services are not Enabled
+            match_on_file_missing: False
+      description: Ensure time services are not enabled
     banner_os_info_motd:
       data:
         Ubuntu-16.04:
@@ -655,6 +626,38 @@ grep:
             pattern: '^+'
             tag: CIS-6.2.4
       description: Ensure No Legacy "+" Entries Exist in /etc/group File
+    talkd:
+      data:
+        Ubuntu-16.04:
+        - /etc/xinetd*:
+            pattern: '^talk'
+            grep_args:
+              - '-r'
+            tag: CIS-2.1.7
+        - /etc/xinetd*:
+            pattern: '^ntalk'
+            grep_args:
+              - '-r'
+            tag: CIS-2.1.7
+      description: Ensure talk server is not enabled
+    telnet:
+      data:
+        Ubuntu-16.04:
+        - /etc/xinetd*:
+            pattern: '^telnet'
+            greps_args:
+              - '-r'
+            tag: CIS-2.1.8
+      description: Ensure Telnet Server is not Enabled
+    tftp:
+      data:
+        Ubuntu-16.04:
+        - /etc/xinetd*:
+            pattern: '^tftp'
+            grep_args:
+              - '-r'
+            tag: CIS-2.1.9
+      description: Ensure tftp server is not enabled
 
 service:
   blacklist:
@@ -663,11 +666,6 @@ service:
         Ubuntu-16.04:
         - autofs: CIS-1.1.21
       description: Disable Automounting
-    xinetd:
-      data:
-        Ubuntu-16.04:
-          - xinetd: CIS-2.1.10
-      description: Ensure xinetd is not enabled
     avahi_daemon:
       data:
         Ubuntu-16.04:
@@ -714,13 +712,12 @@ service:
         Ubuntu-16.04:
         - dovecot: CIS-2.2.11
       description: Ensure IMAP and POP3 server is not enabled
-
   whitelist:
-    rsyslog:
+    syslog-ng_running:
       data:
         Ubuntu-16.04:
-          - rsyslog: CIS-4.2.1.1
-      description: Ensure the rsyslog Service is enabled
+        - syslog-ng: CIS-4.2.2.1
+      description: Ensure syslog-ng service is enabled
     cron:
       data:
         Ubuntu-16.04:
@@ -815,6 +812,16 @@ sysctl:
 
 pkg:
   blacklist:
+    xinetd:
+      data:
+        Ubuntu-16.04:
+          - xinetd: CIS-2.1.10
+      description: Ensure xinetd is not install
+    openbsd-inetd:
+      data:
+        Ubuntu-16.04:
+        - openbsd-inetd: CIS-2.1.11
+      description: Ensure openbsd-inetd is not installed
     prelink:
       data:
         Ubuntu-16.04:
@@ -854,7 +861,7 @@ pkg:
       data:
         Ubuntu-16.04:
         - xserver-xorg-core\*: CIS-2.2.2
-      description: Ensure the X Window System is not installed
+      description: Ensure X Window System is not installed
     biosdevname:
       data:
         Ubuntu-16.04:
@@ -1152,12 +1159,6 @@ stat:
           user: root
     description: 'Ensure permissions on /etc/gshadow- are configured'
 misc:
-  sticky_bit_on_world_writable_directories:
-    data:
-      Ubuntu-16.04:
-        tag: CIS-1.1.20
-        function: sticky_bit_on_world_writable_dirs
-    description: Ensure sticky bit is set on all world-writable directories
   check_log_files_permission:
     data:
       Ubuntu-16.04:
@@ -1194,24 +1195,6 @@ misc:
          - null
          - ','
     description: Ensure only approved MAC algorithms are used
-  no_world_writable_file:
-    data:
-      Ubuntu-16.04:
-        tag: CIS-6.1.10
-        function: world_writable_file
-    description: Ensure no world writable files exist
-  no_unowned_file_or_directories:
-    data:
-      Ubuntu-16.04:
-        tag: CIS-6.1.11
-        function: unowned_files_or_dir
-    description: Ensure no unowned files or directories exist
-  no_ungrouped_file_or_directories:
-    data:
-      Ubuntu-16.04:
-        tag: CIS-6.1.12
-        function: ungrouped_files_or_dir
-    description: Ensure no ungrouped files or directories exist
   ensure_password_fields_non_empty:
     data:
       Ubuntu-16.04:
@@ -1355,7 +1338,7 @@ systemctl:
       data:
         Ubuntu-16.04:
         - nfs-kernel-server:
-            tag: CIS-2.2.7
+            tag:  CIS-2.2.7
       description: Ensure NFS and RPC are not enabled
 #    rpc-disabled:
 #      data:

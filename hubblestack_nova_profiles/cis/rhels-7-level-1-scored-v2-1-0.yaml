@@ -658,7 +658,7 @@ pkg:
         Red Hat Enterprise Linux Server-7:
         - ypserv: CIS-2.2.16
       description: Ensure NIS Server is not enabled
-    rsh:
+    rsh-server:
       data:
         Red Hat Enterprise Linux Server-7:
         - rsh-server: CIS-2.2.17
@@ -1261,7 +1261,7 @@ misc:
     data:
       Red Hat Enterprise Linux Server-7:
         tag: CIS-6.2.8
-        function: check_users_home_directory_permissions 
+        function: check_users_home_directory_permissions
     description: Ensure users home directories permissions are 750 or more restrictive
   user_own_home_directory:
     data:
@@ -1271,12 +1271,12 @@ misc:
         args:
         - 1000
     description: Ensure users own their home directories
-  check_users_dot_files_not_writable:
-    data:
-      Red Hat Enterprise Linux Server-7:
-        tag: CIS-6.2.10
-        function: check_users_dot_files
-    description: Ensure users dot files are not group or world writable
+#  check_users_dot_files_not_writable:
+#    data:
+#      Red Hat Enterprise Linux Server-7:
+#        tag: CIS-6.2.10
+#        function: check_users_dot_files
+#    description: Ensure users dot files are not group or world writable
   check_users_not_forward_files:
     data:
       Red Hat Enterprise Linux Server-7:
@@ -1311,7 +1311,7 @@ misc:
     data:
       Red Hat Enterprise Linux Server-7:
         tag: CIS-6.2.16
-        function: check_duplicate_uids 
+        function: check_duplicate_uids
     description: Ensure no duplicate UIDs exist
   no_duplicate_gid:
     data:

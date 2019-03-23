@@ -473,9 +473,6 @@ pkg:
         Red Hat Enterprise Linux Server-5:
         - cronie-anacron: CIS-6.1.1
       description: Enable anacron Daemon
-    firewalld:
-      data: {}
-      description: Enable firewalld (Scored)
     rsyslog:
       data:
         Red Hat Enterprise Linux Server-5:

@@ -441,9 +441,6 @@ pkg:
         Red Hat Enterprise Linux Server-6:
         - cronie-anacron: CIS-6.1.1
       description: Enable anacron Daemon (Scored)
-    firewalld:
-      data: {}
-      description: Enable firewalld (Scored)
     iptables:
       data:
         Red Hat Enterprise Linux Server-6:

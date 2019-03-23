@@ -320,7 +320,7 @@ stat:
             user: 'root'
             uid: 0
             group: 'root'
-            uid: 0
+            gid: 0
     description: 'Verify User/Group Ownership on /etc/passwd'
 
   shadow_perm:
