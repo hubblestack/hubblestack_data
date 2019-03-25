@@ -1249,15 +1249,15 @@ misc:
         args:
           - rsyslog, syslog-ng
     description: Ensure rsyslog or syslog-ng is installed
-  check_log_files_permission:
-    data:
-      CentOS Linux-7:
-        tag: CIS-4.2.4
-        function: check_directory_files_permission
-        args:
-          - /var/log
-          - 740
-    description: Ensure permissions on all logfiles are configured
+#  check_log_files_permission:
+#    data:
+#      CentOS Linux-7:
+#        tag: CIS-4.2.4
+#        function: check_directory_files_permission
+#        args:
+#          - /var/log
+#          - 740
+#    description: Ensure permissions on all logfiles are configured
   system_account_non_login:
     data:
       CentOS Linux-7:
