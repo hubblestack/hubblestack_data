@@ -557,15 +557,15 @@ misc:
        tag: CIS-1.5.1
        function: check_core_dumps
        description: Ensure core dumps are restricted
-  check_log_files_permission:
-    data:
-      '*CoreOS*':
-       tag: CIS-4.2.4
-       function: check_directory_files_permission
-       args:
-        - /var/log
-        - 740
-       description: Ensure permissions on all logfiles are configured
+#  check_log_files_permission:
+#    data:
+#      '*CoreOS*':
+#       tag: CIS-4.2.4
+#       function: check_directory_files_permission
+#       args:
+#        - /var/log
+#        - 740
+#       description: Ensure permissions on all logfiles are configured
   systemd_system_permission:
     data:
       '*CoreOS*':

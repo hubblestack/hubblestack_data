@@ -1252,15 +1252,15 @@ misc:
         tag: CIS-5.4.3
         function: default_group_for_root
     description: Ensure default group for the root account is GID 0
-  check_log_files_permission:
-    data:
-      '*':
-        tag: CIS-4.2.4
-        function: check_directory_files_permission
-        args:
-          - /var/log
-          - 740
-    description: Ensure permissions on all logfiles are configured
+#  check_log_files_permission:
+#    data:
+#      '*':
+#        tag: CIS-4.2.4
+#        function: check_directory_files_permission
+#        args:
+#          - /var/log
+#          - 740
+#    description: Ensure permissions on all logfiles are configured
   ensure_password_fields_non_empty:
     data:
       '*':

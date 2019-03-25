@@ -1181,15 +1181,15 @@ misc:
         tag: CIS-6.2.1
         function: check_password_fields_not_empty
     description: Ensure password fields are not empty
-  check_log_files_permission:
-    data:
-      'Amazon*Linux*':
-        tag: CIS-4.2.4
-        function: check_directory_files_permission
-        args:
-          - /var/log
-          - 740
-    description: Ensure permissions on all logfiles are configured
+#  check_log_files_permission:
+#    data:
+#      'Amazon*Linux*':
+#        tag: CIS-4.2.4
+#        function: check_directory_files_permission
+#        args:
+#          - /var/log
+#          - 740
+#    description: Ensure permissions on all logfiles are configured
   default_group_for_root_account:
     data:
       'Amazon*Linux*':

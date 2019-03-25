@@ -1159,15 +1159,15 @@ stat:
           user: root
     description: 'Ensure permissions on /etc/gshadow- are configured'
 misc:
-  check_log_files_permission:
-    data:
-      Ubuntu-16.04:
-       tag: CIS-4.2.4
-       function: check_directory_files_permission
-       args:
-        - /var/log
-        - 740
-    description: Ensure permissions on all logfiles are configured
+#  check_log_files_permission:
+#    data:
+#      Ubuntu-16.04:
+#       tag: CIS-4.2.4
+#       function: check_directory_files_permission
+#       args:
+#        - /var/log
+#        - 740
+#    description: Ensure permissions on all logfiles are configured
   system_account_non_login:
     data:
       Ubuntu-16.04:
