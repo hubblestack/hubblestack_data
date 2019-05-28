@@ -46,7 +46,7 @@ day:
   - query_name: mounts
     query: SELECT t.unix_time AS query_time, m.* FROM mounts AS m LEFT JOIN time AS t;
   - query_name: iptables_rules
-    query: SELECT t.unix_time AS query_time, ipt.* FROM iptables AS ipt LEFT JOIN time AS t;
+    query: SELECT DISTINCT t.unix_time AS query_time, ipt.filter_name, ipt.chain, ipt.policy FROM iptables AS ipt LEFT JOIN time AS t WHERE ipt.policy<>'';
   - query_name: sysctl
     query: SELECT t.unix_time AS query_time, sc.* FROM system_controls AS sc LEFT JOIN time AS t;
   - query_name: kernel_info
