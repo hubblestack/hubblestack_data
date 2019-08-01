@@ -648,7 +648,7 @@ sysctl:
   log_suspicious_packets:
     data:
       Debian*8:
-        - 'net.ipv4.conf.all.log_martian':
+        - 'net.ipv4.conf.all.log_martians':
             tag: 'CIS-7.2.4'
             match_output: '1'
         - 'net.ipv4.conf.default.log_martians':
