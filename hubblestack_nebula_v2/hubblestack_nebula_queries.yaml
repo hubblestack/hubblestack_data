@@ -58,6 +58,6 @@ day:
   hubble_log_file:
     query: SELECT t.unix_time AS query_time, f.path AS object_path, f.uid AS user_id, f.gid AS group_id, u.username AS user, g.groupname AS 'group', f.mode AS file_acl, f.size AS file_size, f.block_size AS blocks_size, m.path AS mount_path, max(length(m.path)) AS mount_path_length, m.blocks_free, m.inodes_free, m.type AS type, (m.blocks_size*m.blocks_free) AS bytes_free, (m.blocks_size*m.blocks) AS total_bytes, round((1-(m.blocks_free*1.0/m.blocks))*100,2) AS percentage_utilized FROM file AS f JOIN mounts AS m ON (m.type!='rootfs' AND instr(f.path, m.path)=1) LEFT JOIN users AS u ON u.uid=f.uid LEFT JOIN groups AS g ON g.gid=f.gid, time AS t WHERE f.path='/var/log/hubble' GROUP BY f.path;
   profile_version:
-    query: SELECT t.unix_time AS query_time, '2019-05-2' AS version FROM time AS t;
+    query: SELECT t.unix_time AS query_time, '2019-08-1' AS version FROM time AS t;
   pci_devices:
     query: SELECT t.unix_time AS query_time, pi.pci_slot AS pci_slot, pi.pci_class AS pci_class, pi.driver AS driver, pi.vendor AS vendor, pi.vendor_id AS vendor_id, pi.model AS model, pi.model_id AS model_id FROM pci_devices AS pi LEFT JOIN time AS t WHERE pi.driver <> '';
