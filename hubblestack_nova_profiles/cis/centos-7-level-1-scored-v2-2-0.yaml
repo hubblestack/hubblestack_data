@@ -212,7 +212,7 @@ grep:
         - /etc/ntp.conf:
             tag: CIS-2.2.1.2
             pattern: '^server'
-        - /etc/sysconfig/ntpd:
+        - /usr/lib/systemd/system/ntpd.service /etc/sysconf/ntpd:
             tag: CIS-2.2.1.2
             pattern: 'ntp:ntp'
       description: Ensure ntp is configured
