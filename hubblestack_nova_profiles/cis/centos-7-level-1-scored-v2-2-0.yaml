@@ -715,6 +715,7 @@ stat:
           tag: CIS-5.1.8
           uid: null
           user: null
+          match_on_file_missing: True
       - /etc/at.deny:
           gid: null
           group: null
@@ -722,6 +723,7 @@ stat:
           tag: CIS-5.1.8
           uid: null
           user: null
+          match_on_file_missing: True
       - /etc/cron.allow:
           gid: 0
           group: root
