@@ -372,9 +372,13 @@ grep:
     rsyslog_file_perms:
       data:
         CentOS Linux-7:
-        - /etc/rsyslog.conf:
+         - /etc/rsyslog.conf /etc/rsyslog.d/:
             pattern: '^\$FileCreateMode'
             match_output: '0640'
+            grep_args:
+              - '-h'
+              - '-r'
+              - '--include=*.conf'
             tag: CIS-4.2.1.3
       description: Ensure rsyslog default file permissions configured
     rsyslog_remote_logging:
