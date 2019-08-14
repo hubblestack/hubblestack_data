@@ -62,6 +62,20 @@ grep:
             pattern: "^vfat "
             tag: CIS-1.1.1.8
       description: Ensure mounting of FAT filesystems is disabled
+    activate_gpg_check:
+      data:
+        CentOS Linux-7:
+        - /etc/yum.conf:
+            pattern: '^\s*gpgcheck\s*=\s*0'
+            tag: CIS-1.2.3
+        - /etc/yum.repos.d/:
+            pattern: '^\s*gpgcheck\s*=\s*0'
+            grep_args:
+              - '-r'
+              - '-h'
+              - '--include=*.repo'
+            tag: CIS-1.2.3
+      description: Ensure gpgcheck is globally activated
     legacy_passwd_entries_group:
       data:
         CentOS Linux-7:
@@ -171,18 +185,6 @@ grep:
             pattern: ^SINGLE
             tag: CIS-1.4.3
       description: Ensure authentication required for single user mode
-    activate_gpg_check:
-      data:
-        CentOS Linux-7:
-        - /etc/yum.conf:
-            pattern: '^\s*gpgcheck\s*=\s*1'
-            tag: CIS-1.2.2
-        - /etc/yum.repos.d:
-            pattern: '^\s*gpgcheck\s*=\s*1'
-            grep_args:
-              - '-r'
-            tag: CIS-1.2.2
-      description: Ensure gpgcheck is globally activated
     aide_filesystem_scans:
       data:
         CentOS Linux-7:
