@@ -65,7 +65,7 @@ grep:
     activate_gpg_check:
       data:
         CentOS Linux-7:
-        - /etc/yum.conf:
+         /etc/rsyslog.conf /etc/rsyslog.d/:/yum.conf:
             pattern: '^\s*gpgcheck\s*=\s*0'
             tag: CIS-1.2.3
         - /etc/yum.repos.d/:
@@ -372,7 +372,7 @@ grep:
     rsyslog_file_perms:
       data:
         CentOS Linux-7:
-         - /etc/rsyslog.conf /etc/rsyslog.d/:
+        - /etc/rsyslog.conf /etc/rsyslog.d/:
             pattern: '^\$FileCreateMode'
             match_output: '0640'
             grep_args:
