@@ -65,7 +65,7 @@ grep:
     activate_gpg_check:
       data:
         CentOS Linux-7:
-         /etc/rsyslog.conf /etc/rsyslog.d/:/yum.conf:
+        - /etc/yum.conf:
             pattern: '^\s*gpgcheck\s*=\s*0'
             tag: CIS-1.2.3
         - /etc/yum.repos.d/:
