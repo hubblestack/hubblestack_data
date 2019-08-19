@@ -47,6 +47,16 @@ grep:
               grep_args:
                 - '-i'
       description: 'Check if CVE-2018-12130 mitigation has NOT been disabled in Linux.'
+    linux-l1tf-not-disabled:
+      data:
+        '*':
+          - '/sys/devices/system/cpu/vulnerabilities/l1tf':
+              tag: 'CVE-2018-3620-fix-enabled'
+              pattern: 'Vulnerable'
+              match_on_file_missing: True
+              grep_args:
+                - '-i'
+      description: 'Check if CVE-2018-3620 mitigation has NOT been disabled in Linux.'
   whitelist:
     check_cpuinfo_for_pcid:
       data:
@@ -92,61 +102,49 @@ stat:
     data:
       '*':
           - '/sys/devices/system/cpu/vulnerabilities/mds':
-             tag: 'CVE-2018-12130-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
+              tag: 'CVE-2018-12130-fix-present'
+              user: root
+              uid: 0
+              group: root
+              gid: 0
     description: 'Check for CVE-2018-12130 mitigation capability presence in Linux.'
-# The kernel is unconditionally protected against L1TF attacks from malicious user space running on the host.
-# This check is for consistency with other Spectre variants which can be disabled.
-  linux-l1tf-not-disabled:
-    data:
-      '*':
-          - '/sys/devices/system/cpu/vulnerabilities/l1tf':
-             tag: 'CVE-2018-3620-fix-enabled'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
-    description: 'Check if CVE-2018-3620 mitigation has NOT been disabled in Linux.'
   linux-l1tf-present:
     data:
       '*':
           - '/sys/devices/system/cpu/vulnerabilities/l1tf':
-             tag: 'CVE-2018-3620-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
+              tag: 'CVE-2018-3620-fix-present'
+              user: root
+              uid: 0
+              group: root
+              gid: 0
     description: 'Check for CVE-2018-3620 mitigation capability presence in Linux.'
   linux-meltdown-present:
     data:
       '*':
           - '/sys/devices/system/cpu/vulnerabilities/meltdown':
-             tag: 'CVE-2017-5754-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
+              tag: 'CVE-2017-5754-fix-present'
+              user: root
+              uid: 0
+              group: root
+              gid: 0
     description: 'Check for CVE-2017-5754 mitigation capability presence in Linux.'
   linux-spectrev1-present:
     data:
       '*':
           - '/sys/devices/system/cpu/vulnerabilities/spectre_v1':
-             tag: 'CVE-2017-5753-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
+              tag: 'CVE-2017-5753-fix-present'
+              user: root
+              uid: 0
+              group: root
+              gid: 0
     description: 'Check for CVE-2017-5753 mitigation capability presence in Linux.'
   linux-spectrev2-present:
     data:
       '*':
           - '/sys/devices/system/cpu/vulnerabilities/spectre_v2':
-             tag: 'CVE-2017-5715-fix-present'
-             user: root
-             uid: 0
-             group: root
-             gid: 0
+              tag: 'CVE-2017-5715-fix-present'
+              user: root
+              uid: 0
+              group: root
+              gid: 0
     description: 'Check for CVE-2017-5715 mitigation capability presence in Linux.'
