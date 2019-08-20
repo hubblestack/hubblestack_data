@@ -1384,17 +1384,3 @@ misc:
           - null
           - ','
     description: Ensure only approved MAC algorithms are used
-  sshd_approved_ciphers:
-    data:
-      CentOS Linux-7:
-       tag: CIS-5.2.11.1
-       function: check_list_values
-       args:
-         - /etc/ssh/sshd_config
-         - '^Ciphers'
-         - '^Ciphers(.*)$'
-         - null
-         - 'aes256-ctr,aes192-ctr,aes128-ctr,aes256-gcm@openssh.com,aes128-gcm@openssh.com,chacha20-poly1305@openssh.com'
-         - null
-         - ','
-    description: Ensure only approved ciphers are used
