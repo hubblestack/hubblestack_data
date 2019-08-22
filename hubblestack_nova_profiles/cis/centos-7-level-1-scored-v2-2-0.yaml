@@ -62,6 +62,20 @@ grep:
             pattern: "^vfat "
             tag: CIS-1.1.1.8
       description: Ensure mounting of FAT filesystems is disabled
+    activate_gpg_check:
+      data:
+        CentOS Linux-7:
+        - /etc/yum.conf:
+            pattern: '^\s*gpgcheck\s*=\s*0'
+            tag: CIS-1.2.3
+        - /etc/yum.repos.d/:
+            pattern: '^\s*gpgcheck\s*=\s*0'
+            grep_args:
+              - '-r'
+              - '-h'
+              - '--include=*.repo'
+            tag: CIS-1.2.3
+      description: Ensure gpgcheck is globally activated
     legacy_passwd_entries_group:
       data:
         CentOS Linux-7:
@@ -171,18 +185,6 @@ grep:
             pattern: ^SINGLE
             tag: CIS-1.4.3
       description: Ensure authentication required for single user mode
-    activate_gpg_check:
-      data:
-        CentOS Linux-7:
-        - /etc/yum.conf:
-            pattern: '^\s*gpgcheck\s*=\s*1'
-            tag: CIS-1.2.2
-        - /etc/yum.repos.d:
-            pattern: '^\s*gpgcheck\s*=\s*1'
-            grep_args:
-              - '-r'
-            tag: CIS-1.2.2
-      description: Ensure gpgcheck is globally activated
     aide_filesystem_scans:
       data:
         CentOS Linux-7:
@@ -212,7 +214,7 @@ grep:
         - /etc/ntp.conf:
             tag: CIS-2.2.1.2
             pattern: '^server'
-        - /etc/sysconfig/ntpd:
+        - /usr/lib/systemd/system/ntpd.service /etc/sysconf/ntpd:
             tag: CIS-2.2.1.2
             pattern: 'ntp:ntp'
       description: Ensure ntp is configured
@@ -370,9 +372,13 @@ grep:
     rsyslog_file_perms:
       data:
         CentOS Linux-7:
-        - /etc/rsyslog.conf:
+        - /etc/rsyslog.conf /etc/rsyslog.d/:
             pattern: '^\$FileCreateMode'
             match_output: '0640'
+            grep_args:
+              - '-h'
+              - '-r'
+              - '--include=*.conf'
             tag: CIS-4.2.1.3
       description: Ensure rsyslog default file permissions configured
     rsyslog_remote_logging:
@@ -709,6 +715,7 @@ stat:
           tag: CIS-5.1.8
           uid: null
           user: null
+          match_on_file_missing: True
       - /etc/at.deny:
           gid: null
           group: null
@@ -716,6 +723,7 @@ stat:
           tag: CIS-5.1.8
           uid: null
           user: null
+          match_on_file_missing: True
       - /etc/cron.allow:
           gid: 0
           group: root
@@ -750,6 +758,7 @@ stat:
           gid: 0
           group: root
           mode: 700
+          allow_more_strict: true
           tag: CIS-5.1.4
           uid: 0
           user: root
