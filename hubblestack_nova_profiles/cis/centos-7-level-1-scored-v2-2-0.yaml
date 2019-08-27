@@ -893,13 +893,21 @@ stat:
   grub_conf_own_perm:
     data:
       CentOS Linux-7:
-      - /etc/grub2.cfg:
+      - /boot/grub2/grub.cfg:
           gid: 0
           group: root
           mode: 600
           tag: CIS-1.4.1
           uid: 0
           user: root
+      - /boot/grub2/user.cfg:
+          gid: 0
+          group: root
+          mode: 600
+          tag: CIS-1.4.1
+          uid: 0
+          user: root
+          match_on_file_missing: True
     description: Ensure permissions on bootloader config are configured
   hosts_allow:
     data:
