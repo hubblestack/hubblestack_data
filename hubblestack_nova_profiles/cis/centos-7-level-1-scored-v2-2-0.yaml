@@ -840,7 +840,7 @@ stat:
       - /etc/gshadow:
           gid: 0
           group: root
-          mode: '000'
+          mode: '600'
           tag: CIS-6.1.5
           uid: 0
           user: root
@@ -885,7 +885,7 @@ stat:
       - /etc/gshadow-:
           gid: 0
           group: root
-          mode: '000'
+          mode: '600'
           tag: CIS-6.1.9
           uid: 0
           user: root
